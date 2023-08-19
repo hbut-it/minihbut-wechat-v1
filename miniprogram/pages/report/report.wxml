@@ -1,0 +1,86 @@
+<!--pages/report/report.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">成绩查询</text>
+  </view>
+</view>
+<view class="report">
+  <view class="report-jd">
+    <view class="jd-item">
+      <view class="jd-title">学期平均绩点</view>
+      <view class="jd-num"><t-loading theme="spinner" size="40rpx" class="wrapper" wx:if="{{ isLoading }}" />{{ averageJd }}</view>
+    </view>
+    <view class="jd-item">
+      <view class="jd-title">学期算数平均分</view>
+      <view class="jd-num"><t-loading theme="spinner" size="40rpx" class="wrapper" wx:if="{{ isLoading }}" />{{ averagePjf }}</view>
+    </view>
+  </view>
+  <t-dropdown-menu>
+    <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
+  </t-dropdown-menu>
+  <view class="report-list">
+    <view class="report-card" bind:tap="showDialog" data-cjid="{{ item.cjId }}" wx:for="{{ reportList }}">
+      <view class="title">{{ item.kname }}</view>
+      <view class="points">
+        <view class="point">
+          <view class="tip">综合成绩</view>
+          <view class="num" style="color: var(--td-brand-color)">{{ item.gradePoints }}</view>
+        </view>
+        <view class="point">
+          <view class="tip">课程学分</view>
+          <view class="num">{{ item.credits }}</view>
+        </view>
+        <view class="point">
+          <view class="tip">获得学分</view>
+          <view class="num">{{ item.gradePoints >= 60 ? item.credits : 0 }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <t-dialog
+    visible="{{ dialogVisible }}"
+    title="成绩详情"
+    confirm-btn="关闭"
+    bind:confirm="hideDialog"
+  >
+    <scroll-view slot="content" scroll-y>
+      <view class="report-detail">
+        <view class="report-detail-item">
+          <text class="title">课程名称</text>
+          <text class="content">{{ dialogShow.kname }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">开课学期</text>
+          <text class="content">{{ dialogShow.dataXnxq }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">课程性质</text>
+          <text class="content">{{ dialogShow.kcXz }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">修读性质</text>
+          <text class="content">{{ dialogShow.xdXz }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">考试形式</text>
+          <text class="content">{{ dialogShow.ksXs }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">综合成绩</text>
+          <text class="content">{{ dialogShow.gradePoints }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">课程学分</text>
+          <text class="content">{{ dialogShow.credits }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">获得学分</text>
+          <text class="content">{{ dialogShow.gradePoints >= 60 ? dialogShow.credits : 0 }}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </t-dialog>
+</view>

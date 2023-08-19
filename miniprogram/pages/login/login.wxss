@@ -1,0 +1,48 @@
+/* pages/login/login.wxss */
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+}
+
+.login-logo {
+  height: 80px;
+  width: 70%;
+}
+
+.login-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-form-input {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  margin: 0 32rpx;
+}
+
+.login-form-btn {
+  margin: 15px 32rpx;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  border-radius: 10px !important;
+}
+
+.login-tips {
+  font-size: 12px;
+  text-align: center;
+}
+
+.login-tips-link {
+  color: var(--td-brand-color);
+}

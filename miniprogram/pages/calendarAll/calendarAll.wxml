@@ -1,0 +1,22 @@
+<!--pages/calendarAll/calendarAll.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">课表查询</text>
+  </view>
+</view>
+<view class="calendar">
+  <t-cell title="学年学期" note="2022-2023-2" arrow />
+  <t-cell title="班级" note="{{ cascaderNote }}" bind:click="showCascader" arrow />
+  <t-cascader
+    visible="{{ cascaderVisible }}"
+    value="{{ cascaderValue }}"
+    options="{{ cascaderOptions }}"
+    title="请选择班级"
+    bind:change="cascaderChange"
+    bind:pick="cascaderPick"
+  />
+  <calendar-compo />
+</view>

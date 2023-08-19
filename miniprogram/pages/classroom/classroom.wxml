@@ -1,0 +1,36 @@
+<!--pages/classroom/classroom.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">空教室查询</text>
+  </view>
+</view>
+<view class="classroom">
+  <view class="classroom-form">
+    <t-cell-group theme="card" class="user-cell-group">
+      <t-cell title="教学楼" note="" hover arrow />
+      <t-cell title="周次" note="" hover arrow />
+      <t-cell title="星期" note="" hover arrow />
+      <t-cell title="节次" note="" hover arrow />
+    </t-cell-group>
+    <view style="margin: 0 32rpx; padding-top: 15px;">
+      <t-button theme="primary" block>查询</t-button>
+    </view>
+  </view>
+  <view class="classroom-divider">
+    <view style="height: 0.5px; background-color: #bbb; flex: 1;"></view>
+    <view style="color: #bbb; padding: 0 15px;">查询结果</view>
+    <view style="height: 0.5px; background-color: #bbb; flex: 1;"></view>
+  </view>
+  <view class="classroom-list">
+    <view class="classroom-card">
+      <view class="classroom-title">1-003</view>
+      <view class="classroom-info">
+        <view>教室类型：多媒体</view>
+        <view>座位数：211</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+package-lock.json
+project.private.config.json
+node_modules
+miniprogram_npm
+.idea
+.vscode
+**.lock
+**.log

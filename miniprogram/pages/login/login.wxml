@@ -1,0 +1,28 @@
+<!--pages/login/login.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">登录</text>
+  </view>
+</view>
+<view class="login">
+  <!-- Logo和标题 -->
+  <image src="../../assets/img/logo/hbut.svg" class="login-logo" />
+  <text class="login-title">教务系统登录</text>
+  <!-- 登录表单 -->
+  <view class="login-form">
+    <view class="login-form-input">
+      <t-input label="学号" placeholder="请输入学号" value="{{ form.username }}" bind:change="bindUsernameInput" />
+      <t-input label="密码" placeholder="请输入密码" value="{{ form.password }}" bind:change="bindPasswordInput" type="password" />
+    </view>
+    <view class="login-form-btn">
+      <t-button theme="primary" block bind:tap="doLogin">登录</t-button>
+    </view>
+    <!-- 用户协议和隐私政策 -->
+    <view class="login-tips">
+      登录即表示您同意<text class="login-tips-link" bind:tap="goLicense">《用户协议》</text>与<text class="login-tips-link" bind:tap="goPrivacy">《隐私政策》</text>
+    </view>
+  </view>
+</view>

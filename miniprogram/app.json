@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/calendar/calendar",
+    "pages/user/user",
+    "pages/login/login",
+    "pages/about/about",
+    "pages/extra/extra",
+    "pages/report/report",
+    "pages/rank/rank",
+    "pages/calendarAll/calendarAll",
+    "pages/statistics/statistics",
+    "pages/exam/exam",
+    "pages/classroom/classroom",
+    "pages/calendarAdd/calendarAdd"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "assets/img/icon/tab-index.png",
+        "selectedIconPath": "assets/img/icon/tab-index-selected.png"
+      },
+      {
+        "pagePath": "pages/calendar/calendar",
+        "text": "课表",
+        "iconPath": "assets/img/icon/tab-calendar.png",
+        "selectedIconPath": "assets/img/icon/tab-calendar-selected.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "assets/img/icon/tab-user.png",
+        "selectedIconPath": "assets/img/icon/tab-user-selected.png"
+      }
+    ],
+    "selectedColor": "#3B95F5"
+  }
+}

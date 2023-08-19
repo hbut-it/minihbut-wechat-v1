@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-cascader": "tdesign-miniprogram/cascader/cascader",
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "calendar-compo": "../../components/calendar/calendar"
+  },
+  "navigationStyle": "custom"
+}

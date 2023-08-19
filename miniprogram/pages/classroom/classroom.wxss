@@ -1,0 +1,46 @@
+/* pages/classroom/classroom.wxss */
+.classroom {
+  padding-top: 180rpx;
+  padding-bottom: 10rpx;
+}
+
+.classroom-form {
+  margin-top: 15px;
+}
+
+.classroom-divider {
+  margin: 20px 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.classroom-list {
+  margin: 0 32rpx;
+}
+
+.classroom-card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-left: 5px solid var(--td-brand-color);
+  margin-bottom: 20px;
+}
+
+.classroom-title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.classroom-info {
+  display: flex;
+  font-size: 14px;
+  color: #999;
+  justify-content: space-between;
+}

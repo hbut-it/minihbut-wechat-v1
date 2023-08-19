@@ -1,0 +1,42 @@
+<!--pages/calendar/calendar.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <text style="margin-left: 5px;">{{ todayDate }}</text>
+  </view>
+</view>
+<view class="calendar">
+  <calendar-compo />
+  <view class="calendar-sidebar {{ popupVisible }}" bind:tap="showPopup">
+    <t-icon name="chevron-left" size="30px" wx:if="{{ !popupVisible }}" />
+    <t-icon name="chevron-right" size="30px" wx:else />
+  </view>
+  <t-popup placement="right" visible="{{ popupVisible }}" bind:visible-change="hidePopup">
+    <view class="calendar-popup">
+      <view class="calendar-popup-main">
+        <view class="popup-title">课表设置</view>
+        <t-cell-group theme="card">
+          <t-cell title="学期" note="{{ termCurrent }}" hover arrow bind:tap="showTermPicker" />
+          <t-cell title="课表缓存" description="缓存至本地提升速度">
+            <view slot="note">
+              <t-switch size="small" />
+            </view>
+          </t-cell>
+        </t-cell-group>
+        <view style="margin: 0 32rpx;">
+          <t-button theme="primary" block style="margin-top: 15px;" icon="add" bind:tap="goAddLesson">添加课程</t-button>
+          <t-button theme="danger" block style="margin-top: 15px;" icon="{{ !isRefreshing ? 'refresh' : '' }}" loading="{{ isRefreshing }}" bind:tap="doRefresh">刷新课表</t-button>
+        </view>
+      </view>
+      <t-picker
+        visible="{{ termPickerVisible }}"
+        value="{{ termValue }}"
+        title="请选择学期"
+        cancelBtn="取消"
+        confirmBtn="确认"
+        bindchange="onPickerChange"
+      >
+        <t-picker-item options="{{ termList }}" />
+      </t-picker>
+    </view>
+  </t-popup>
+</view>

@@ -1,0 +1,52 @@
+<!--pages/about/about.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">关于</text>
+  </view>
+</view>
+<view class="about nav-custom">
+  <view class="about-logo-container">
+    <image src="../../assets/img/logo/mini.jpg" class="about-logo" />
+    <text style="margin-top: 10px;">Mini湖工</text>
+  </view>
+  <text class="about-title">应用信息</text>
+  <t-cell-group theme="card" class="about-card">
+    <t-cell title="小程序版本" note="1.0.0 beta"/>
+    <t-cell title="API版本" note="v1"/>
+  </t-cell-group>
+  <text class="about-title">开发团队</text>
+  <t-cell-group theme="card" class="about-card">
+    <t-cell title="桂振羽" description="小程序前端实现">
+      <view slot="note">
+        <t-tag theme="primary">前端</t-tag>
+      </view>
+    </t-cell>
+    <t-cell title="李亚鹏" description="小程序、作业云后端实现">
+      <view slot="note">
+        <t-tag theme="primary">后端</t-tag>
+      </view>
+    </t-cell>
+    <t-cell title="张勇宣" description="作业云前端实现">
+      <view slot="note">
+        <t-tag theme="primary">前端</t-tag>
+      </view>
+    </t-cell>
+    <t-cell title="谈婷丹" description="小程序Logo设计">
+      <view slot="note">
+        <t-tag theme="primary">设计</t-tag>
+      </view>
+    </t-cell>
+  </t-cell-group>
+  <text class="about-title">特别感谢</text>
+  <t-cell-group theme="card" class="about-card">
+    <t-cell title="课表技术支持" note="Ohmyga" />
+    <t-cell title="测试用户" note="潘国栋" />
+  </t-cell-group>
+  <text class="about-title">开源项目</text>
+  <t-cell-group theme="card" class="about-card">
+    <t-cell title="Day.js" note="MIT License" />
+  </t-cell-group>
+</view>

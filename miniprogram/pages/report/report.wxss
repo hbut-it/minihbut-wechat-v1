@@ -1,0 +1,98 @@
+/* pages/report/report.wxss */
+.report {
+  padding-top: 180rpx;
+  padding-bottom: 50rpx;
+}
+
+.report-list {
+  margin: 0 20rpx;
+}
+
+.report-card {
+  background-color: #fff;
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-left: 5px solid var(--td-brand-color);
+}
+
+.points {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.point {
+  display: flex;
+  align-items: center;
+}
+
+.tip {
+  font-size: 14px;
+  margin-right: 10px;
+  color: #777;
+}
+
+.num {
+  font-weight: bold;
+  font-size: 18px;
+  color: #555;
+}
+
+.report-detail {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.report-detail-item {
+  display: flex;
+}
+
+.report-detail-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.report-detail-item .title {
+  font-size: 14px;
+  width: 70px;
+  font-weight: normal;
+  color: #555;
+}
+
+.report-detail-item .content {
+  flex: 1;
+  font-weight: bold;
+}
+
+.report-jd {
+  height: 160rpx;
+  background-color: var(--td-brand-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jd-item {
+  flex: 1;
+  text-align: center;
+  color: #fff;
+}
+
+.jd-num {
+  margin-top: 5px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}

@@ -1,0 +1,53 @@
+/* pages/index/index.wxss */
+.index-tab {
+  background-color: var(--td-brand-color);
+  color: #fff;
+  padding-top: 90rpx;
+  padding-left: 40rpx;
+  padding-bottom: 146rpx;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.index-swiper {
+  margin-top: -75px;
+  padding: 32rpx;
+  height: 200px;
+}
+
+.index-container {
+  padding: 0 32rpx;
+}
+
+.index-func {
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.index-func-title {
+  font-weight: 600;
+  line-height: 52px;
+  padding: 0 15px;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+.index-func-title-block {
+  width: 5px;
+  background-color: var(--td-brand-color);
+  height: 24px;
+  margin-right: 8px;
+}
+
+.index-notice {
+  margin: 0 32rpx;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  margin-bottom: 20px;
+}

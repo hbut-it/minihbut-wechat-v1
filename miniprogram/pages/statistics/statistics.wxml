@@ -1,0 +1,9 @@
+<!--pages/statistics/statistics.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">给分统计</text>
+  </view>
+</view>

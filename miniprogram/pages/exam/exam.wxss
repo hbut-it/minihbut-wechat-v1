@@ -1,0 +1,42 @@
+/* pages/exam/exam.wxss */
+.exam {
+  padding-top: 180rpx;
+  padding-bottom: 50rpx;
+}
+
+.exam-list {
+  margin: 0 20rpx;
+}
+
+.exam-card {
+  background-color: #fff;
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid var(--td-brand-color);
+}
+
+.title {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+}
+
+.info-item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.info-item-title {
+  color: #777;
+  margin-right: 10px;
+  font-size: 14px;
+}

@@ -1,0 +1,39 @@
+/* pages/calendar/calendar.wxss */
+.calendar {
+  padding-top: 180rpx;
+}
+
+.calendar-sidebar {
+  position: fixed;
+  right: 0;
+  bottom: 140rpx;
+  background-color: #fff;
+  padding: 10px 0;
+  border-radius: 5px 0 0 5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  transition: 360ms;
+}
+
+.calendar-sidebar.true {
+  right: 549rpx;
+  z-index: 11500;
+  background-color: #ececec;
+}
+
+.calendar-popup {
+  width: 550rpx;
+  background-color: #ececec;
+  height: 100vh;
+  padding-top: 180rpx;
+}
+
+.calendar-popup-main {
+  padding: 15px 0;
+}
+
+.popup-title {
+  padding: 0 32rpx;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
