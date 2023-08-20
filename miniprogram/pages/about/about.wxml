@@ -9,11 +9,11 @@
 </view>
 <view class="about nav-custom">
   <view class="about-logo-container">
-    <image src="../../assets/img/logo/mini.jpg" class="about-logo" />
+    <image src="../../assets/img/logo/mini.png" class="about-logo" />
     <text style="margin-top: 10px;">Mini湖工</text>
   </view>
   <text class="about-title">应用信息</text>
-  <t-cell-group theme="card" class="about-card">
+  <t-cell-group theme="card" class="about-card" size="small">
     <t-cell title="小程序版本" note="1.0.0 beta"/>
     <t-cell title="API版本" note="v1"/>
   </t-cell-group>
