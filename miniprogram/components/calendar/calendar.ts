@@ -11,8 +11,10 @@ Component({
    * 组件的初始数据
    */
   data: {
-    weekNowStr: "11",
-    weekNow: 11,
+    weekNowStr: "1",
+    weekNow: 1,
+    totalWeeks: 19,
+    nowMonth: 1,
     get: {
       "code": 200,
       "message": "查询成功",
@@ -1613,9 +1615,9 @@ Component({
     ],
     courseColors:[],
     // 学期开始时间
-    startTime: 1691337600,
+    startTime: 1676217600,
     // 学期结束时间
-    endTime: 1703606400,
+    endTime: 1690041600,
     // 课程时间范围
     leftTimeList: [
       { start: "8:20", end: "9:05" },
@@ -1655,16 +1657,18 @@ Component({
       this.setData({ weekNow: now - 1 })
       this.setData({ weekNowStr: this.data.weekNow.toString() })
       this.setData({ currentCourses: this.data.courses[this.data.weekNow - 1] })
+      this.setData({ currentWeekList: this.getWeekAndDate(now - 1) })
     },
   
     turnRight() {
       const now = this.data.weekNow
-      if(now === 19) {
+      if(now === this.data.totalWeeks) {
         return
       }
       this.setData({ weekNow: now + 1 })
       this.setData({ weekNowStr: this.data.weekNow.toString() })
       this.setData({ currentCourses: this.data.courses[this.data.weekNow - 1] })
+      this.setData({ currentWeekList: this.getWeekAndDate(now + 1) })
     },
 
     // 解析课程
@@ -1761,6 +1765,9 @@ Component({
       const hasPartialWeek = timeDiff % (7 * 24 * 60 * 60) !== 0
       // 最终总周数
       const semesterWeeks = hasPartialWeek ? totalWeeks + 1 : totalWeeks
+      this.setData({
+        totalWeeks: semesterWeeks
+      })
       return semesterWeeks
     },
 
@@ -1780,6 +1787,7 @@ Component({
       weekEnd.setDate(weekStart.getDate() + 6);
       const weekDates = []
       const daysOfWeek = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+      this.setData({ nowMonth: new Date(weekStart).getMonth() + 1 })
       for(let i = 0; i < 7; i++) {
         const currentDate = new Date(weekStart)
         currentDate.setDate(weekStart.getDate() + i)
@@ -1795,7 +1803,7 @@ Component({
     // 根据今天日期获取当前周数
     getCurrentWeekNumber() {
       if(Math.floor(new Date().getTime() / 1000) > this.data.endTime || Math.floor(new Date().getTime() / 1000) < this.data.startTime) {
-        return null
+        return 1
       }
       const start = new Date(this.data.startTime * 1000)
       const now = new Date()

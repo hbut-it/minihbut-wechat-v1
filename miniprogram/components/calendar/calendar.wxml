@@ -2,7 +2,7 @@
 <view class="calendar-main">
   <view class="top-week">
     <view class="top-month">
-      8<text style="font-size: 12px; font-weight: normal; color: #666;">月</text>
+      {{ nowMonth }}<text style="font-size: 12px; font-weight: normal; color: #666;">月</text>
     </view>
     <view wx:for="{{ currentWeekList }}" wx:key="index" class="week-item">
       <view style="font-weight: bold;">{{ item.title }}</view>

@@ -15,7 +15,7 @@
 }
 
 .calendar-sidebar.true {
-  right: 549rpx;
+  right: 548rpx;
   z-index: 11500;
   background-color: #ececec;
 }
