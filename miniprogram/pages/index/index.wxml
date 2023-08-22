@@ -5,8 +5,8 @@
   </view>
   <view class="index-swiper">
     <t-swiper
-      current="{{swiper.current}}"
-      list="{{swiper.list}}"
+      current="{{ swiper.current }}"
+      list="{{ swiper.list }}"
       navigation="{{ { type: 'dots-bar' } }}"
       duration="500"
       interval="5000"

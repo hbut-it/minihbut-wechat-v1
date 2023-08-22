@@ -1,4 +1,6 @@
 // pages/report/report.ts
+import { getKcxz, getKsxs, getXdxz } from "../../utils/reportUtil"
+
 Page({
 
   /**
@@ -221,8 +223,8 @@ Page({
   onReady() {
     this.parseList();
     this.setData({
-      averageJd: this.data.raw.data.averageCurrentGrade.toFixed(4),
-      averagePjf: this.data.raw.data.arithmeticMeanScore.toFixed(2)
+      averageJd: this.data.raw.data.averageCurrentGrade.toFixed(4), // 绩点取小数点后四位
+      averagePjf: this.data.raw.data.arithmeticMeanScore.toFixed(2) // 平均分取小数点后两位
     })
   },
 
@@ -273,7 +275,7 @@ Page({
     wx.navigateBack()
   },
 
-  // 打开详情
+  // 打开成绩详情
   showDialog(e: any) {
     const arr: any = this.data.reportList.filter(item => item.cjId === e.currentTarget.dataset.cjid)
     this.setData({ dialogShow: arr[0] })
@@ -297,47 +299,13 @@ Page({
   },
 
   parseList() {
-    const kcxzList = [
-      { id: "11", title: "通识教育必修课" },
-      { id: "12", title: "通识教育选修课" },
-      { id: "16", title: "限定性选修课" },
-      { id: "31", title: "学科基础课" },
-      { id: "32", title: "工程基础课" },
-      { id: "40", title: "专业核心课" },
-      { id: "41", title: "专业方向组选课" },
-      { id: "42", title: "专业任选课" },
-      { id: "43", title: "专业基础课" },
-      { id: "44", title: "专业必修课" },
-      { id: "45", title: "专业选修课" },
-      { id: "50", title: "基础实践" },
-      { id: "51", title: "专业实践" },
-      { id: "52", title: "综合实践" },
-      { id: "53", title: "其他实践" },
-      { id: "54", title: "短学期实践" },
-      { id: "70", title: "辅修双学位理论" },
-      { id: "71", title: "辅修双学位实践" },
-      { id: "90", title: "必修" },
-      { id: "98", title: "重修课" },
-      { id: "99", title: "公共选修课"}
-    ]
-    const ksxsList = [
-      { id: "1", title: "考试" },
-      { id: "2", title: "考查" },
-      { id: "11", title: "一类考试" },
-      { id: "22", title: "二类考试" },
-      { id: "33", title: "三类考试" }
-    ]
-    const xdxzList = [
-      { id: "1", title: "初修" },
-      { id: "2", title: "重修" }
-    ]
     const list = this.data.raw.data.studentGrades;
     const emptyList = [];
-    for(const per of list) {
-      per.kcXz = kcxzList.filter(item => item.id === per.kcXz)[0].title
-      per.ksXs = ksxsList.filter(item => item.id === per.ksXs)[0].title
-      per.xdXz = xdxzList.filter(item => item.id === per.xdXz)[0].title
-      emptyList.push(per)
+    for(const item of list) {
+      item.kcXz = getKcxz(item.kcXz)
+      item.ksXs = getKsxs(item.ksXs)
+      item.xdXz = getXdxz(item.xdXz)
+      emptyList.push(item)
     }
     this.setData({
       reportList: emptyList

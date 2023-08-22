@@ -1,4 +1,6 @@
 // pages/login/login.ts
+import { login } from "../../api/user"
+
 Page({
 
   /**
@@ -89,7 +91,7 @@ Page({
     this.setData({ password: e.detail.value })
   },
 
-  doLogin() {
+  async doLogin() {
     if(!this.data.username) {
       wx.showToast({
         title: "学号不能为空",
@@ -104,10 +106,19 @@ Page({
       })
       return
     }
-    wx.showToast({
-      title: "登录成功",
-      icon: "success"
+    wx.showLoading({
+      title: "登录中"
     })
+    const data = {
+      username: this.data.username,
+      password: this.data.password
+    }
+    const res = login(data)
+    console.log(res)
+    // wx.showToast({
+    //   title: "登录成功",
+    //   icon: "success"
+    // })
     // wx.switchTab({
     //   url: '../user/user'
     // })
