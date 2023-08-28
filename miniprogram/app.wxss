@@ -27,9 +27,9 @@ page {
 
 .nav-inner {
   display: flex;
-  position: absolute;
-  top: 90rpx;
-  left: 18rpx
+  margin-top: 95rpx;
+  padding: 0 18rpx;
+  align-items: center;
 }
 
 .nav-custom {

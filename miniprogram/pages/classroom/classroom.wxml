@@ -10,13 +10,13 @@
 <view class="classroom">
   <view class="classroom-form">
     <t-cell-group theme="card" class="user-cell-group">
-      <t-cell title="教学楼" note="" hover arrow />
-      <t-cell title="周次" note="" hover arrow />
-      <t-cell title="星期" note="" hover arrow />
-      <t-cell title="节次" note="" hover arrow />
+      <t-cell title="教学楼" note="{{ buildingNote }}" hover arrow bind:tap="showBuildingPicker" />
+      <t-cell title="周次" note="{{ weekNote }}" hover arrow bind:tap="showWeekPicker" />
+      <t-cell title="星期" note="{{ dayNote }}" hover arrow bind:tap="showDayPicker" />
+      <t-cell title="节次" note="{{ jcNote }}" hover arrow bind:tap="showJcPicker" />
     </t-cell-group>
     <view style="margin: 0 32rpx; padding-top: 15px;">
-      <t-button theme="primary" block>查询</t-button>
+      <t-button theme="primary" block bind:tap="doResearch">查询</t-button>
     </view>
   </view>
   <view class="classroom-divider">
@@ -24,13 +24,59 @@
     <view style="color: #bbb; padding: 0 15px;">查询结果</view>
     <view style="height: 0.5px; background-color: #bbb; flex: 1;"></view>
   </view>
-  <view class="classroom-list">
-    <view class="classroom-card">
-      <view class="classroom-title">1-003</view>
+  <view class="classroom-list" wx:if="{{ loaded }}">
+    <view class="classroom-card" wx:for="{{ classroomList }}">
+      <view class="classroom-title">{{ item.classroomName }}</view>
       <view class="classroom-info">
-        <view>教室类型：多媒体</view>
-        <view>座位数：211</view>
+        <view>教室类型：{{ item.ribbon }}</view>
+        <view>座位数：{{ item.seats }}</view>
       </view>
     </view>
   </view>
+  <!-- 教学楼Picker -->
+  <t-picker
+    visible="{{ buildingPickerVisible }}"
+    value="{{ buildingPickerValue }}"
+    title="选择教学楼"
+    cancelBtn="取消"
+    confirmBtn="确认"
+    bindchange="onBuildingPickerChange"
+  >
+    <t-picker-item options="{{ buildings }}" />
+  </t-picker>
+  <!-- 周次Picker -->
+  <t-picker
+    visible="{{ weekPickerVisible }}"
+    value="{{ weekPickerValue }}"
+    title="选择周次"
+    cancelBtn="取消"
+    confirmBtn="确认"
+    bindchange="onWeekPickerChange"
+  >
+    <t-picker-item options="{{ weeks }}" />
+  </t-picker>
+  <!-- 星期Picker -->
+  <t-picker
+    visible="{{ dayPickerVisible }}"
+    value="{{ dayPickerValue }}"
+    title="选择星期"
+    cancelBtn="取消"
+    confirmBtn="确认"
+    bindchange="onDayPickerChange"
+  >
+    <t-picker-item options="{{ days }}" />
+  </t-picker>
+  <!-- 节次Picker -->
+  <t-picker
+    visible="{{ jcPickerVisible }}"
+    value="{{ jcPickerValue }}"
+    title="选择节次"
+    cancelBtn="取消"
+    confirmBtn="确认"
+    bindchange="onJcPickerChange"
+    bindpick="onJcPickerPick"
+  >
+    <t-picker-item options="{{ jcs }}" />
+    <t-picker-item options="{{ _jcs }}" />
+  </t-picker>
 </view>

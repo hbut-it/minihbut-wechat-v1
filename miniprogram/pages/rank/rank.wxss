@@ -28,6 +28,7 @@
 
 .rank-list {
   margin: 0 20rpx;
+  padding-bottom: 20px;
 }
 
 .rank-card {

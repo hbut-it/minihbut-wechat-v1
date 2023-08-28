@@ -1,122 +1,158 @@
 // pages/index/index.ts
+import { encode } from "js-base64"
+import { apiGetIndexNotice, apiGetIndexSwipers } from "../../api/common"
+import { apiCheckToken, apiRefreshToken } from "../../api/user"
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    swiper: {
-      current: 1,
-      list: [
-        { value: "https://tdesign.gtimg.com/miniprogram/images/swiper1.png" },
-        { value: "https://tdesign.gtimg.com/miniprogram/images/swiper2.png" }
-      ]
-    },
+    swiper: [{}],
     notice: {
-      visible: true,
-      theme: "info",
-      content: "这是一条测试公告"
-    }
+      visible: false,
+      theme: "",
+      content: ""
+    },
+    noticeLoaded: false,
+    isLogin: false
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow() {
-
+    this.getNotice()
+    this.getSwipers()
+    this.checkToken()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  async getNotice () {
+    const res = await apiGetIndexNotice()
+    this.setData({ noticeLoaded: true })
+    if (res.code === 200) {
+      this.setData({ notice: res.data })
+      return
+    }
+    wx.showToast({
+      title: "公告获取错误",
+      icon: "error",
+      duration: 1000
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  async getSwipers () {
+    const res = await apiGetIndexSwipers()
+    if (res.code === 200) {
+      this.setData({ swiper: res.data })
+      return
+    }
+    wx.showToast({
+      title: "轮播图获取错误",
+      icon: "error",
+      duration: 1000
+    })
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  },
-
-  goReport() {
+  goReport () {
+    if (!this.data.isLogin) {
+      wx.showModal({
+        title: "系统提示",
+        content: "您暂未登录教务系统，无法查看相关内容，是否前往登录",
+        success (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: "../login/login"
+            })
+          }
+        }
+      })
+      return
+    }
     wx.navigateTo({
       url: "../report/report"
     })
   },
 
-  goRank() {
+  goRank () {
+    if (!this.data.isLogin) {
+      wx.showModal({
+        title: "系统提示",
+        content: "您暂未登录教务系统，无法查看相关内容，是否前往登录",
+        success (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: "../login/login"
+            })
+          }
+        }
+      })
+      return
+    }
     wx.navigateTo({
       url: "../rank/rank"
     })
   },
 
-  goExam() {
+  goExam () {
+    if (!this.data.isLogin) {
+      wx.showModal({
+        title: "系统提示",
+        content: "您暂未登录教务系统，无法查看相关内容，是否前往登录",
+        success (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: "../login/login"
+            })
+          }
+        }
+      })
+      return
+    }
     wx.navigateTo({
       url: "../exam/exam"
     })
   },
 
-  goCalendarAll() {
-    wx.navigateTo({
-      url: "../calendarAll/calendarAll"
-    })
-  },
-
-  goClassroom() {
+  goClassroom () {
     wx.navigateTo({
       url: "../classroom/classroom"
     })
   },
 
-  goStatistics() {
-    wx.navigateTo({
-      url: "../statistics/statistics"
-    })
+  async checkToken() {
+    // 本地储存是否存在token
+    if (!wx.getStorageSync("tokenHead") && !wx.getStorageSync("token")) {
+      return
+    }
+    const res = await apiCheckToken()
+    // token已过期
+    if (res.code != 200) {
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      return
+    }
+
+    // token未过期进行续期
+    this.doRefreshToken()
+
+    // 设置登录状态
+    this.setData({ isLogin: true })
   },
 
-  openFeedback() {
-    wx.openEmbeddedMiniProgram({
-      appId: "wx8abaf00ee8c3202e",
-      extraData :{
-        id : "598009"
-      }
+  async doRefreshToken() {
+    const res = await apiRefreshToken()
+    if (res.code === 200) {
+      wx.setStorageSync("token", res.data) // 重置token
+    }
+  },
+
+  goExtraUrl (e: any) {
+    if (!e.currentTarget.dataset.url) { return }
+    wx.navigateTo({
+      url: "../extra/extra?title=" + e.currentTarget.dataset.title + "&url=" + encode(e.currentTarget.dataset.url)
     })
   }
 })

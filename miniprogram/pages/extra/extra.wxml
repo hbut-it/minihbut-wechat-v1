@@ -1,12 +1,2 @@
 <!--pages/extra/extra.wxml-->
-<view class="nav">
-  <view class="nav-inner">
-    <view class="nav-icon" bind:tap="goBack">
-      <t-icon name="chevron-left" size="34" />
-    </view>
-    <text style="margin-left: 5px;">{{ pageTitle ? pageTitle : 'Extra' }}</text>
-  </view>
-</view>
-<view class="extra">
-  
-</view>
+<web-view src="{{ url }}"></web-view>

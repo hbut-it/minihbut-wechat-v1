@@ -39,7 +39,7 @@ declare namespace API {
 
   // 成绩查询请求参数
   type ReportParams = {
-    semester: string
+    xnxq: string
   }
 
   // 单科成绩详情
@@ -54,7 +54,8 @@ declare namespace API {
     grade: string,
     gradePoints: string,
     kcId: string,
-    kname: string
+    kname: string,
+    color?: string
   }
 
   // 成绩查询返回
@@ -63,6 +64,30 @@ declare namespace API {
     studentGrades: ReportItem[],
     averageAllGrades: number,
     arithmeticMeanScore: number
+  }
+
+  // 排名查询请求参数
+  type RankParams = {
+    xnxq: string
+  }
+
+  // 排名查询返回
+  type RankResult = {
+    arithmeticClassRanking: string
+    arithmeticCollegeRanking: string
+    arithmeticMeanScore: string
+    arithmeticProfessionRanking: string
+    classLevel: string
+    className: string
+    classRanking: string
+    college: string
+    collegeRanking: string
+    meanScore: string
+    professional: string
+    professionalRanking: string
+    stuName: string
+    stuNum: string
+    xnxq: string
   }
 
   // 我的课表请求参数
@@ -91,14 +116,16 @@ declare namespace API {
 
   // 添加自定义课程请求参数
   type CalendarAddParams = {
-    kc_name: string,
-    teacher_name: string,
+    kcName: string,
+    teacherName?: string,
     kc_feature: string,
     xnxq: string,
-    kc_week_begin: string,
-    kc_week_end: string,
-    kc_jieci: string,
-    kc_loc: string
+    kcWeekBegin: string,
+    kcWeekEnd: string,
+    kcXingqi: string,
+    kcJieci: string,
+    kcLoc: string,
+    kcFeature?: string
   }
 
   // 添加自定义课程返回
@@ -157,6 +184,17 @@ declare namespace API {
     page: string
   }
 
+  // 空教室查询返回
+  type ClassroomResult = {
+    crId: number,
+    classroomName: string,
+    seats: string,
+    building: string,
+    floor: string,
+    ribbon: string,
+    campus: string
+  }[]
+
   // 给分查询请求参数(模糊查询)
   type StatisticsParams = {
     courseName: string,
@@ -212,4 +250,23 @@ declare namespace API {
 
   // 获取所有学年学期返回
   type TermAllResult = string[]
+
+  // 首页公告返回
+  type NoticeResult = {
+    visible: boolean,
+    theme: string,
+    content: string
+  }
+
+  // 首页轮播图返回
+  type SwipersResult = {
+    value: string
+  }[]
+
+  // 紧急通知返回
+  type EmergencyResult = {
+    switch: boolean,
+    title: string,
+    content: string
+  }
 }

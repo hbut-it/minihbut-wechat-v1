@@ -8,18 +8,23 @@
   </view>
 </view>
 <view class="about nav-custom">
+  <!-- 基础信息 -->
   <view class="about-logo-container">
     <image src="../../assets/img/logo/mini.png" class="about-logo" />
     <text style="margin-top: 10px;">Mini湖工</text>
   </view>
+
+  <!-- 版本信息 -->
   <text class="about-title">应用信息</text>
   <t-cell-group theme="card" class="about-card" size="small">
-    <t-cell title="小程序版本" note="1.0.0 beta"/>
+    <t-cell title="小程序版本" note="1.0.2"/>
     <t-cell title="API版本" note="v1"/>
   </t-cell-group>
+
+  <!-- 开发团队 -->
   <text class="about-title">开发团队</text>
   <t-cell-group theme="card" class="about-card">
-    <t-cell title="桂振羽" description="小程序前端实现">
+    <t-cell title="桂振羽" description="小程序前端设计与实现">
       <view slot="note">
         <t-tag theme="primary">前端</t-tag>
       </view>
@@ -40,13 +45,19 @@
       </view>
     </t-cell>
   </t-cell-group>
+
+  <!-- 特别感谢 -->
   <text class="about-title">特别感谢</text>
   <t-cell-group theme="card" class="about-card">
-    <t-cell title="课表技术支持" note="Ohmyga" />
-    <t-cell title="测试用户" note="潘国栋" />
+    <t-cell title="技术顾问" description="Ohmyga（校外）、梁天一、张可" />
+    <t-cell title="测试用户" description="潘国栋、朱泽然、胡喆、朱婉晴、张涵越、胡志显、叶杨童、侯淋淋、周旭、胡语涵、左娜娜" />
+    <t-cell title="以及正在使用中的你" />
   </t-cell-group>
+
+  <!-- 使用开源项目 -->
   <text class="about-title">开源项目</text>
   <t-cell-group theme="card" class="about-card">
-    <t-cell title="Day.js" note="MIT License" />
+    <t-cell title="TDesign" note="MIT license" />
+    <t-cell title="js-base64" note="BSD-3-Clause license" />
   </t-cell-group>
 </view>

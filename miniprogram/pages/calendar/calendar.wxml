@@ -1,42 +1,138 @@
 <!--pages/calendar/calendar.wxml-->
-<view class="nav">
-  <view class="nav-inner">
-    <text style="margin-left: 5px;">{{ todayDate }}</text>
+<view class="nav" style="height: 185rpx;">
+  <view class="nav-inner calendar-nav">
+    <view class="calendar-nav-week">第 {{ weekNow }} 周</view>
+    <view class="calendar-nav-term">{{ termNow }}</view>
   </view>
 </view>
 <view class="calendar">
-  <calendar-compo />
-  <view class="calendar-sidebar {{ popupVisible }}" bind:tap="showPopup">
-    <t-icon name="chevron-left" size="30px" wx:if="{{ !popupVisible }}" />
-    <t-icon name="chevron-right" size="30px" wx:else />
+  <view class="top-week">
+    <view class="top-month">
+      {{ nowMonth }}<text style="font-size: 12px; font-weight: normal; color: #666;">月</text>
+    </view>
+    <view wx:for="{{ currentWeekList }}" wx:key="index" class="week-item">
+      <view style="font-weight: bold;">{{ item.title }}</view>
+      <view style="font-size: 12px; color: #666;">{{ item.date }}</view>
+    </view>
   </view>
-  <t-popup placement="right" visible="{{ popupVisible }}" bind:visible-change="hidePopup">
-    <view class="calendar-popup">
-      <view class="calendar-popup-main">
-        <view class="popup-title">课表设置</view>
-        <t-cell-group theme="card">
-          <t-cell title="学期" note="{{ termCurrent }}" hover arrow bind:tap="showTermPicker" />
-          <t-cell title="课表缓存" description="缓存至本地提升速度">
-            <view slot="note">
-              <t-switch size="small" />
-            </view>
-          </t-cell>
-        </t-cell-group>
-        <view style="margin: 0 32rpx;">
-          <t-button theme="primary" block style="margin-top: 15px;" icon="add" bind:tap="goAddLesson">添加课程</t-button>
-          <t-button theme="danger" block style="margin-top: 15px;" icon="{{ !isRefreshing ? 'refresh' : '' }}" loading="{{ isRefreshing }}" bind:tap="doRefresh">刷新课表</t-button>
+  <view class="class-schedule-content">
+    <view class="content-left">
+      <view wx:for="{{ leftTimeList }}" wx:key="index" class="left-time-item">
+        <view style="color: #666;">{{ item.start }}</view>
+        <view style="font-weight: bold; font-size: 14px;">{{ index + 1 }}</view>
+        <view style="color: #666;">{{ item.end }}</view>
+      </view>
+    </view>
+    <view class="content-right">
+      <view class="right-listbox">
+        <view class="class-flex-items" wx:for="{{ currentCourses }}" wx:key="unique">
+          <view class="flex-item" wx:for="{{ currentCourses[index] }}" wx:key="unique" style="top:{{ ((item.lesson_start - 1) * 80) + 3 }}px;height:{{ ((item.lesson_end - item.start == 0) ? 80 : (item.lesson_end - item.lesson_start + 1) * 80) - 6 }}px;background-color:{{ item.color }};" bind:tap="handleLessonDetail" data-info="{{ item }}">
+            <view class="item item-course-title">{{ item.name }}</view>
+            <view class="item item-classroom">{{ item.classroom }}</view>
+          </view>
+          <view class="placeholder-item"></view>
+          <view class="placeholder-item" style="margin-top: 6px;" wx:for="{{ leftTimeList.length - 1 }}" wx:key="unique"></view>
         </view>
       </view>
-      <t-picker
-        visible="{{ termPickerVisible }}"
-        value="{{ termValue }}"
-        title="请选择学期"
-        cancelBtn="取消"
-        confirmBtn="确认"
-        bindchange="onPickerChange"
-      >
-        <t-picker-item options="{{ termList }}" />
-      </t-picker>
     </view>
-  </t-popup>
+  </view>
 </view>
+<view class="calendar-switch">
+  <t-icon name="chevron-left" size="34px" data-direction="1" bind:tap="handleWeekChange" />
+  <view class="calendar-show-week">
+    第<text class="calendar-show-week-num">{{ weekNow }}</text>周
+  </view>
+  <t-icon name="chevron-right" size="34px" data-direction="2" bind:tap="handleWeekChange" />
+</view>
+<view class="calendar-sidebar-overlay {{ sidebarVisible }}" bind:tap="handleSidebarVisible"></view>
+<view class="calendar-sidebar-controller {{ sidebarVisible }}" bind:tap="handleSidebarVisible">
+  <t-icon name="chevron-left" size="30px" wx:if="{{ !sidebarVisible }}" />
+  <t-icon name="chevron-right" size="30px" wx:else />
+</view>
+<view class="calendar-sidebar {{ sidebarVisible }}">
+  <view class="calendar-sidebar-main">
+    <view class="sidebar-title">课表设置</view>
+    <t-cell-group theme="card">
+      <t-cell title="学期" note="{{ termPickerValue[0] }}" arrow hover bind:tap="handleTermPickerVisible" />
+      <!-- <t-cell title="课表缓存" description="当前课表缓存至本地">
+        <t-switch slot="note" size="small" disabled />
+      </t-cell> -->
+    </t-cell-group>
+    <view class="sidebar-btngroup">
+      <t-button icon="add" block theme="primary" style="margin-bottom: 15px;" bind:tap="handleAddLesson">添加课程</t-button>
+      <t-button icon="refresh" block theme="danger" bind:tap="refreshCalendar">刷新当前课表</t-button>
+    </view>
+  </view>
+</view>
+<t-picker
+  visible="{{ termPickerVisible }}"
+  value="{{ termPickerValue }}"
+  title="选择学期"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onTermPickerChange"
+>
+  <t-picker-item options="{{ termList }}" />
+</t-picker>
+<t-popup visible="{{ popupVisible }}" bind:visible-change="onPopupVisibleChange" placement="bottom">
+  <view class="calendar-popup">
+    <view class="popup-title">{{ popupValue.name }}</view>
+    <view class="popup-info">
+      <view class="popup-info-item">
+        <view class="title">上课地点</view>
+        <view class="detail">{{ popupValue.classroom }}</view>
+      </view>
+      <view class="popup-info-item">
+        <view class="title">授课老师</view>
+        <view class="detail">{{ popupValue.teacher }}</view>
+      </view>
+      <view class="popup-info-item">
+        <view class="title">周次</view>
+        <view class="detail">{{ "第" + popupValue.zc + "周" }}</view>
+      </view>
+      <view class="popup-info-item">
+        <view class="title">节次</view>
+        <view class="detail">{{ "第" + popupValue.jc + "节" }}</view>
+      </view>
+    </view>
+    <t-button theme="danger" icon="delete" block style="margin-top: 15px;" size="small" bind:tap="deleteLesson" data-csid="{{ popupValue.id }}">删除此课程</t-button>
+  </view>
+</t-popup>
+<t-popup visible="{{ addLessonVisible }}" placement="bottom" bind:visible-change="onAddVisibleChange">
+  <view style="padding: 20px 10px;">
+    <view class="popup-title" style="padding: 0 32rpx; margin-bottom: 10px;">添加课程</view>
+    <t-input label="课程名称" placeholder="请填写课程名称" align="right" value="{{ addName }}" bind:change="handleInputName" />
+    <t-input label="授课老师" placeholder="请填写授课老师" align="right" value="{{ addTeacher }}" bind:change="handleInputTeacher" />
+    <t-input label="上课地点" placeholder="请填写上课地点" align="right" value="{{ addPosition }}" bind:change="handleInputPosition" />
+    <t-cell title="上课时间" note="{{ timePickerNote }}" hover arrow bind:tap="handleAddTime" />
+    <t-cell title="上课周数" note="{{ weekPickerNote }}" hover arrow bind:tap="handleAddWeek" />
+    <view style="padding: 0 10px; margin-top: 20px;">
+      <t-button theme="primary" icon="save" block bind:tap="addLesson">保存并添加</t-button>
+    </view>
+  </view>
+</t-popup>
+<t-picker
+  visible="{{ timePickerVisible }}"
+  value="{{ timePickerValue }}"
+  title="选择上课时间"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onTimePickerChange"
+  bindpick="onTimePickerPick"
+>
+  <t-picker-item options="{{ pickerDays }}" />
+  <t-picker-item options="{{ pickerJcs }}" />
+  <t-picker-item options="{{ _pickerJcs }}" />
+</t-picker>
+<t-picker
+  visible="{{ weekPickerVisible }}"
+  value="{{ weekPickerValue }}"
+  title="选择上课周数"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onWeekPickerChange"
+  bindpick="onWeekPickerPick"
+>
+  <t-picker-item options="{{ pickerWeeks }}" />
+  <t-picker-item options="{{ _pickerWeeks }}" />
+</t-picker>

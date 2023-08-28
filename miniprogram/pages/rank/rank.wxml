@@ -5,17 +5,20 @@
       <t-icon name="chevron-left" size="34" />
     </view>
     <text style="margin-left: 5px;">成绩排名</text>
+    <view style="margin-left: 15px; padding-top: 3px;" bind:tap="doRefreshRank">
+      <t-icon name="refresh" size="26" />
+    </view>
   </view>
 </view>
 <view class="rank">
   <view class="rank-jd">
     <view class="jd-item">
       <view class="jd-title">学期平均绩点</view>
-      <view class="jd-num"><t-loading theme="spinner" size="40rpx" class="wrapper" wx:if="{{ isLoading }}" />3.1228</view>
+      <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.meanScore }}</view>
     </view>
     <view class="jd-item">
       <view class="jd-title">学期算数平均分</view>
-      <view class="jd-num"><t-loading theme="spinner" size="40rpx" class="wrapper" wx:if="{{ isLoading }}" />83.38</view>
+      <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticMeanScore }}</view>
     </view>
   </view>
   <t-dropdown-menu>
@@ -26,11 +29,11 @@
       <view class="rank-title">学院（年级）</view>
       <view class="rank-main">
         <view class="rank-item">
-          <view class="rank-num">180/561</view>
+          <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.collegeRanking }}</view>
           <view class="rank-tip">按平均学分绩点</view>
         </view>
         <view class="rank-item">
-          <view class="rank-num">155/561</view>
+          <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticCollegeRanking }}</view>
           <view class="rank-tip">按算数平均分</view>
         </view>
       </view>
@@ -39,11 +42,11 @@
       <view class="rank-title">专业</view>
       <view class="rank-main">
         <view class="rank-item">
-          <view class="rank-num">180/561</view>
+          <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.professionalRanking }}</view>
           <view class="rank-tip">按平均学分绩点</view>
         </view>
         <view class="rank-item">
-          <view class="rank-num">155/561</view>
+          <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticProfessionRanking }}</view>
           <view class="rank-tip">按算数平均分</view>
         </view>
       </view>
@@ -52,11 +55,11 @@
       <view class="rank-title">班级</view>
       <view class="rank-main">
         <view class="rank-item">
-          <view class="rank-num">15/35</view>
+          <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.classRanking }}</view>
           <view class="rank-tip">按平均学分绩点</view>
         </view>
         <view class="rank-item">
-          <view class="rank-num">9/35</view>
+          <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticClassRanking }}</view>
           <view class="rank-tip">按算数平均分</view>
         </view>
       </view>

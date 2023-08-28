@@ -2,7 +2,8 @@
   "usingComponents": {
     "t-avatar": "tdesign-miniprogram/avatar/avatar",
     "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group"
+    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
+    "t-button": "tdesign-miniprogram/button/button"
   },
   "navigationStyle": "custom"
 }

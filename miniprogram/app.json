@@ -9,17 +9,14 @@
     "pages/extra/extra",
     "pages/report/report",
     "pages/rank/rank",
-    "pages/calendarAll/calendarAll",
-    "pages/statistics/statistics",
     "pages/exam/exam",
-    "pages/classroom/classroom",
-    "pages/calendarAdd/calendarAdd"
+    "pages/classroom/classroom"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#3B95F5",
+    "navigationBarTitleText": "Mini湖工",
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
   "tabBar": {

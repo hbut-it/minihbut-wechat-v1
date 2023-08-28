@@ -1,14 +1,13 @@
 {
   "usingComponents": {
-    "calendar-compo": "../../components/calendar/calendar",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-popup": "tdesign-miniprogram/popup/popup",
     "t-cell": "tdesign-miniprogram/cell/cell",
     "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
-    "t-switch": "tdesign-miniprogram/switch/switch",
     "t-button": "tdesign-miniprogram/button/button",
     "t-picker": "tdesign-miniprogram/picker/picker",
-    "t-picker-item": "tdesign-miniprogram/picker-item/picker-item"
+    "t-picker-item": "tdesign-miniprogram/picker-item/picker-item",
+    "t-input": "tdesign-miniprogram/input/input"
   },
   "navigationStyle": "custom"
 }

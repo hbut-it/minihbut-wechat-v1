@@ -23,14 +23,20 @@ export enum HttpMethod {
   DELETE = "DELETE"
 }
 
-export const request = <T = any>(url: string, config: RequestConfig): Promise<T> => {
+export const request = <T = any>(url: string, config: RequestConfig, full?: boolean): Promise<T> => {
+  let finalURL = ""
+  if (!full) {
+    finalURL = 'https://hbut.stslb.cn' + url
+  } else {
+    finalURL = url
+  }
   return new Promise((resolve, reject) => {
     wx.request({
-      url: 'https://hbut.stslb.cn' + url,
+      url: finalURL,
       method: config.method,
       data: config.data,
       header: {
-        'Authorization': wx.getStorageSync('tokenHead') + " {{" + wx.getStorageSync("token") + "}}" || '',
+        'Authorization': wx.getStorageSync('tokenHead') + " " + wx.getStorageSync("token") || '',
         ...config.header
       },
       success: (resp) => {

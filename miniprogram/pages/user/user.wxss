@@ -1,12 +1,15 @@
 /* pages/user/user.wxss */
-.user-tab {
+.user-nav {
   background-color: var(--td-brand-color);
-  color: #fff;
+  height: 300rpx;
+}
+
+.user-nav-title {
   padding-top: 90rpx;
-  padding-left: 40rpx;
-  padding-bottom: 150rpx;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
+  padding-left: 32rpx;
+  color: #fff;
 }
 
 .user-card {
@@ -15,7 +18,7 @@
   border-radius: 10px;
   overflow: hidden;
   padding: 20px;
-  margin-top: -55px;
+  margin-top: -120rpx;
   margin-left: 32rpx;
   margin-right: 32rpx;
   margin-bottom: 20px;
@@ -27,9 +30,22 @@
   margin-left: 20px;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .user-cell-group {
   box-shadow: 0 1px 3px rgba(0,0,0,.08);
   margin-bottom: 20px !important;
+}
+
+.user-copyright {
+  color: #999;
+  font-size: 14px;
+  position: fixed;
+  bottom: 10px;
+  width: calc(100% - 64rpx);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 32rpx;
 }

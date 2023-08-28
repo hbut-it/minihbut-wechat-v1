@@ -1,19 +1,18 @@
 <!--pages/index/index.wxml-->
 <view class="index">
-  <view class="index-tab">
-    <text>Mini湖工</text>
+  <view class="index-nav">
+    <view class="index-title">Mini湖工</view>
   </view>
   <view class="index-swiper">
-    <t-swiper
-      current="{{ swiper.current }}"
-      list="{{ swiper.list }}"
-      navigation="{{ { type: 'dots-bar' } }}"
-      duration="500"
-      interval="5000"
-      autoplay
-    />
+    <swiper indicator-dots="{{ true }}" autoplay="{{ true }}" 	indicator-active-color="rgba(255, 255, 255, .95)" interval="5000" class="index-swiper-main">
+      <block wx:for="{{ swiper }}">
+        <swiper-item>
+          <view class="index-swiper-item" style="background-image: url('{{ item.pic }}')" bind:tap="goExtraUrl" data-url="{{ item.url }}" data-title="{{ item.title }}"></view>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-  <view class="index-notice" wx:if="{{ notice.visible }}">
+  <view class="index-notice" wx:if="{{ notice.visible && noticeLoaded }}">
     <t-notice-bar visible="{{ true }}" theme="{{ notice.theme }}" content="{{ notice.content }}" />
   </view>
   <view class="index-container">
@@ -24,13 +23,18 @@
       </view>
       <view class="index-func-list">
         <t-grid class="block" hover>
-          <t-grid-item text="我的成绩" image="/../../assets/img/icon/index-report.png" bind:tap="goReport" />
-          <t-grid-item text="我的排名" image="/../../assets/img/icon/index-rank.png" bind:tap="goRank" />
-          <t-grid-item text="我的考场" image="/../../assets/img/icon/index-exam.png" bind:tap="goExam" />
-          <t-grid-item text="全校课表" image="/../../assets/img/icon/index-calendar.png" bind:tap="goCalendarAll" />
-          <t-grid-item text="空教室查询" image="/../../assets/img/icon/index-classroom.png" bind:tap="goClassroom" />
-          <!-- <t-grid-item text="给分统计" image="/../../assets/img/icon/index-statistics.png" bind:tap="goStatistics" /> -->
-          <t-grid-item text="问题反馈" image="/../../assets/img/icon/index-feedback.png" bind:tap="openFeedback" />
+          <t-grid-item text="我的成绩" image="slot" bind:tap="goReport">
+            <image src="../../assets/img/icon/index-report.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="我的排名" image="slot" bind:tap="goRank">
+            <image src="../../assets/img/icon/index-rank.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="我的考场" image="slot" bind:tap="goExam">
+            <image src="../../assets/img/icon/index-exam.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="空教室查询" image="slot" bind:tap="goClassroom">
+            <image src="../../assets/img/icon/index-classroom.png" class="index-icon" />
+          </t-grid-item>
         </t-grid>
       </view>
     </view>

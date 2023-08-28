@@ -1,4 +1,0 @@
-/* pages/calendarAdd/calendarAdd.wxss */
-.add {
-  padding-top: 210rpx;
-}

@@ -5,6 +5,9 @@
       <t-icon name="chevron-left" size="34" />
     </view>
     <text style="margin-left: 5px;">考场查询</text>
+    <view style="margin-left: 15px; padding-top: 3px;" bind:tap="doRefreshExam">
+      <t-icon name="refresh" size="26" />
+    </view>
   </view>
 </view>
 <view class="exam">
@@ -12,28 +15,28 @@
     <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
   </t-dropdown-menu>
   <view class="exam-list">
-    <view class="exam-card">
-      <view class="title">高等数学(二)-1</view>
+    <view class="exam-card" wx:for="{{ examList }}">
+      <view class="title">{{ item.ksName }}</view>
       <view class="info">
         <view class="info-item">
           <view class="info-item-title">考试批次</view>
-          <view class="info-item-content">20221期末考试延期</view>
+          <view class="info-item-content">{{ item.ksPc ? item.ksPc : "未知" }}</view>
         </view>
         <view class="info-item">
           <view class="info-item-title">考试方式</view>
-          <view class="info-item-content">笔试</view>
+          <view class="info-item-content">{{ item.ksFs }}</view>
         </view>
         <view class="info-item">
           <view class="info-item-title">考试时间</view>
-          <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">2023-02-26 09:00~11:00</view>
+          <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">{{ item.ksTime }}</view>
         </view>
         <view class="info-item">
-          <view class="info-item-title">考试地址</view>
-          <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">3-307</view>
+          <view class="info-item-title">考场位置</view>
+          <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">{{ item.ksLocation }}</view>
         </view>
         <view class="info-item">
           <view class="info-item-title">考场座位号</view>
-          <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">2</view>
+          <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">{{ item.ksZwh }}</view>
         </view>
       </view>
     </view>

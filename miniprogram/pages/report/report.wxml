@@ -5,29 +5,35 @@
       <t-icon name="chevron-left" size="34" />
     </view>
     <text style="margin-left: 5px;">成绩查询</text>
+    <view style="margin-left: 15px; padding-top: 3px;" bind:tap="doRefreshReport">
+      <t-icon name="refresh" size="26" />
+    </view>
   </view>
 </view>
 <view class="report">
   <view class="report-jd">
     <view class="jd-item">
       <view class="jd-title">学期平均绩点</view>
-      <view class="jd-num"><t-loading theme="spinner" size="40rpx" class="wrapper" wx:if="{{ isLoading }}" />{{ averageJd }}</view>
+      <view class="jd-num">
+        <t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />
+        {{ averageJd }}
+      </view>
     </view>
     <view class="jd-item">
       <view class="jd-title">学期算数平均分</view>
-      <view class="jd-num"><t-loading theme="spinner" size="40rpx" class="wrapper" wx:if="{{ isLoading }}" />{{ averagePjf }}</view>
+      <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ averagePjf }}</view>
     </view>
   </view>
   <t-dropdown-menu>
-    <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
+    <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" default-value="" bind:change="handleDropdown" />
   </t-dropdown-menu>
   <view class="report-list">
-    <view class="report-card" bind:tap="showDialog" data-cjid="{{ item.cjId }}" wx:for="{{ reportList }}">
+    <view class="report-card" bind:tap="showDialog" data-cjid="{{ item.cjId }}" wx:for="{{ reportList }}" style="border-left: 5px solid {{ item.color }}">
       <view class="title">{{ item.kname }}</view>
       <view class="points">
         <view class="point">
           <view class="tip">综合成绩</view>
-          <view class="num" style="color: var(--td-brand-color)">{{ item.gradePoints }}</view>
+          <view class="num" style="color: {{ item.color }}">{{ item.gradePoints }}</view>
         </view>
         <view class="point">
           <view class="tip">课程学分</view>

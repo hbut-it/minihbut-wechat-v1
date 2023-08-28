@@ -17,7 +17,6 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  border-left: 5px solid var(--td-brand-color);
 }
 
 .points {
@@ -56,6 +55,7 @@
 
 .report-detail-item {
   display: flex;
+  align-items: center;
 }
 
 .report-detail-item:not(:last-child) {

@@ -1,29 +1,39 @@
 <!--pages/user/user.wxml-->
 <view class="user">
-  <view class="user-tab">
-    <text>我的</text>
+  <view class="user-nav">
+    <view class="user-nav-title">我的</view>
   </view>
-  <view class="user-container">
+  <view class="user-container" wx:if="{{ loaded }}">
     <!-- 头像姓名学号展示 -->
     <view class="user-card">
       <t-avatar size="large" icon="user"></t-avatar>
       <view class="user-info">
-        <text style="font-size: 28px;">桂振羽</text>
-        <text style="color: #999;">2210652202</text>
+        <view style="font-size: 28px;">{{ studentInfo.username ? studentInfo.username : "未登录" }}</view>
+        <view style="color: #999;">{{ studentInfo.studentNumber ? studentInfo.studentNumber : "" }}</view>
+      </view>
+      <view wx:if="{{ !studentInfo.username }}">
+        <t-button size="small" theme="primary" bind:tap="openLoginPage">点击登录</t-button>
       </view>
     </view>
 
     <!-- 学院班级信息展示 -->
-    <t-cell-group theme="card" class="user-cell-group">
-      <t-cell title="学院" note="计算机学院" />
-      <t-cell title="班级" note="22软件3" />
+    <t-cell-group theme="card" class="user-cell-group" wx:if="{{ isLogin }}">
+      <t-cell title="学院" note="{{ studentInfo.departmentName }}" />
+      <t-cell title="班级" note="{{ studentInfo.className }}" />
     </t-cell-group>
 
     <!-- 基础操作 -->
     <t-cell-group theme="card" class="user-cell-group">
+      <t-cell title="问题反馈" left-icon="chat" hover arrow bind:tap="openFeedbackPage" />
       <t-cell title="关于" left-icon="info-circle" hover arrow bind:tap="openAboutPage" />
-      <t-cell title="登录" left-icon="login" note="通过教务系统登录" hover arrow bind:tap="openLoginPage" />
-      <t-cell title="退出登录" left-icon="logout" hover arrow />
+      <t-cell title="登录" left-icon="login" note="通过教务系统登录" hover arrow bind:tap="openLoginPage" wx:if="{{ !isLogin }}" />
+      <t-cell title="退出登录" left-icon="logout" hover arrow bind:tap="doLogout" wx:else />
     </t-cell-group>
+
+    <!-- 版权信息 -->
+    <view class="user-copyright">
+      <text style="margin-bottom: 5px;">若有任何使用问题可以点击问题反馈，或添加反馈QQ群：810893675</text>
+      <text style="font-size: 12px;">Copyright © 2023 Mini湖工团队</text>
+    </view>
   </view>
 </view>
