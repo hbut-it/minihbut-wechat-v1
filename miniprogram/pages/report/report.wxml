@@ -36,12 +36,12 @@
           <view class="num" style="color: {{ item.color }}">{{ item.gradePoints }}</view>
         </view>
         <view class="point">
-          <view class="tip">课程学分</view>
-          <view class="num">{{ item.credits }}</view>
-        </view>
-        <view class="point">
           <view class="tip">获得学分</view>
           <view class="num">{{ item.gradePoints >= 60 ? item.credits : 0 }}</view>
+        </view>
+        <view class="point">
+          <view class="tip">课程绩点</view>
+          <view class="num">{{ item.grade }}</view>
         </view>
       </view>
     </view>
@@ -85,6 +85,10 @@
         <view class="report-detail-item">
           <text class="title">获得学分</text>
           <text class="content">{{ dialogShow.gradePoints >= 60 ? dialogShow.credits : 0 }}</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">课程绩点</text>
+          <text class="content">{{ dialogShow.grade }}</text>
         </view>
       </view>
     </scroll-view>
