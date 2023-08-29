@@ -26,7 +26,7 @@ export enum HttpMethod {
 export const request = <T = any>(url: string, config: RequestConfig, full?: boolean): Promise<T> => {
   let finalURL = ""
   if (!full) {
-    finalURL = 'https://hbut.stslb.cn' + url
+    finalURL = 'https://api.hbut.life' + url
   } else {
     finalURL = url
   }
