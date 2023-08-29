@@ -6,7 +6,6 @@ import { apiRenewAuth } from "../../api/user"
 
 Page({
   data: {
-    todayDate: "",
     weekNow: 1,
     totalWeeks: 19,
     nowMonth: 1,
@@ -95,10 +94,6 @@ Page({
   },
 
   async onReady() {
-    // 获取今日日期
-    const dateObj = new Date()
-    this.setData({ todayDate: dateObj.getFullYear() + "/" + (dateObj.getMonth() + 1) + "/" + dateObj.getDate() })
-
     if (!wx.getStorageSync("studentInfo")) {
       wx.setStorageSync("calendarFirstShow", true)
       return
