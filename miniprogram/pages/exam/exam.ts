@@ -52,19 +52,25 @@ Page({
     wx.showLoading({ title: "加载中" })
     const res = await apiGetExam({ xnxq: term })
     wx.hideLoading()
-    if (res.code != 200) {
+    if (res.code === 200) {
+      if (res.data.length === 0) {
+        wx.showToast({
+          title: "暂无考场安排",
+          icon: "error"
+        })
+      }
+      this.setData({ examList: res.data })
+      return
+    }
+    if (res.code === 404) {
       wx.showToast({
-        title: "考场获取失败",
+        title: "暂无考场安排",
         icon: "error"
       })
       return
     }
-    if (res.data.length > 0) {
-      this.setData({ examList: res.data })
-      return
-    }
     wx.showToast({
-      title: "暂无考场安排",
+      title: "考场获取失败",
       icon: "error"
     })
   },
