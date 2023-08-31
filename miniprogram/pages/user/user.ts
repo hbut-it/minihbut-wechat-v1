@@ -1,5 +1,6 @@
 // pages/user/user.ts
-import { apiGetUserInfo, apiCheckToken, apiRefreshToken } from "../../api/user"
+import { decode } from "js-base64"
+import { apiGetUserInfo, apiCheckToken, apiRefreshToken, apiRenewUserInfo, apiRenewAuth } from "../../api/user"
 
 Page({
   data: {
@@ -96,4 +97,31 @@ Page({
       }
     })
   },
+
+  async renewUserInfo () {
+    wx.showLoading({ title: "刷新中" })
+    const res = await apiRenewUserInfo()
+    wx.hideLoading()
+    if (res.code === 400) {
+      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      if (spider.code === 200) {
+        this.renewUserInfo()
+        return
+      }
+    }
+    if (res.code === 200) {
+      this.setData({ studentInfo: res.data })
+      wx.setStorageSync("studentInfo", res.data)
+      wx.showToast({
+        title: "刷新成功",
+        icon: "success",
+        duration: 1000
+      })
+      return
+    }
+    wx.showToast({
+      title: "刷新失败",
+      icon: "error"
+    })
+  }
 })

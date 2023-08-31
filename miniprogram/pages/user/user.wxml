@@ -4,32 +4,35 @@
     <view class="user-nav-title">我的</view>
   </view>
   <view class="user-container">
-    <!-- 头像姓名学号展示 -->
-    <view class="user-card">
-      <t-avatar size="large" icon="user"></t-avatar>
-      <view class="user-info" wx:if="{{ loaded }}">
-        <view style="font-size: 28px;" wx:if="{{ !studentInfo.username }}">未登录</view>
-        <view style="font-size: 24px; font-weight: bold;" wx:else>{{ studentInfo.username }}</view>
-        <view style="color: #999; font-size: 14px;">{{ studentInfo.studentNumber ? studentInfo.studentNumber : "" }}</view>
+    <view class="user-main">
+      <!-- 头像姓名学号展示 -->
+      <view class="user-card">
+        <t-avatar size="large" icon="user"></t-avatar>
+        <view class="user-info" wx:if="{{ loaded }}">
+          <view style="font-size: 28px;" wx:if="{{ !studentInfo.username }}">未登录</view>
+          <view style="font-size: 24px; font-weight: bold;" wx:else>{{ studentInfo.username }}</view>
+          <view style="color: #999; font-size: 14px;">{{ studentInfo.studentNumber ? studentInfo.studentNumber : "" }}</view>
+        </view>
+        <view wx:if="{{ !studentInfo.username }}">
+          <t-button size="small" theme="primary" bind:tap="openLoginPage">点击登录</t-button>
+        </view>
       </view>
-      <view wx:if="{{ !studentInfo.username }}">
-        <t-button size="small" theme="primary" bind:tap="openLoginPage">点击登录</t-button>
-      </view>
+
+      <!-- 学院班级信息展示 -->
+      <t-cell-group theme="card" class="user-cell-group" wx:if="{{ isLogin && loaded }}">
+        <t-cell title="学院" note="{{ studentInfo.departmentName }}" />
+        <t-cell title="班级" note="{{ studentInfo.className }}" />
+        <t-cell title="刷新个人信息" left-icon="refresh" arrow hover bind:tap="renewUserInfo" />
+      </t-cell-group>
+
+      <!-- 基础操作 -->
+      <t-cell-group theme="card" class="user-cell-group">
+        <t-cell title="问题反馈" left-icon="chat" hover arrow bind:tap="openFeedbackPage" />
+        <t-cell title="关于" left-icon="info-circle" hover arrow bind:tap="openAboutPage" />
+        <t-cell title="登录" left-icon="login" note="通过教务系统登录" hover arrow bind:tap="openLoginPage" wx:if="{{ !isLogin }}" />
+        <t-cell title="退出登录" left-icon="logout" hover arrow bind:tap="doLogout" wx:else />
+      </t-cell-group>
     </view>
-
-    <!-- 学院班级信息展示 -->
-    <t-cell-group theme="card" class="user-cell-group" wx:if="{{ isLogin && loaded }}">
-      <t-cell title="学院" note="{{ studentInfo.departmentName }}" />
-      <t-cell title="班级" note="{{ studentInfo.className }}" />
-    </t-cell-group>
-
-    <!-- 基础操作 -->
-    <t-cell-group theme="card" class="user-cell-group">
-      <t-cell title="问题反馈" left-icon="chat" hover arrow bind:tap="openFeedbackPage" />
-      <t-cell title="关于" left-icon="info-circle" hover arrow bind:tap="openAboutPage" />
-      <t-cell title="登录" left-icon="login" note="通过教务系统登录" hover arrow bind:tap="openLoginPage" wx:if="{{ !isLogin }}" />
-      <t-cell title="退出登录" left-icon="logout" hover arrow bind:tap="doLogout" wx:else />
-    </t-cell-group>
 
     <!-- 版权信息 -->
     <view class="user-copyright">

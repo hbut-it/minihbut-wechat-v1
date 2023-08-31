@@ -29,6 +29,13 @@ export const apiGetUserInfo = () => {
   })
 }
 
+// 更新用户信息
+export const apiRenewUserInfo = () => {
+  return request<API.BaseResponse<any>>("/edu/reflushPersonalMessage", {
+    method: HttpMethod.POST
+  })
+}
+
 // 更新uid和route
 export const apiRenewAuth = (data: API.AuthParams) => {
   return request<API.BaseResponse<any>>("/edu/loginEducationWeb", {
