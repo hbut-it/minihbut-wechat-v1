@@ -83,9 +83,7 @@ Page({
         icon: "success",
         duration: 1000
       })
-      setTimeout(() => {
-        this.onShow()
-      }, 1000)
+      this.setData({ rankData: res.data })
       return
     }
     if (res.code === 400) {

@@ -17,7 +17,7 @@
       <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.meanScore }}</view>
     </view>
     <view class="jd-item">
-      <view class="jd-title">学期算数平均分</view>
+      <view class="jd-title">学期算术平均分</view>
       <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticMeanScore }}</view>
     </view>
   </view>
