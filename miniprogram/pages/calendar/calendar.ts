@@ -446,7 +446,7 @@ Page({
       // 最后一周不能再往右移了
       if (this.data.weekNow === this.data.totalWeeks) {
         wx.showToast({
-          title: "后面是你的假期",
+          title: "后面就没课啦",
           icon: "none",
           duration: 1000
         })
