@@ -1,0 +1,49 @@
+<!--pages/setting/theme/theme.wxml-->
+<view class="nav">
+  <view class="nav-inner">
+    <view class="nav-icon" bind:tap="goBack">
+      <t-icon name="chevron-left" size="34" />
+    </view>
+    <text style="margin-left: 5px;">课表主题</text>
+  </view>
+</view>
+<view class="theme">
+  <view class="theme-main">
+    <view class="theme-card">
+      <view class="theme-card-title">默认主题</view>
+      <view class="theme-card-list">
+        <view class="theme-card-item" style="background-color: {{ item }}" wx:for="{{ defaultColors }}" wx:key="i"></view>
+      </view>
+    </view>
+    <view class="theme-card" wx:for="{{ themes }}" wx:key="j">
+      <view class="theme-card-title">{{ item.title }}</view>
+      <view class="theme-card-list">
+        <view class="theme-card-item" style="background-color: {{ color }}" wx:for="{{ item.colors }}" wx:for-item="color" wx:key="k"></view>
+      </view>
+      <view class="theme-card-action">
+        <t-button size="small" icon="circle" theme="light" wx:if="{{ item.id != selected }}" data-id="{{ item.id }}" bind:tap="handleChoose">选择</t-button>
+        <t-button size="small" icon="check" theme="primary" wx:else data-id="{{ item.id }}" bind:tap="handleUnchoose">已选中</t-button>
+        <t-button size="small" icon="delete" theme="danger" data-id="{{ item.id }}" bind:tap="handleDelete">删除</t-button>
+      </view>
+    </view>
+    <view class="theme-card" wx:if="{{ isAdding }}">
+      <view class="theme-card-title">
+        <view>主题名称：</view>
+        <input placeholder="请输入主题名称" bindinput="handleInputTitle" />
+      </view>
+      <view class="theme-card-list">
+        <view class="theme-card-item" style="background-color: {{ item }}" wx:for="{{ newTheme }}"></view>
+      </view>
+      <view class="theme-card-add">
+        <view class="theme-card-item" style="background-color: {{ addColor ? addColor : 'var(--td-brand-color)' }}"></view>
+        <input placeholder="十六进制颜色" bindinput="handleInputColor" value="{{ addColor }}" />
+        <view style="margin-left: 10px;"><t-button size="small" theme="primary" bind:tap="addColor">添加</t-button></view>
+      </view>
+      <t-button style="margin-top: 10px;" theme="primary" icon="save" size="small" block bind:tap="addColorSave">保存</t-button>
+    </view>
+    <view class="theme-btn">
+      <t-button theme="primary" icon="add" block disabled="{{ isAdding }}" bind:tap="addTheme">添加自定义主题</t-button>
+    </view>
+  </view>
+  <view class="theme-tips">温馨提示：该功能依靠本地储存，若清除微信缓存将会使设置的主题失效</view>
+</view>

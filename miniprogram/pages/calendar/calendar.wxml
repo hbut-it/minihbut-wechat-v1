@@ -10,7 +10,7 @@
     <view class="top-month">
       {{ nowMonth }}<text style="font-size: 12px; font-weight: normal; color: #666;">月</text>
     </view>
-    <view wx:for="{{ currentWeekList }}" wx:key="index" class="week-item">
+    <view wx:for="{{ currentWeekList }}" wx:key="index" class="week-item {{ item.isToday ? 'today' : '' }}">
       <view style="font-weight: bold;">{{ item.title }}</view>
       <view style="font-size: 12px; color: #666;">{{ item.date }}</view>
     </view>
@@ -26,7 +26,7 @@
     <view class="content-right">
       <view class="right-listbox">
         <view class="class-flex-items" wx:for="{{ currentCourses }}" wx:key="unique">
-          <view class="flex-item" wx:for="{{ currentCourses[index] }}" wx:key="unique" style="top:{{ ((item.lesson_start - 1) * 80) + 3 }}px;height:{{ ((item.lesson_end - item.start == 0) ? 80 : (item.lesson_end - item.lesson_start + 1) * 80) - 6 }}px;background-color:{{ item.color }};" bind:tap="handleLessonDetail" data-info="{{ item }}">
+          <view class="flex-item" wx:for="{{ currentCourses[index] }}" wx:key="unique" style="top:{{ ((item.lesson_start - 1) * 66) + 3 }}px; height:{{ ((item.lesson_end - item.start == 0) ? 66 : (item.lesson_end - item.lesson_start + 1) * 66) - 6 }}px; background-color:{{ item.color ? item.color : 'var(--td-brand-color)' }};" bind:tap="handleLessonDetail" data-info="{{ item }}">
             <view class="item item-course-title">{{ item.name }}</view>
             <view class="item item-classroom">{{ item.classroom }}</view>
           </view>
@@ -57,6 +57,7 @@
       <!-- <t-cell title="课表缓存" description="当前课表缓存至本地">
         <t-switch slot="note" size="small" disabled />
       </t-cell> -->
+      <t-cell title="课表主题" note="{{ themeName }}" arrow hover bind:tap="goThemeSetting" />
     </t-cell-group>
     <view class="sidebar-btngroup">
       <t-button icon="add" block theme="primary" style="margin-bottom: 15px;" bind:tap="handleAddLesson">添加课程</t-button>

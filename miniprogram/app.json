@@ -10,7 +10,8 @@
     "pages/report/report",
     "pages/rank/rank",
     "pages/exam/exam",
-    "pages/classroom/classroom"
+    "pages/classroom/classroom",
+    "pages/setting/theme/theme"
   ],
   "window": {
     "backgroundTextStyle": "light",

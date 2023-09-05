@@ -1,4 +1,5 @@
 // pages/statistics/statistics.ts
+import dayjs from "dayjs"
 import { decode } from "js-base64"
 import { apiGetTermRange, apiGetTermsAll } from "../../api/common"
 import { apiAddCalendar, apiDeleteLesson, apiGetMyCalendar, apiRefreshCalendar } from "../../api/main"
@@ -25,6 +26,7 @@ Page({
     addTeacher: "",
     addPosition: "",
     jieciValue: "",
+    themeName: "默认主题",
     termNow: wx.getStorageSync("calendarTerm"),
     pickerDays: [
       { value: "1", label: "周一" },
@@ -70,18 +72,7 @@ Page({
     // 当前课表
     currentCourses: [],
     // 默认颜色组
-    colors: [
-      "#f3a683",
-      "#f7d794",
-      "#778beb",
-      "#e77f67",
-      "#cf6a87",
-      "#786fa6",
-      "#f8a5c2",
-      "#63cdda",
-      "#ea8685",
-      "#596275"
-    ],
+    colors: [],
     // 课程颜色组储存
     courseColors:[],
     // 接口获取到的学期列表
@@ -94,6 +85,19 @@ Page({
   },
 
   async onReady() {
+    // 初始化默认颜色组
+    const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#2c2c54"]
+
+    // 若颜色组不止一个且选择自定义颜色组
+    if (wx.getStorageSync("calendarThemes").length > 0 && wx.getStorageSync("calendarThemesSelected") != 0) {
+      this.setData({
+        colors: wx.getStorageSync("calendarThemes")[wx.getStorageSync("calendarThemesSelected") - 1].colors,
+        themeName: wx.getStorageSync("calendarThemes")[wx.getStorageSync("calendarThemesSelected") - 1].title
+      })
+    } else {
+      this.setData({ colors: defaultColors })
+    }
+
     if (!wx.getStorageSync("studentInfo")) {
       wx.setStorageSync("calendarFirstShow", true)
       return
@@ -146,22 +150,22 @@ Page({
       count++
     }
     this.data.calendarList.sort((a, b) => parseInt(a.timeJc) - parseInt(b.timeJc))
-    var colorCount = 0
-    for(const course of this.data.calendarList) {
+    let colorCount = 0
+    for (const course of this.data.calendarList) {
       const courseList = this.data.courseColors.filter(item => item.kname === course.kname)
-      if(courseList.length < 1) {
+      if (courseList.length > 0) {
+        course.color = courseList[0].color
+      } else {
         course.color = this.data.colors[colorCount]
         this.data.courseColors.push(course)
-        if(colorCount < 9) {
-          colorCount++
-        } else {
-          colorCount = 0;
-        }
+      }
+      if (colorCount < this.data.colors.length) {
+        colorCount++
       } else {
-        course.color = courseList[0].color
+        colorCount = 0
       }
     }
-    for(const course of this.data.calendarList) {
+    for (const course of this.data.calendarList) {
       let merged = false;
       for (const mergedCourse of this.data.mergedCourses) {
         if (mergedCourse.timeWeek === course.timeWeek && mergedCourse.kname === course.kname && mergedCourse.skLoc === course.skLoc) {
@@ -256,9 +260,14 @@ Page({
       const currentDate = new Date(weekStart)
       currentDate.setDate(weekStart.getDate() + i)
       const formattedDate = `${currentDate.getMonth() + 1}-${currentDate.getDate() < 10 ? "0" : ""}${currentDate.getDate()}`
+      let today = false
+      if (formattedDate === dayjs().format("M-DD")) {
+        today = true
+      }
       weekDates.push({
         title: daysOfWeek[i],
-        date: formattedDate
+        date: formattedDate,
+        isToday: today
       });
     }
     return weekDates
@@ -704,6 +713,12 @@ Page({
     wx.showToast({
       title: "课程添加失败",
       icon: "error"
+    })
+  },
+
+  goThemeSetting () {
+    wx.navigateTo({
+      url: "../setting/theme/theme"
     })
   }
 })
