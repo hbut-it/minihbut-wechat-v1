@@ -23,6 +23,9 @@
       <view class="jd-title">学期算术平均分</view>
       <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ averagePjf }}</view>
     </view>
+    <view class="jd-info">
+      <t-icon name="info-circle" bind:tap="showInfoDialog" />
+    </view>
   </view>
   <t-dropdown-menu>
     <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" default-value="" bind:change="handleDropdown" />
@@ -44,6 +47,11 @@
           <view class="num">{{ item.grade }}</view>
         </view>
       </view>
+    </view>
+    <view class="report-empty" wx:if="{{ isEmpty }}">
+      <image class="report-empty-image" src="../../assets/img/status/empty.png" />
+      <view class="report-empty-sub">该学期暂无成绩</view>
+      <view class="report-empty-tip">若学期已结束或成绩已上传请尝试刷新</view>
     </view>
   </view>
   <t-dialog

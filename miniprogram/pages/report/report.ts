@@ -9,7 +9,7 @@ Page({
   data: {
     dialogVisible: false,
     isLoading: true,
-    isEmpty: true,
+    isEmpty: false,
     termSelected: "",
     averageJd: "",
     averagePjf: "",
@@ -59,13 +59,13 @@ Page({
   async getTerm () {
     const res = await apiGetTermsAll()
     const optionXnxq = []
-    optionXnxq.push({ label: "全部", value: "001" })
+    optionXnxq.push({ label: "从入学至今", value: "001" })
     for (const item of res.data) {
       optionXnxq.push({ label: item, value: item })
     }
     this.setData({ termOptions: optionXnxq })
-    this.setData({ termSelected: optionXnxq[2].value })
-    this.getReport(optionXnxq[2].value)
+    this.setData({ termSelected: optionXnxq[0].value })
+    this.getReport(optionXnxq[0].value)
   },
 
   /**
@@ -73,10 +73,20 @@ Page({
    */
   async getReport (term: string) {
     this.clearData()
-    this.setData({ isLoading: true })
+    this.setData({
+      isLoading: true,
+      isEmpty: false
+    })
     wx.showLoading({ title: "加载中" })
     const res = await apiGetReport({ xnxq: term })
     wx.hideLoading()
+    if (res.code === 400) {
+      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      if (spider.code === 200) {
+        this.getReport(term)
+        return
+      }
+    }
     if (res.code != 200) {
       wx.showToast({
         title: "成绩获取失败",
@@ -104,20 +114,16 @@ Page({
       }
       this.setData({
         reportList: emptyList,
-        isLoading: false,
-        isEmpty: false
+        isLoading: false
       })
       this.getAverage(term)
       return
     }
-    wx.showToast({
-      title: "该学期暂无成绩",
-      icon: "error"
-    })
     this.setData({
       isLoading: false,
       averageJd: "/",
-      averagePjf: "/"
+      averagePjf: "/",
+      isEmpty: true
     })
   },
 
@@ -176,6 +182,13 @@ Page({
     wx.showToast({
       title: "排名获取失败",
       icon: "error"
+    })
+  },
+
+  showInfoDialog () {
+    wx.showModal({
+      title: "提示",
+      content: "所有成绩数据均来自教务系统，小程序不参与任何绩点、平均分与成绩的计算。"
     })
   }
 })

@@ -80,6 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .jd-item {
@@ -95,4 +96,37 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
+}
+
+.jd-info {
+  position: absolute;
+  right: 10px;
+  font-size: 20px;
+  color: #fff;
+  bottom: 10px;
+}
+
+.report-empty-image {
+  width: 387rpx;
+  height: 214rpx;
+}
+
+.report-empty {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  width: 80%;
+}
+
+.report-empty-sub {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.report-empty-tip {
+  color: #aaa;
+  font-size: 14px;
 }
