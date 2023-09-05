@@ -15,7 +15,7 @@
     <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
   </t-dropdown-menu>
   <view class="exam-list">
-    <view class="exam-card" wx:for="{{ examList }}">
+    <view class="exam-card" style="{{ item.isEnded ? 'filter: grayscale(100%);' : '' }}" wx:for="{{ examList }}">
       <view class="title">{{ item.ksName }}</view>
       <view class="info">
         <view class="info-item">
@@ -39,6 +39,16 @@
           <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">{{ item.ksZwh }}</view>
         </view>
       </view>
+      <view class="exam-print" wx:if="{{ item.isEnded }}">
+        <view class="exam-print-2">
+          <text>已结束</text>
+        </view>
+      </view>
+    </view>
+    <view class="exam-empty" wx:if="{{ isEmpty }}">
+      <image class="exam-empty-image" src="../../assets/img/status/empty.png" />
+      <view class="exam-empty-sub">该学期暂无考试安排</view>
+      <view class="exam-empty-tip">若教务系统已安排考试请尝试刷新</view>
     </view>
   </view>
 </view>

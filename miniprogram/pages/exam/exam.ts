@@ -3,6 +3,7 @@ import { decode } from "js-base64"
 import { apiGetTermsAll } from "../../api/common"
 import { apiGetExam, apiRefreshExam } from "../../api/main"
 import { apiRenewAuth } from "../../api/user"
+import dayjs from "dayjs"
 
 Page({
 
@@ -10,7 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    termSelected: ""
+    termSelected: "",
+    isEmpty: false
   },
 
   async onShow() {
@@ -49,24 +51,31 @@ Page({
    * 考场获取方法
    */
   async getExam (term: string) {
+    this.setData({
+      examList: [],
+      isEmpty: false
+    })
     wx.showLoading({ title: "加载中" })
     const res = await apiGetExam({ xnxq: term })
     wx.hideLoading()
+    if (res.code === 400) {
+      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      if (spider.code === 200) {
+        this.getExam(term)
+        return
+      }
+    }
     if (res.code === 200) {
       if (res.data.length === 0) {
-        wx.showToast({
-          title: "暂无考场安排",
-          icon: "error"
-        })
+        this.setData({ isEmpty: true })
+        return
       }
-      this.setData({ examList: res.data })
+      const data = this.praseExam(res.data)
+      this.setData({ examList: data })
       return
     }
     if (res.code === 404) {
-      wx.showToast({
-        title: "暂无考场安排",
-        icon: "error"
-      })
+      this.setData({ isEmpty: true })
       return
     }
     wx.showToast({
@@ -101,5 +110,26 @@ Page({
       title: "考场刷新失败",
       icon: "error"
     })
+  },
+
+  praseExam (data: API.ExamResult) {
+    const arr = []
+    for(const item of data) {
+      const day = item.ksTime.split(" ")[0]
+      const endTime = item.ksTime.split("~")[1]
+      const isEnded = dayjs(day + " " + endTime, "YYYY-MM-DD HH:mm").isValid()
+      const newData = {
+        dataXnxq: item.dataXnxq,
+        ksFs: item.ksFs,
+        ksLocation: item.ksLocation,
+        ksName: item.ksName,
+        ksPc: item.ksPc,
+        ksTime: item.ksTime,
+        ksZwh: item.ksZwh,
+        isEnded: isEnded
+      }
+      arr.push(newData)
+    }
+    return arr
   }
 })
