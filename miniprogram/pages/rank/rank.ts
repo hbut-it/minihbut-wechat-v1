@@ -29,13 +29,13 @@ Page({
   async getTerm () {
     const res = await apiGetTermsAll()
     const optionXnxq = []
-    optionXnxq.push({ label: "全部", value: "001" })
+    optionXnxq.push({ label: "从入学至今", value: "001" })
     for (const item of res.data) {
       optionXnxq.push({ label: item, value: item })
     }
     this.setData({ termOptions: optionXnxq })
-    this.setData({ termSelected: optionXnxq[2].value })
-    this.getRank(optionXnxq[2].value)
+    this.setData({ termSelected: optionXnxq[0].value })
+    this.getRank(optionXnxq[0].value)
   },
 
   handleDropdown (e: any) {
@@ -48,7 +48,16 @@ Page({
   },
 
   async getRank (term: string) {
+    wx.showLoading({ title: "加载中" })
     const res = await apiGetRank({ xnxq: term })
+    wx.hideLoading()
+    if (res.code === 400) {
+      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      if (spider.code === 200) {
+        this.getRank(term)
+        return
+      }
+    }
     if (res.code === 200) {
       if (!res.data.arithmeticMeanScore && !res.data.meanScore) {
         res.data.arithmeticMeanScore = "/"

@@ -34,7 +34,7 @@
         </view>
         <view class="rank-item">
           <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticCollegeRanking }}</view>
-          <view class="rank-tip">按算数平均分</view>
+          <view class="rank-tip">按算术平均分</view>
         </view>
       </view>
     </view>
@@ -47,7 +47,7 @@
         </view>
         <view class="rank-item">
           <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticProfessionRanking }}</view>
-          <view class="rank-tip">按算数平均分</view>
+          <view class="rank-tip">按算术平均分</view>
         </view>
       </view>
     </view>
@@ -60,9 +60,12 @@
         </view>
         <view class="rank-item">
           <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticClassRanking }}</view>
-          <view class="rank-tip">按算数平均分</view>
+          <view class="rank-tip">按算术平均分</view>
         </view>
       </view>
     </view>
+  </view>
+  <view class="rank-tip" style="margin-bottom: 20px; padding: 0 32rpx; text-align: center;">
+    平均绩点、算术平均分以及各项排名，所有数据均来自教务系统，小程序仅获取信息并展示，未参与任何计算和排名。
   </view>
 </view>
