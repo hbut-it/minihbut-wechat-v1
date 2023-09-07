@@ -104,3 +104,14 @@ export const apiGetClassroom = (data: any) => {
     data
   })
 }
+
+// 导出课表
+export const apiExportCalendar = (data: any) => {
+  return request<API.BaseResponse<any>>("https://api.stslb.cn/hbut/ics", {
+    method: HttpMethod.POST,
+    data,
+    header: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }, true)
+}

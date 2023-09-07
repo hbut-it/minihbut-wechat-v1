@@ -58,6 +58,7 @@
         <t-switch slot="note" size="small" disabled />
       </t-cell> -->
       <t-cell title="课表主题" note="{{ themeName }}" arrow hover bind:tap="goThemeSetting" />
+      <t-cell title="导出当前课表" description="复制课表订阅链接到剪切板" arrow hover bind:tap="exportCalendar" />
     </t-cell-group>
     <view class="sidebar-btngroup">
       <t-button icon="add" block theme="primary" style="margin-bottom: 15px;" bind:tap="handleAddLesson">添加课程</t-button>

@@ -2,7 +2,7 @@
 import dayjs from "dayjs"
 import { decode } from "js-base64"
 import { apiGetTermRange, apiGetTermsAll } from "../../api/common"
-import { apiAddCalendar, apiDeleteLesson, apiGetMyCalendar, apiRefreshCalendar } from "../../api/main"
+import { apiAddCalendar, apiDeleteLesson, apiExportCalendar, apiGetMyCalendar, apiRefreshCalendar } from "../../api/main"
 import { apiRenewAuth } from "../../api/user"
 
 Page({
@@ -365,6 +365,17 @@ Page({
         this.getCalendarWithoutTerm()
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
       return
     }
 
@@ -402,6 +413,17 @@ Page({
         this.getCalendar(term)
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
       return
     }
 
@@ -561,6 +583,18 @@ Page({
         this.refreshCalendar()
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     
     if (res.code === 200) {
@@ -719,6 +753,53 @@ Page({
   goThemeSetting () {
     wx.navigateTo({
       url: "../setting/theme/theme"
+    })
+  },
+
+  async exportCalendar () {
+    wx.showLoading({ title: "加载中" })
+    const semester = wx.getStorageSync("calendarTerm")
+    const calendarRes = await apiGetMyCalendar({ xnxq: semester })
+    if (calendarRes.code === 400) {
+      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      if (spider.code === 200) {
+        this.exportCalendar()
+        return
+      }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000);
+      return
+    }
+    let calendarList: any = []
+    if (calendarRes.code === 200) {
+      calendarList = calendarRes.data
+    }
+    const res = await apiExportCalendar({
+      student_id: wx.getStorageSync("studentInfo")["studentNumber"],
+      semester: semester,
+      calendar: JSON.stringify(calendarList)
+    })
+    wx.hideLoading()
+    if (res.code === 200) {
+      wx.setClipboardData({ data: res.data.full_url })
+      wx.showModal({
+        title: "系统提示",
+        content: "导出成功，订阅链接已复制到剪切板"
+      })
+      return
+    }
+    wx.showToast({
+      title: "导出失败",
+      icon: "error"
     })
   }
 })
