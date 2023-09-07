@@ -3,7 +3,6 @@ import { decode } from "js-base64"
 import { apiGetTermsAll } from "../../api/common"
 import { apiGetExam, apiRefreshExam } from "../../api/main"
 import { apiRenewAuth } from "../../api/user"
-import dayjs from "dayjs"
 
 Page({
 
@@ -64,6 +63,18 @@ Page({
         this.getExam(term)
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     if (res.code === 200) {
       if (res.data.length === 0) {
@@ -105,6 +116,18 @@ Page({
         this.doRefreshExam()
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     wx.showToast({
       title: "考场刷新失败",
@@ -117,7 +140,11 @@ Page({
     for(const item of data) {
       const day = item.ksTime.split(" ")[0]
       const endTime = item.ksTime.split("~")[1]
-      const isEnded = dayjs(day + " " + endTime, "YYYY-MM-DD HH:mm").isValid()
+      const examDate = new Date(day + " " + endTime + ":00").getTime()
+      let isEnded = false
+      if (examDate < (new Date().getTime())) {
+        isEnded = true
+      }
       const newData = {
         dataXnxq: item.dataXnxq,
         ksFs: item.ksFs,

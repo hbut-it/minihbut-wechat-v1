@@ -108,6 +108,18 @@ Page({
         this.renewUserInfo()
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     if (res.code === 200) {
       this.setData({ studentInfo: res.data })

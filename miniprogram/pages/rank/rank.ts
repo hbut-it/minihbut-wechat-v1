@@ -57,6 +57,18 @@ Page({
         this.getRank(term)
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     if (res.code === 200) {
       if (!res.data.arithmeticMeanScore && !res.data.meanScore) {
@@ -101,6 +113,18 @@ Page({
         this.doRefreshRank()
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     wx.showToast({
       title: "排名刷新失败",

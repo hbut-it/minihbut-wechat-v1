@@ -86,6 +86,18 @@ Page({
         this.getReport(term)
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     if (res.code != 200) {
       wx.showToast({
@@ -161,6 +173,18 @@ Page({
         this.doRefreshReport()
         return
       }
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      setTimeout(() => {
+        wx.reLaunch({
+          url: "../user/user"
+        })
+      }, 1000)
+      return
     }
     wx.showToast({
       title: "成绩刷新失败",
