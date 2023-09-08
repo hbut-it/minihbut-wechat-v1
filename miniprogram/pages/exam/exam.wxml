@@ -15,7 +15,7 @@
     <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
   </t-dropdown-menu>
   <view class="exam-list">
-    <view class="exam-card" style="{{ item.isEnded ? 'filter: grayscale(100%);' : '' }}" wx:for="{{ examList }}">
+    <view class="exam-card" style="{{ item.isEnded ? 'filter: grayscale(100%);' : '' }}" wx:for="{{ examList }}" wx:key="i">
       <view class="title">{{ item.ksName }}</view>
       <view class="info">
         <view class="info-item">

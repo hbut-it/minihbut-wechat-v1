@@ -5,7 +5,7 @@
   </view>
   <view class="index-swiper">
     <swiper indicator-dots="{{ true }}" autoplay="{{ true }}" 	indicator-active-color="rgba(255, 255, 255, .95)" interval="5000" class="index-swiper-main">
-      <block wx:for="{{ swiper }}">
+      <block wx:for="{{ swiper }}" wx:key="i">
         <swiper-item>
           <view class="index-swiper-item" style="background-image: url('{{ item.pic }}')" bind:tap="goExtraUrl" data-url="{{ item.url }}" data-title="{{ item.title }}"></view>
         </swiper-item>

@@ -25,7 +25,7 @@
     <view style="height: 0.5px; background-color: #bbb; flex: 1;"></view>
   </view>
   <view class="classroom-list" wx:if="{{ loaded }}">
-    <view class="classroom-card" wx:for="{{ classroomList }}">
+    <view class="classroom-card" wx:for="{{ classroomList }}" wx:key="i">
       <view class="classroom-title">{{ item.classroomName }}</view>
       <view class="classroom-info">
         <view>教室类型：{{ item.ribbon }}</view>

@@ -31,7 +31,7 @@
     <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" default-value="" bind:change="handleDropdown" />
   </t-dropdown-menu>
   <view class="report-list">
-    <view class="report-card" bind:tap="showDialog" data-cjid="{{ item.cjId }}" wx:for="{{ reportList }}" style="border-left: 5px solid {{ item.color }}">
+    <view class="report-card" bind:tap="showDialog" data-cjid="{{ item.cjId }}" wx:for="{{ reportList }}" style="border-left: 5px solid {{ item.color }}" wx:key="i">
       <view class="title">{{ item.kname }}</view>
       <view class="points">
         <view class="point">
