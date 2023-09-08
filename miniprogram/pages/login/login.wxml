@@ -1,12 +1,7 @@
 <!--pages/login/login.wxml-->
-<view class="nav">
-  <view class="nav-inner">
-    <view class="nav-icon" bind:tap="goBack">
-      <t-icon name="chevron-left" size="34" />
-    </view>
-    <text style="margin-left: 5px;">登录</text>
-  </view>
-</view>
+<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+  <view slot="left" class="custom-title">登录</view>
+</t-navbar>
 <view class="login">
   <!-- Logo和标题 -->
   <image src="../../assets/img/logo/hbut.svg" class="login-logo" />

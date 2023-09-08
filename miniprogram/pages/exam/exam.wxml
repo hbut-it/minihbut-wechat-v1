@@ -1,15 +1,24 @@
 <!--pages/exam/exam.wxml-->
-<view class="nav">
-  <view class="nav-inner">
-    <view class="nav-icon" bind:tap="goBack">
-      <t-icon name="chevron-left" size="34" />
-    </view>
-    <text style="margin-left: 5px;">考场查询</text>
-    <view style="margin-left: 15px; padding-top: 3px;" bind:tap="doRefreshExam">
-      <t-icon name="refresh" size="26" />
-    </view>
+<t-navbar class="custom-navbar" title="我的考场">
+  <view slot="capsule" class="custom-capsule">
+    <t-icon
+      size="24"
+      bind:tap="goBack"
+      aria-role="button"
+      aria-label="返回"
+      name="chevron-left"
+      class="custom-capsule__icon"
+    />
+    <t-icon
+      size="20"
+      bind:tap="doRefreshExam"
+      aria-role="button"
+      aria-label="刷新考场"
+      name="refresh"
+      class="custom-capsule__icon"
+    />
   </view>
-</view>
+</t-navbar>
 <view class="exam">
   <t-dropdown-menu>
     <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />

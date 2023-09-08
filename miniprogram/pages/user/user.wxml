@@ -1,8 +1,9 @@
 <!--pages/user/user.wxml-->
+<t-navbar class="custom-navbar">
+  <view slot="left" class="user-title">我的</view>
+</t-navbar>
 <view class="user">
-  <view class="user-nav">
-    <view class="user-nav-title">我的</view>
-  </view>
+  <view class="user-bluebox"></view>
   <view class="user-container">
     <view class="user-main">
       <!-- 头像姓名学号展示 -->
