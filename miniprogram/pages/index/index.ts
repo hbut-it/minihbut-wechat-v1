@@ -20,6 +20,7 @@ Page({
   },
 
   onShow() {
+    this.getTabBar().init()
     this.getNotice()
     this.getSwipers()
     this.checkToken()
@@ -153,6 +154,30 @@ Page({
     if (!e.currentTarget.dataset.url) { return }
     wx.navigateTo({
       url: "../extra/extra?title=" + e.currentTarget.dataset.title + "&url=" + encode(e.currentTarget.dataset.url)
+    })
+  },
+
+  goEvent () {
+    wx.navigateTo({
+      url: "../event/event"
+    })
+  },
+
+  goMiniprogramMap () {
+    wx.navigateToMiniProgram({
+      shortLink: "#小程序://校园导览/ZB7DQtFHBHId2eq"
+    })
+  },
+
+  goMiniprogramWdm () {
+    wx.navigateToMiniProgram({
+      appId: "wxb10632879998e13d"
+    })
+  },
+
+  goMiniprogramEmail () {
+    wx.navigateToMiniProgram({
+      shortLink: "#小程序://邮箱自助申请/H52MrkATcKKqEyB"
     })
   }
 })

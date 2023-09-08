@@ -1,8 +1,9 @@
 <!--pages/index/index.wxml-->
+<t-navbar class="custom-navbar">
+  <view slot="left" class="index-title">Mini湖工</view>
+</t-navbar>
 <view class="index">
-  <view class="index-nav">
-    <view class="index-title">Mini湖工</view>
-  </view>
+  <view class="index-bluebox"></view>
   <view class="index-swiper">
     <swiper indicator-dots="{{ true }}" autoplay="{{ true }}" 	indicator-active-color="rgba(255, 255, 255, .95)" interval="5000" class="index-swiper-main">
       <block wx:for="{{ swiper }}" wx:key="i">
@@ -34,6 +35,28 @@
           </t-grid-item>
           <t-grid-item text="空教室查询" image="slot" bind:tap="goClassroom">
             <image src="../../assets/img/icon/index-classroom.png" class="index-icon" />
+          </t-grid-item>
+          <!-- <t-grid-item text="大事件" image="slot" bind:tap="goEvent">
+            <image src="../../assets/img/icon/index-event.png" class="index-icon" />
+          </t-grid-item> -->
+        </t-grid>
+      </view>
+    </view>
+    <view class="index-func">
+      <view class="index-func-title">
+        <view class="index-func-title-block"></view>
+        <text>更多便利</text>
+      </view>
+      <view class="index-func-list">
+        <t-grid class="block" hover>
+          <t-grid-item text="校园地图" image="slot" bind:tap="goMiniprogramMap">
+            <image src="../../assets/img/icon/index-map.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="晚点名签到" image="slot" bind:tap="goMiniprogramWdm">
+            <image src="../../assets/img/icon/index-wdm.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="邮箱申请" image="slot" bind:tap="goMiniprogramEmail">
+            <image src="../../assets/img/icon/index-email.png" class="index-icon" />
           </t-grid-item>
         </t-grid>
       </view>
