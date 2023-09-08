@@ -1,0 +1,4 @@
+<!--pages/event/event.wxml-->
+<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+  <view slot="left" class="custom-title">大事件</view>
+</t-navbar>
