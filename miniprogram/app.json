@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/logs/logs",
     "pages/calendar/calendar",
     "pages/user/user",
     "pages/login/login",
@@ -11,7 +10,8 @@
     "pages/rank/rank",
     "pages/exam/exam",
     "pages/classroom/classroom",
-    "pages/setting/theme/theme"
+    "pages/setting/theme/theme",
+    "pages/event/event"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -21,6 +21,7 @@
   },
   "sitemapLocation": "sitemap.json",
   "tabBar": {
+    "custom": true,
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -42,5 +43,10 @@
       }
     ],
     "selectedColor": "#3B95F5"
+  },
+  "usingComponents": {
+    "t-tab-bar": "tdesign-miniprogram/tab-bar/tab-bar",
+    "t-tab-bar-item": "tdesign-miniprogram/tab-bar-item/tab-bar-item",
+    "t-navbar": "tdesign-miniprogram/navbar/navbar"
   }
 }

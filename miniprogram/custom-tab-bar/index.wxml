@@ -1,0 +1,12 @@
+<!--custom-tab-bar/index.wxml-->
+<t-tab-bar value="{{ value }}" bindchange="onChange" theme="tag" split="{{false}}" bordered="{{ false }}" style="--td-tab-bar-active-color: #3b95f5; --td-tab-bar-active-bg: #e9f0f8;">
+  <t-tab-bar-item
+    wx:for="{{ list }}"
+    wx:key="index"
+    value="{{ item.value }}"
+    icon="{{ item.icon }}"
+    ariaLabel="{{ item.ariaLabel }}"
+  >
+    {{ item.ariaLabel }}
+  </t-tab-bar-item>
+</t-tab-bar>
