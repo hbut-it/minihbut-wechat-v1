@@ -86,7 +86,7 @@ Page({
 
   async onReady() {
     // 初始化默认颜色组
-    const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#2c2c54"]
+    const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"]
 
     // 若颜色组不止一个且选择自定义颜色组
     if (wx.getStorageSync("calendarThemes").length > 0 && wx.getStorageSync("calendarThemesSelected") != 0) {
@@ -152,16 +152,17 @@ Page({
     this.data.calendarList.sort((a, b) => parseInt(a.timeJc) - parseInt(b.timeJc))
     let colorCount = 0
     for (const course of this.data.calendarList) {
-      const courseList = this.data.courseColors.filter(item => item.kname === course.kname)
-      if (courseList.length > 0) {
-        course.color = courseList[0].color
-      } else {
+      const list = this.data.courseColors.filter(item => {
+        return item.kname === course.kname
+      })
+      if (list.length === 0) {
         course.color = this.data.colors[colorCount]
         this.data.courseColors.push(course)
-      }
-      if (colorCount < this.data.colors.length) {
         colorCount++
       } else {
+        course.color = list[0].color
+      }
+      if(colorCount === (this.data.colors.length + 1)) {
         colorCount = 0
       }
     }
@@ -213,9 +214,9 @@ Page({
           lesson_start: lesson[0], // 课程开始节次
           lesson_end: (lesson.length === 2) ? lesson[1] : lesson[0], // 课程结束节次
           classroom: course.skLoc, // 上课地点
-          color: course.color, //方块颜色
           jc: course.timeJc,
-          zc: course.kweek
+          zc: course.kweek,
+          color: course.color
         }
         this.data.courses[parseInt(week) - 1][parseInt(course.timeWeek) - 1].push(_course)
       }
@@ -642,7 +643,7 @@ Page({
   },
 
   onTimePickerPick (e: any) {
-    if (e.detail.value[1] > e.detail.value[2]) {
+    if (Number(e.detail.value[1]) > Number(e.detail.value[2])) {
       const tmp = []
       tmp.push(e.detail.value[0])
       tmp.push(e.detail.value[1])
@@ -652,7 +653,7 @@ Page({
   },
 
   onWeekPickerPick (e: any) {
-    if (e.detail.value[0] > e.detail.value[1]) {
+    if (Number(e.detail.value[0]) > Number(e.detail.value[1])) {
       const tmp = []
       tmp.push(e.detail.value[0])
       tmp.push(e.detail.value[0])
@@ -704,17 +705,6 @@ Page({
 
   async addLesson () {
     if (!this.data.addName || !this.data.addPosition || this.data.timePickerValue.length === 0 || this.data.weekPickerValue.length === 0) {
-      console.log({
-        kcName: this.data.addName,
-        teacherName: this.data.addTeacher ? this.data.addTeacher : "",
-        xnxq: wx.getStorageSync("calendarTerm"),
-        kcWeekBegin: this.data.weekPickerValue[0],
-        kcWeekEnd: this.data.weekPickerValue[1],
-        kcXingqi: this.data.timePickerValue[0],
-        kcJieci: this.data.jieciValue,
-        kcLoc: this.data.addPosition,
-        kcFeature: ""
-      })
       wx.showToast({
         title: "请补充完整",
         icon: "error",

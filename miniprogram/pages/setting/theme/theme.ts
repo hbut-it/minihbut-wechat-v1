@@ -1,7 +1,7 @@
 // pages/setting/theme/theme.ts
 Page({
   data: {
-    defaultColors: ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#2c2c54"],
+    defaultColors: ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"],
     themes: [],
     selected: 0,
     isAdding: false,
