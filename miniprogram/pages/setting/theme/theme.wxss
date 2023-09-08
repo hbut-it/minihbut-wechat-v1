@@ -1,8 +1,4 @@
 /* pages/setting/theme/theme.wxss */
-.theme {
-  padding-top: 180rpx;
-}
-
 .theme-main {
   padding: 0 32rpx;
   margin-top: 20px;
@@ -70,4 +66,12 @@
   padding: 0 32rpx;
   color: #888;
   font-size: 12px;
+}
+
+.theme-btn {
+  display: flex;
+}
+
+.theme-btn button:first-child {
+  margin-right: 15px;
 }

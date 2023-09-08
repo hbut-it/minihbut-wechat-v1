@@ -19,9 +19,7 @@ Page({
   },
 
   goBack () {
-    wx.reLaunch({
-      url: "../../calendar/calendar"
-    })
+    wx.navigateBack()
   },
 
   addTheme () {
@@ -122,5 +120,20 @@ Page({
       wx.removeStorageSync("calendarThemesSelected")
       this.setData({ selected: 0 })
     }
+  },
+
+  saveTheme () {
+    wx.showToast({
+      title: "保存成功",
+      icon: "success",
+      duration: 1000
+    })
+    setTimeout(() => {
+      this.backToCalendar()
+    }, 1000);
+  },
+
+  backToCalendar () {
+    wx.reLaunch({ url: "../../calendar/calendar" })
   }
 })

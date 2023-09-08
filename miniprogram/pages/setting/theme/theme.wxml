@@ -1,12 +1,7 @@
 <!--pages/setting/theme/theme.wxml-->
-<view class="nav">
-  <view class="nav-inner">
-    <view class="nav-icon" bind:tap="goBack">
-      <t-icon name="chevron-left" size="34" />
-    </view>
-    <text style="margin-left: 5px;">课表主题</text>
-  </view>
-</view>
+<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+  <view slot="left" class="custom-title">课表主题</view>
+</t-navbar>
 <view class="theme">
   <view class="theme-main">
     <view class="theme-card">
@@ -42,7 +37,8 @@
       <t-button style="margin-top: 10px;" theme="primary" icon="save" size="small" block bind:tap="addColorSave">保存</t-button>
     </view>
     <view class="theme-btn">
-      <t-button theme="primary" icon="add" block disabled="{{ isAdding }}" bind:tap="addTheme">添加自定义主题</t-button>
+      <t-button theme="light" icon="add" block disabled="{{ isAdding }}" bind:tap="addTheme">添加主题</t-button>
+      <t-button theme="primary" icon="save" block bind:tap="saveTheme">保存设置</t-button>
     </view>
   </view>
   <view class="theme-tips">温馨提示：该功能依靠本地储存，若清除微信缓存将会使设置的主题失效</view>
