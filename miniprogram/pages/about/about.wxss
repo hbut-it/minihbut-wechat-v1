@@ -1,5 +1,6 @@
 /* pages/about/about.wxss */
 .about {
+  padding-top: 20px;
   padding-bottom: 15rpx;
 }
 
