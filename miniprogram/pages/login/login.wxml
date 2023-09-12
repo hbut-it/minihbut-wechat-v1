@@ -15,9 +15,16 @@
     <view class="login-form-btn">
       <t-button theme="primary" block bind:tap="doLogin">登录</t-button>
     </view>
-    <!-- 用户协议和隐私政策 -->
+    <!-- 提示 -->
     <view class="login-tips">
-      登录即表示您同意我们的<text class="login-tips-link" bind:tap="goPrivacy">《隐私政策》</text>
-    </view> 
+      <view class="login-checkbox" bind:tap="handleChecked">
+        <t-icon name="check" wx:if="{{ checked }}"></t-icon>
+      </view>
+      我已阅读并同意<text class="login-tips-link" bind:tap="goPrivacy">《隐私政策》</text>
+      <view class="login-tips-note {{ tipNote }}">
+        <view class="login-tips-note-tri"></view>
+        阅读并同意后方可登录
+      </view>
+    </view>
   </view>
 </view>

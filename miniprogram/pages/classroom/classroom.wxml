@@ -11,7 +11,7 @@
       <t-cell title="节次" note="{{ jcNote }}" hover arrow bind:tap="showJcPicker" />
     </t-cell-group>
     <view style="margin: 0 32rpx; padding-top: 15px;">
-      <t-button theme="primary" block bind:tap="doResearch">查询</t-button>
+      <t-button theme="primary" icon="search" block bind:tap="doResearch">查询</t-button>
     </view>
   </view>
   <view class="classroom-divider">
@@ -75,3 +75,4 @@
     <t-picker-item options="{{ _jcs }}" />
   </t-picker>
 </view>
+<t-back-top theme="round" bind:to-top="onToTop"></t-back-top>

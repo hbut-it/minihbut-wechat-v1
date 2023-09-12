@@ -6,7 +6,9 @@ Page({
   data: {
     username: "",
     password: "",
-    pwdErrorCount: 0
+    pwdErrorCount: 0,
+    checked: false,
+    tipNote: false
   },
 
   /**
@@ -62,6 +64,12 @@ Page({
       })
       return
     }
+    if (!this.data.checked) {
+      this.setData({ tipNote: true })
+      return
+    }
+
+    this.setData({ tipNote: false })
 
     // 显示登录加载
     wx.showLoading({ title: "登录中" })
@@ -118,5 +126,9 @@ Page({
       icon: "error",
       duration: 1000
     })
+  },
+  
+  handleChecked () {
+    this.setData({ checked: !this.data.checked })
   }
 })

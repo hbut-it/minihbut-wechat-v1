@@ -33,8 +33,14 @@
           <t-grid-item text="我的考场" image="slot" bind:tap="goExam">
             <image src="../../assets/img/icon/index-exam.png" class="index-icon" />
           </t-grid-item>
+          <t-grid-item text="给分统计" image="slot" bind:tap="goStatistics">
+            <image src="../../assets/img/icon/index-statistics.png" class="index-icon" />
+          </t-grid-item>
           <t-grid-item text="空教室查询" image="slot" bind:tap="goClassroom">
             <image src="../../assets/img/icon/index-classroom.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="班级课表" image="slot" bind:tap="goTimetableSearch">
+            <image src="../../assets/img/icon/index-calendar.png" class="index-icon" />
           </t-grid-item>
           <!-- <t-grid-item text="大事件" image="slot" bind:tap="goEvent">
             <image src="../../assets/img/icon/index-event.png" class="index-icon" />
@@ -51,6 +57,9 @@
         <t-grid class="block" hover>
           <t-grid-item text="校园地图" image="slot" bind:tap="goMiniprogramMap">
             <image src="../../assets/img/icon/index-map.png" class="index-icon" />
+          </t-grid-item>
+          <t-grid-item text="i湖工" image="slot" bind:tap="goMiniprogramiHBUT">
+            <image src="../../assets/img/icon/index-ihbut.png" class="index-icon" />
           </t-grid-item>
           <t-grid-item text="晚点名签到" image="slot" bind:tap="goMiniprogramWdm">
             <image src="../../assets/img/icon/index-wdm.png" class="index-icon" />

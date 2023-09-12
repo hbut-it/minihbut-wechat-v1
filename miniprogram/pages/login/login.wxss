@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 45%;
+  top: 40%;
   transform: translateY(-50%);
   width: 100%;
 }
@@ -40,9 +40,44 @@
 
 .login-tips {
   font-size: 12px;
-  text-align: center;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .login-tips-link {
   color: var(--td-brand-color);
+}
+
+.login-checkbox {
+  border-radius: 50%;
+  border: 1px solid #666;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #666;
+  margin-right: 5px;
+}
+
+.login-tips-note {
+  position: absolute;
+  top: 20px;
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 0 10px 10px 10px;
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+  font-weight: bold;
+  opacity: 0;
+  transition: 0.2s;
+}
+
+.login-tips-note.true {
+  opacity: 1;
 }

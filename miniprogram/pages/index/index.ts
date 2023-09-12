@@ -26,7 +26,7 @@ Page({
     this.checkToken()
   },
 
-  async getNotice () {
+  async getNotice() {
     const res = await apiGetIndexNotice()
     this.setData({ noticeLoaded: true })
     if (res.code === 200) {
@@ -40,7 +40,7 @@ Page({
     })
   },
 
-  async getSwipers () {
+  async getSwipers() {
     const res = await apiGetIndexSwipers()
     if (res.code === 200) {
       this.setData({ swiper: res.data })
@@ -53,7 +53,10 @@ Page({
     })
   },
 
-  goReport () {
+  goReport() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -73,7 +76,10 @@ Page({
     })
   },
 
-  goRank () {
+  goRank() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -93,7 +99,10 @@ Page({
     })
   },
 
-  goExam () {
+  goExam() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -113,7 +122,10 @@ Page({
     })
   },
 
-  goClassroom () {
+  goClassroom() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     wx.navigateTo({
       url: "../classroom/classroom"
     })
@@ -150,32 +162,85 @@ Page({
     }
   },
 
-  goExtraUrl (e: any) {
+  goExtraUrl(e: any) {
     if (!e.currentTarget.dataset.url) { return }
     wx.navigateTo({
       url: "../extra/extra?title=" + e.currentTarget.dataset.title + "&url=" + encode(e.currentTarget.dataset.url)
     })
   },
 
-  goEvent () {
+  goEvent() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     wx.navigateTo({
       url: "../event/event"
     })
   },
 
-  goMiniprogramMap () {
-    wx.navigateToMiniProgram({
-      shortLink: "#小程序://校园导览/ZB7DQtFHBHId2eq"
+  goTimetableSearch() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
+    wx.navigateTo({
+      url: "../timetable/search/search"
     })
   },
 
-  goMiniprogramWdm () {
+  goStatistics() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
+    if (!this.data.isLogin) {
+      wx.showModal({
+        title: "系统提示",
+        content: "您暂未登录教务系统，无法查看相关内容，是否前往登录",
+        success (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: "../login/login"
+            })
+          }
+        }
+      })
+      return
+    }
+    wx.navigateTo({
+      url: "../statistics/statistics"
+    })
+  },
+
+  goMiniprogramMap() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
+    wx.navigateToMiniProgram({
+      appId: "wx22aea6eb3fe08ad7"
+    })
+  },
+
+  goMiniprogramiHBUT() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
+    wx.navigateToMiniProgram({
+      appId: "wx3bff1e3a28b21f44"
+    })
+  },
+
+  goMiniprogramWdm() {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     wx.navigateToMiniProgram({
       appId: "wxb10632879998e13d"
     })
   },
 
   goMiniprogramEmail () {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     wx.navigateToMiniProgram({
       shortLink: "#小程序://邮箱自助申请/H52MrkATcKKqEyB"
     })
