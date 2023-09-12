@@ -28,7 +28,8 @@
 
       <!-- 基础操作 -->
       <t-cell-group theme="card" class="user-cell-group">
-        <t-cell title="问题反馈" left-icon="chat" hover arrow bind:tap="openFeedbackPage" />
+        <t-cell title="设置" left-icon="setting" hover arrow bind:tap="openSettingPage" wx:if="{{ isLogin }}" />
+        <t-cell title="反馈" left-icon="chat" hover arrow bind:tap="openFeedbackPage" />
         <t-cell title="关于" left-icon="info-circle" hover arrow bind:tap="openAboutPage" />
         <t-cell title="登录" left-icon="login" note="通过教务系统登录" hover arrow bind:tap="openLoginPage" wx:if="{{ !isLogin }}" />
         <t-cell title="退出登录" left-icon="logout" hover arrow bind:tap="doLogout" wx:else />

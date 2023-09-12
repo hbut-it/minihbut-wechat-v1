@@ -1,11 +1,11 @@
 <!--pages/setting/theme/theme.wxml-->
 <t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
-  <view slot="left" class="custom-title">课表主题</view>
+  <view slot="left" class="custom-title">课表配色</view>
 </t-navbar>
 <view class="theme">
   <view class="theme-main">
     <view class="theme-card">
-      <view class="theme-card-title">默认主题</view>
+      <view class="theme-card-title">默认配色</view>
       <view class="theme-card-list">
         <view class="theme-card-item" style="background-color: {{ item }}" wx:for="{{ defaultColors }}" wx:key="i"></view>
       </view>
@@ -23,8 +23,8 @@
     </view>
     <view class="theme-card" wx:if="{{ isAdding }}">
       <view class="theme-card-title">
-        <view>主题名称：</view>
-        <input placeholder="请输入主题名称" bindinput="handleInputTitle" />
+        <view>配色名称：</view>
+        <input placeholder="请输入配色名称" bindinput="handleInputTitle" />
       </view>
       <view class="theme-card-list">
         <view class="theme-card-item" style="background-color: {{ item }}" wx:for="{{ newTheme }}"></view>
@@ -37,9 +37,9 @@
       <t-button style="margin-top: 10px;" theme="primary" icon="save" size="small" block bind:tap="addColorSave">保存</t-button>
     </view>
     <view class="theme-btn">
-      <t-button theme="light" icon="add" block disabled="{{ isAdding }}" bind:tap="addTheme">添加主题</t-button>
+      <t-button theme="light" icon="add" block disabled="{{ isAdding }}" bind:tap="addTheme">添加配色</t-button>
       <t-button theme="primary" icon="save" block bind:tap="saveTheme">保存设置</t-button>
     </view>
   </view>
-  <view class="theme-tips">温馨提示：该功能依靠本地储存，若清除微信缓存将会使设置的主题失效</view>
+  <view class="theme-tips">温馨提示：该功能依靠本地储存，若清除微信缓存将会使设置的配色失效</view>
 </view>

@@ -15,7 +15,6 @@ Page({
       themes: ((wx.getStorageSync("calendarThemes").length) > 0) ? wx.getStorageSync("calendarThemes") : [],
       selected: wx.getStorageSync("calendarThemesSelected") ? wx.getStorageSync("calendarThemesSelected") : 0
     })
-    console.log(this.data.selected)
   },
 
   goBack () {

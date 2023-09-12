@@ -8,24 +8,24 @@ Page({
     loaded: false
   },
   
-  onShow () {
+  onShow() {
     this.getTabBar().init()
     this.checkToken()
   },
 
-  openLoginPage () {
+  openLoginPage() {
     wx.navigateTo({
       url:"/pages/login/login"
     })
   },
 
-  openAboutPage () {
+  openAboutPage() {
     wx.navigateTo({
       url:"/pages/about/about"
     })
   },
 
-  doLogout () {
+  doLogout() {
     wx.clearStorageSync()
     wx.showToast({
       title: "退出成功",
@@ -39,7 +39,7 @@ Page({
     }, 1000);
   },
 
-  async checkToken () {
+  async checkToken() {
     // 本地储存是否存在token
     if (!wx.getStorageSync("tokenHead") && !wx.getStorageSync("token")) {
       this.setData({ loaded: true })
@@ -67,14 +67,14 @@ Page({
     this.setData({ loaded: true })
   },
 
-  async doRefreshToken () {
+  async doRefreshToken() {
     const res = await apiRefreshToken()
     if (res.code === 200) {
       wx.setStorageSync("token", res.data) // 重置token
     }
   },
 
-  async getUserInfo () {
+  async getUserInfo() {
     const info = wx.getStorageSync("studentInfo")
     this.setData({ studentInfo: info })
     const res = await apiGetUserInfo()
@@ -99,7 +99,7 @@ Page({
     })
   },
 
-  async renewUserInfo () {
+  async renewUserInfo() {
     wx.showLoading({ title: "刷新中" })
     const res = await apiRenewUserInfo()
     wx.hideLoading()
@@ -135,6 +135,12 @@ Page({
     wx.showToast({
       title: "刷新失败",
       icon: "error"
+    })
+  },
+
+  openSettingPage() {
+    wx.navigateTo({
+      url: "../setting/index/index"
     })
   }
 })
