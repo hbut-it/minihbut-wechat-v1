@@ -1,4 +1,4 @@
-// pages/statistics/statistics.ts
+// pages/calendar/calendar.ts
 import dayjs from "dayjs"
 import { decode } from "js-base64"
 import { apiGetTermRange, apiGetTermsAll } from "../../api/common"
@@ -7,6 +7,7 @@ import { apiRenewAuth } from "../../api/user"
 
 Page({
   data: {
+    paddingTop: 0,
     weekNow: 1,
     totalWeeks: 19,
     nowMonth: 1,
@@ -27,7 +28,7 @@ Page({
     addPosition: "",
     jieciValue: "",
     themeName: "默认主题",
-    termNow: wx.getStorageSync("calendarTerm"),
+    termNow: "",
     pickerDays: [
       { value: "1", label: "周一" },
       { value: "2", label: "周二" },
@@ -85,14 +86,19 @@ Page({
   },
 
   async onReady() {
+    // 初始化safeAreaTop
+    this.setData({
+      paddingTop: wx.getStorageSync("safeAreaTop"),
+      termNow: wx.getStorageSync("calendarTerm")
+    })
+
     // 初始化默认颜色组
     const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"]
 
     // 若颜色组不止一个且选择自定义颜色组
     if (wx.getStorageSync("calendarThemes").length > 0 && wx.getStorageSync("calendarThemesSelected") != 0) {
       this.setData({
-        colors: wx.getStorageSync("calendarThemes")[wx.getStorageSync("calendarThemesSelected") - 1].colors,
-        themeName: wx.getStorageSync("calendarThemes")[wx.getStorageSync("calendarThemesSelected") - 1].title
+        colors: wx.getStorageSync("calendarThemes")[wx.getStorageSync("calendarThemesSelected") - 1].colors
       })
     } else {
       this.setData({ colors: defaultColors })
@@ -109,6 +115,7 @@ Page({
   },
 
   onShow () {
+    this.getTabBar().init()
     // 检测本地储存记录
     if (!wx.getStorageSync("studentInfo")) {
       wx.showModal({
@@ -282,7 +289,6 @@ Page({
     const start: any = new Date(this.data.startTime * 1000)
     const now: any = new Date()
     const startOfWeek: any = new Date(start)
-    startOfWeek.setDate(start.getDate() - start.getDay()) // 将起始日期调整到本周的周日
     const diff = now - startOfWeek
     const currentWeekNumber = Math.floor(diff / (7 * 24 * 60 * 60 * 1000)) + 1
     if(currentWeekNumber > this.semesterWeeks()) {
@@ -450,11 +456,15 @@ Page({
     this.parse() // 预处理并归类课程
     this.setData({
       currentWeekList: this.getCurrentWeekAndDate(), // 获取本周的日期列表
-      currentCourses: this.data.courses[this.data.weekNow - 1] // 获取本周课程
+      weekNow: this.getCurrentWeekNumber(),
+      currentCourses: this.data.courses[this.getCurrentWeekNumber() - 1] // 获取本周课程
     })
   },
 
   handleWeekChange (e: any) {
+    if(wx.getStorageSync("settingVibrate")) {
+      wx.vibrateShort()
+    }
     const direct = e.currentTarget.dataset.direction
     // 周数减
     if (direct === "1") {
@@ -739,10 +749,10 @@ Page({
       icon: "error"
     })
   },
-
-  goThemeSetting () {
+  
+  goSetting() {
     wx.navigateTo({
-      url: "../setting/theme/theme"
+      url: "../setting/index/index"
     })
   },
 
