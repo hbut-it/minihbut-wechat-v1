@@ -46,7 +46,7 @@ Page({
       teacherName: teacher
     })
     wx.hideLoading()
-    if(res.code === 404 || res.code === 400) {
+    if(res.code === 404) {
       wx.showToast({
         title: "样本数据过少",
         icon: "error",
