@@ -1,0 +1,22 @@
+<!--pages/setting/index/index.wxml-->
+<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+  <view slot="left" class="custom-title">设置</view>
+</t-navbar>
+<view class="setting">
+  <view class="setting-item">
+    <view class="setting-item-title">课表设置</view>
+    <t-cell-group theme="card">
+      <t-cell title="主题配色" note="{{ calendarTheme }}" description="课表页面显示课程的方块颜色" arrow hover bind:tap="goCalendarTheme" />
+      <!-- <t-cell title="主题背景" note="无" description="课表页面显示的背景图片" arrow hover bind:tap="goCalendarBackground" /> -->
+    </t-cell-group>
+  </view>
+  <view class="setting-item">
+    <view class="setting-item-title">本体设置</view>
+    <t-cell-group theme="card">
+      <t-cell title="交互震动" description="开启后交互时会轻微震动">
+        <t-switch slot="note" size="small" value="{{ mainVibrate }}" bindchange="handleVibrate" />
+      </t-cell>
+      <t-cell title="缓存占用" description="点击清空缓存占用" note="{{ mainCache }}KB" arrow hover bind:tap="handleClearCache"/>
+    </t-cell-group>
+  </view>
+</view>
