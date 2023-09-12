@@ -1,0 +1,9 @@
+/* pages/timetable/search/search.wxss */
+.timetable {
+  margin-top: 15px;
+}
+
+.timetable-btn {
+  padding: 0 32rpx;
+  margin-top: 15px;
+}

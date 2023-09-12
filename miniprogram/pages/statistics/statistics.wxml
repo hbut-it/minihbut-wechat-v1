@@ -1,0 +1,71 @@
+<!--pages/statistics/statistics.wxml-->
+<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+  <view slot="left" class="custom-title">给分统计</view>
+</t-navbar>
+<view class="statistics">
+  <t-dropdown-menu>
+    <t-dropdown-item options="{{ dropdownOptions }}" value="{{ dropdownValue }}" bindchange="handleDropdown" />
+  </t-dropdown-menu>
+  <view class="statistics-search">
+    <t-search placeholder="{{ barPlaceholder }}" value="{{ keyword }}" bind:submit="handleSearch" bind:clear="handleSearch"/>
+  </view>
+  <view class="statistics-list" wx:if="{{ !empty }}">
+    <view class="statistics-item" wx:for="{{ list }}" wx:key="i">
+      <view class="item-info">
+        <view class="item-title">{{ item.kcMc }}</view>
+        <view class="item-teacher">{{ item.teacherName }}</view>
+      </view>
+      <view class="item-action">
+        <t-button size="small" theme="primary" bind:tap="handleDetail" data-name="{{ item.kcMc }}" data-teacher="{{ item.teacherName }}">查看详情</t-button>
+      </view>
+    </view>
+  </view>
+  <view class="statistics-empty" wx:else>
+    <image class="empty-image" src="../../assets/img/status/empty.png" />
+    <view class="empty-sub">未查到相关课程</view>
+    <view class="empty-tip">请更换搜索内容重新查询</view>
+  </view>
+</view>
+<t-popup visible="{{ popupVisible }}" bind:visible-change="onVisibleChange" placement="center">
+  <view class="block">
+    <view class="block-title">{{ popupValue.kcMc }}</view>
+    <view class="block-teacher">授课老师：{{ popupValue.teacherName }}</view>
+    <view class="block-detail">
+      <view class="block-item">
+        <view class="block-item-title">最高分</view>
+        <view class="block-item-num">{{ popupValue.maxGrade }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">平均分</view>
+        <view class="block-item-num">{{ popupValue.meanGrade }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">样本量</view>
+        <view class="block-item-num">{{ popupValue.sampleSize }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">90分以上</view>
+        <view class="block-item-num">{{ popupValue.gradesGreaterThan90 }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">80-90分</view>
+        <view class="block-item-num">{{ popupValue.gradesBetween80And90 }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">70-80分</view>
+        <view class="block-item-num">{{ popupValue.gradesBetween70And80 }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">60-70分</view>
+        <view class="block-item-num">{{ popupValue.gradesBetween60And70 }}</view>
+      </view>
+      <view class="block-item">
+        <view class="block-item-title">60分以下</view>
+        <view class="block-item-num">{{ popupValue.gradesLessThan60 }}</view>
+      </view>
+    </view>
+    <view class="block-tips">更新时间：{{ popupValue.updateDatetime }}</view>
+    <view class="block-tips">统计数据来源于Mini湖工用户，仅显示数据样本量大于30的结果，与实际情况可能存在较大误差，仅供参考！</view>
+  </view>
+</t-popup>
+<t-back-top theme="round" bind:to-top="onToTop"></t-back-top>

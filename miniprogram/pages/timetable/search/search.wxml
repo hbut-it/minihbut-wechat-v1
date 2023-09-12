@@ -1,0 +1,50 @@
+<!--pages/timetable/search/search.wxml-->
+<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+  <view slot="left" class="custom-title">班级课表</view>
+</t-navbar>
+<view class="timetable">
+  <t-cell-group theme="card">
+    <t-cell title="学院" note="{{ collegeNote }}" arrow hover bind:tap="handleCollegePicker" />
+    <t-cell title="年级" note="{{ gradeNote }}" arrow hover bind:tap="handleGradePicker" />
+    <t-cell title="班级" note="{{ classNote }}" arrow hover bind:tap="handleClassPicker" />
+  </t-cell-group>
+  <view class="timetable-btn">
+    <t-button icon="search" theme="primary" block bind:tap="handleSearch">查询</t-button>
+  </view>
+</view>
+
+<!-- 选择学院 -->
+<t-picker
+  visible="{{ collegeVisible }}"
+  value="{{ collegeValue }}"
+  title="选择学院"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onCollegeChange"
+>
+  <t-picker-item options="{{ collegeList }}" />
+</t-picker>
+
+<!-- 选择学院 -->
+<t-picker
+  visible="{{ gradeVisible }}"
+  value="{{ gradeValue }}"
+  title="选择年级"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onGradeChange"
+>
+  <t-picker-item options="{{ gradeList }}" />
+</t-picker>
+
+<!-- 选择班级 -->
+<t-picker
+  visible="{{ classVisible }}"
+  value="{{ classValue }}"
+  title="选择班级"
+  cancelBtn="取消"
+  confirmBtn="确认"
+  bindchange="onClassChange"
+>
+  <t-picker-item options="{{ classList }}" />
+</t-picker>

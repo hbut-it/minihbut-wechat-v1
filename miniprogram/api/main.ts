@@ -115,3 +115,48 @@ export const apiExportCalendar = (data: any) => {
     }
   }, true)
 }
+
+// 获取所有学院
+export const apiGetColleges = () => {
+  return request<API.BaseResponse<API.CollegesResult>>("/courseSchedule/queryAllAcademy", {
+    method: HttpMethod.GET
+  })
+}
+
+// 获取所有班级
+export const apiGetClasses = (data: API.ClassesParams) => {
+  return request<API.BaseResponse<API.ClassesResult>>("/courseSchedule/classList", {
+    method: HttpMethod.GET,
+    data
+  })
+}
+
+// 获取班级课表
+export const apiGetClassCalendar = (data: API.ClassCalendarParams) => {
+  return request<API.BaseResponse<API.CalendarResult>>("/courseSchedule/searchSchedule", {
+    method: HttpMethod.GET,
+    data
+  })
+}
+
+// 获取给分统计列表
+export const apiGetStatisticsList = (data: API.StatisticsParams) => {
+  return request<API.BaseResponse<API.StatisticsResult>>("/scoreStatistics/showMeAllLessons", {
+    method: HttpMethod.POST,
+    data,
+    header: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}
+
+// 获取给分统计详情
+export const apiGetStatisticsDetail = (data: API.StatisticsDetailParams) => {
+  return request<API.BaseResponse<API.StatisticsDetailResult>>("/scoreStatistics/showLessons", {
+    method: HttpMethod.POST,
+    data,
+    header: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+}

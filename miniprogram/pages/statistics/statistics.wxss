@@ -1,0 +1,118 @@
+/* pages/statistics/statistics.wxss */
+.statistics {
+  min-height: calc(100vh - 200rpx);
+  display: flex;
+  flex-direction: column;
+}
+
+.statistics-search {
+  padding: 16rpx 32rpx;
+  background-color: #fff;
+}
+
+.statistics-list {
+  padding: 0 32rpx;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.statistics-item {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-action {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.item-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.statistics-empty {
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-image {
+  width: 387rpx;
+  height: 214rpx;
+}
+
+.empty-sub {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.empty-tip {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  padding: 15px;
+}
+
+.block-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.block-teacher {
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.block-detail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.block-item {
+  display: flex;
+  background-color: var(--td-brand-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 42%;
+  color: #fff;
+  align-items: center;
+}
+
+.block-item-title {
+  font-size: 12px;
+}
+
+.block-item-num {
+  flex: 1;
+  text-align: right;
+  font-weight: bold;
+}
+
+.block-tips {
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #999;
+}

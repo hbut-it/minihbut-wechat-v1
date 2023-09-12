@@ -197,8 +197,8 @@ declare namespace API {
 
   // 给分查询请求参数(模糊查询)
   type StatisticsParams = {
-    courseName: string,
-    teacherName: string
+    type: string,
+    keyword: string
   }
 
   // 给分查询课程详情
@@ -222,8 +222,8 @@ declare namespace API {
     teacherName: string,
     maxGrade: string,
     meanGrade: string, // 平均成绩
-    sampleNum: string,
-    updateDatetime: string,
+    sampleSize: number | string,
+    updateDatetime: number | string,
     gradesGreaterThan90: string,
     gradesBetween80And90: string,
     gradesBetween70And80: string,
@@ -268,5 +268,26 @@ declare namespace API {
     switch: boolean,
     title: string,
     content: string
+  }
+
+  // 所有学院返回
+  type CollegesResult = {
+    collegeName: string,
+    collegeYxid: string
+  }[]
+
+  // 学院所有班级请求参数
+  type ClassesParams = {
+    institute: string,
+    grade?: string
+  }
+
+  // 学院所有班级返回
+  type ClassesResult = string[]
+
+  // 班级课表请求参数
+  type ClassCalendarParams = {
+    xnxq: string,
+    className: string
   }
 }

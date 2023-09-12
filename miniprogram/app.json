@@ -11,7 +11,12 @@
     "pages/exam/exam",
     "pages/classroom/classroom",
     "pages/setting/theme/theme",
-    "pages/event/event"
+    "pages/event/event",
+    "pages/timetable/search/search",
+    "pages/timetable/calendar/calendar",
+    "pages/setting/index/index",
+    "pages/setting/background/background",
+    "pages/statistics/statistics"
   ],
   "window": {
     "backgroundTextStyle": "light",
