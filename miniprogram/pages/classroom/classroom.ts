@@ -128,11 +128,11 @@ Page({
       jieciValue.push(e.detail.value[0])
     } else {
       jieciNote = "第" + e.detail.value[0] + "-" + e.detail.value[1] + "节"
-      let i = 0
-      while (i < e.detail.value[1]) {
+      let i = Number(e.detail.value[0]) - 1
+      while (i < Number(e.detail.value[1])) {
         jieciValue.push((i + 1).toString())
         i++
-      }
+      } 
     }
     this.setData({
       jcPickerValue: jieciValue,
