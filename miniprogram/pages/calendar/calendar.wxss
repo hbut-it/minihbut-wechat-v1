@@ -276,4 +276,18 @@
 
 .today {
   color: var(--td-brand-color);
+  font-weight: bold;
+}
+
+.calendar-nav-back {
+  position: absolute;
+  left: 32rpx;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  padding: 5px 10px;
+  bottom: 55px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2)
 }

@@ -9,6 +9,7 @@ Page({
   data: {
     paddingTop: 0,
     weekNow: 1,
+    currentWeek: 1,
     totalWeeks: 19,
     nowMonth: 1,
     sidebarVisible: false,
@@ -85,12 +86,20 @@ Page({
     endTime: 0
   },
 
+  onLoad() {
+    let _this = this
+    wx.getSystemInfo({
+      success(res) {
+        if (res.safeArea.top) {
+          _this.setData({ paddingTop: res.safeArea.top })
+        }
+      }
+    })
+  },
+
   async onReady() {
     // 初始化safeAreaTop
-    this.setData({
-      paddingTop: wx.getStorageSync("safeAreaTop"),
-      termNow: wx.getStorageSync("calendarTerm")
-    })
+    this.setData({ termNow: wx.getStorageSync("calendarTerm") })
 
     // 初始化默认颜色组
     const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"]
@@ -457,6 +466,7 @@ Page({
     this.setData({
       currentWeekList: this.getCurrentWeekAndDate(), // 获取本周的日期列表
       weekNow: this.getCurrentWeekNumber(),
+      currentWeek: this.getCurrentWeekNumber(),
       currentCourses: this.data.courses[this.getCurrentWeekNumber() - 1] // 获取本周课程
     })
   },
@@ -800,6 +810,19 @@ Page({
     wx.showToast({
       title: "导出失败",
       icon: "error"
+    })
+  },
+
+  backToWeekNow() {
+    this.setData({
+      currentWeekList: this.getCurrentWeekAndDate(), // 获取本周的日期列表
+      weekNow: this.getCurrentWeekNumber(),
+      currentCourses: this.data.courses[this.getCurrentWeekNumber() - 1] // 获取本周课程
+    })
+    wx.showToast({
+      title: "已回到本周",
+      icon: "none",
+      duration: 1000
     })
   }
 })

@@ -1,15 +1,26 @@
 <!--pages/calendar/calendar.wxml-->
 <view class="nav">
   <view class="calendar-nav" style="padding-top: {{ paddingTop }}px;">
+    <view class="calendar-nav-back" wx:if="{{ weekNow != currentWeek && termNow === '2023-2024-1' }}" bind:tap="backToWeekNow">
+      <t-icon name="rollback" size="18"></t-icon>
+      <text style="padding-left: 5px;">返回本周</text>
+    </view>
+    <view class="calendar-nav-back" wx:else bind:tap="refreshCalendar">
+      <t-icon name="refresh" size="18"></t-icon>
+      <text style="padding-left: 5px;">刷新课表</text>
+    </view>
     <view class="calendar-nav-week">第 {{ weekNow }} 周</view>
     <view class="calendar-nav-term">{{ termNow }}</view>
   </view>
   <view class="top-week">
-    <view class="top-month">
+    <view class="top-month" wx:if="{{ weekNow != currentWeek }}">
       {{ nowMonth }}<text style="font-size: 12px; font-weight: normal; color: #666;">月</text>
     </view>
+    <view class="top-month" wx:else style="font-size: 14px; color: var(--td-brand-color);">
+      本<br/>周
+    </view>
     <view wx:for="{{ currentWeekList }}" wx:key="index" class="week-item {{ item.isToday ? 'today' : '' }}">
-      <view style="font-weight: bold;">{{ item.title }}</view>
+      <view>{{ item.title }}</view>
       <view style="font-size: 12px; color: #666;">{{ item.date }}</view>
     </view>
   </view>
