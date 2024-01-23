@@ -15,6 +15,13 @@ export const apiGetTermRange = (data: API.TermRangeParams) => {
   })
 }
 
+// 获取空教室表单默认填写内容
+export const apiGetClassroomPlaceholder = () => {
+  return request<API.BaseResponse<any>>("/now/showMe/EmptyClassroomArgs", {
+    method: HttpMethod.GET
+  })
+}
+
 // 获取首页公告
 export const apiGetIndexNotice = () => {
   return request<API.BaseResponse<API.NoticeResult>>("https://api.stslb.cn/hbut/notice", {

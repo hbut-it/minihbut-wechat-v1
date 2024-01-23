@@ -1,4 +1,5 @@
 // pages/classroom/classroom.ts
+import { apiGetClassroomPlaceholder } from "../../api/common"
 import { apiGetClassroom } from "../../api/main"
 
 Page({
@@ -58,6 +59,7 @@ Page({
   onShow() {
     this.initWeeks()
     this.setData({ _jcs: this.data.jcs })
+    this.initPlaceholder()
   },
 
   goBack () {
@@ -170,6 +172,21 @@ Page({
     wx.showToast({
       title: "查询失败",
       icon: "error"
+    })
+  },
+
+  async initPlaceholder() {
+    const res = await apiGetClassroomPlaceholder()
+    const week: any = []
+    const xingqi: any = []
+    week.push(res.data.week)
+    xingqi.push(res.data.xingqi)
+    const xq = this.data.days.filter(item => item.value === res.data.xingqi)
+    this.setData({
+      weekPickerValue: week,
+      dayPickerValue: xingqi,
+      weekNote: "第" + res.data.week + "周",
+      dayNote: xq[0].label
     })
   }
 })
