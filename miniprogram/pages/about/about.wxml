@@ -12,7 +12,7 @@
   <!-- 版本信息 -->
   <text class="about-title">应用信息</text>
   <t-cell-group theme="card" class="about-card" size="small">
-    <t-cell title="小程序版本" note="1.1.2" />
+    <t-cell title="小程序版本" note="1.1.3" />
     <t-cell title="API版本" note="v1" />
     <t-cell title="更新日志" arrow hover bind:tap="openChangeLog" />
   </t-cell-group>

@@ -48,12 +48,12 @@
           <view class="num" style="color: {{ item.color }}">{{ item.gradePoints }}</view>
         </view>
         <view class="point">
-          <view class="tip">获得学分</view>
-          <view class="num">{{ item.gradePoints >= 60 ? item.credits : 0 }}</view>
+          <view class="tip">期末成绩</view>
+          <view class="num">{{ item.examGrade ? item.examGrade : '/' }}</view>
         </view>
         <view class="point">
-          <view class="tip">课程绩点</view>
-          <view class="num">{{ item.grade }}</view>
+          <view class="tip">平时成绩</view>
+          <view class="num">{{ item.commonGrade ? item.commonGrade : '/' }}</view>
         </view>
       </view>
     </view>
@@ -90,6 +90,14 @@
         <view class="report-detail-item">
           <text class="title">考试形式</text>
           <text class="content">{{ dialogShow.ksXs }}</text>
+        </view>
+        <view class="report-detail-item" wx:if="{{ dialogShow.commonGradePercent != '0%' }}">
+          <text class="title">平时成绩</text>
+          <text class="content">{{ dialogShow.gradePoints }}（{{ dialogShow.commonGradePercent }}）</text>
+        </view>
+        <view class="report-detail-item">
+          <text class="title">期末成绩</text>
+          <text class="content">{{ dialogShow.gradePoints }}（{{ dialogShow.examGradePercent != '0%' ? dialogShow.examGradePercent : '100%' }}）</text>
         </view>
         <view class="report-detail-item">
           <text class="title">综合成绩</text>
