@@ -24,10 +24,13 @@
     "postcss": false,
     "minified": false,
     "showShadowRootInWxmlPanel": false,
-    "ignoreUploadUnusedFiles": true
+    "ignoreUploadUnusedFiles": true,
+    "condition": true
   },
   "simulatorType": "wechat",
-  "simulatorPluginLibVersion": {},
+  "simulatorPluginLibVersion": {
+    "wxext14566970e7e9f62": "3.0.2-10"
+  },
   "condition": {},
   "srcMiniprogramRoot": "miniprogram/",
   "editorSetting": {
@@ -39,5 +42,6 @@
     "ignore": [],
     "include": []
   },
-  "appid": "wx42a9beac92f39a9a"
+  "appid": "wx42a9beac92f39a9a",
+  "projectArchitecture": "multiPlatform"
 }
