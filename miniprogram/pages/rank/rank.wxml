@@ -1,25 +1,21 @@
 <!--pages/rank/rank.wxml-->
-<t-navbar class="custom-navbar" title="我的排名">
-  <view slot="capsule" class="custom-capsule">
-    <t-icon
-      size="24"
-      bind:tap="goBack"
-      aria-role="button"
-      aria-label="返回"
-      name="chevron-left"
-      class="custom-capsule__icon"
-    />
-    <t-icon
-      size="20"
-      bind:tap="doRefreshRank"
-      aria-role="button"
-      aria-label="刷新排名"
-      name="refresh"
-      class="custom-capsule__icon"
-    />
-  </view>
-</t-navbar>
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow bind:go-back="goBack" fixed="{{ false }}" />
 <view class="rank">
+  <view class="rank-top">
+    <view class="rank-title">我的排名</view>
+    <view class="rank-action">
+      <view class="rank-action-card" style="margin-right: 20rpx;" bind:tap="doRefreshRank">
+        <t-icon name="refresh"></t-icon>
+      </view>
+      <picker header-text="学期选择" value="{{ termValue }}" range="{{ termList }}" bindchange="handleTermChange">
+        <view class="rank-action-card">
+          <text style="font-size: 26rpx; margin-right: 8rpx;">{{ termList[termValue] }}</text>
+          <t-icon name="chevron-down"></t-icon>
+        </view>
+      </picker>
+    </view>
+  </view>
   <view class="rank-jd">
     <view class="jd-item">
       <view class="jd-title">学期平均绩点</view>
@@ -30,12 +26,9 @@
       <view class="jd-num"><t-loading theme="spinner" size="24px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.arithmeticMeanScore }}</view>
     </view>
   </view>
-  <t-dropdown-menu>
-    <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
-  </t-dropdown-menu>
   <view class="rank-list">
     <view class="rank-card">
-      <view class="rank-title">学院（年级）</view>
+      <view class="rank-card-title">学院（年级）</view>
       <view class="rank-main">
         <view class="rank-item">
           <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.collegeRanking }}</view>
@@ -48,7 +41,7 @@
       </view>
     </view>
     <view class="rank-card">
-      <view class="rank-title">专业</view>
+      <view class="rank-card-title">专业</view>
       <view class="rank-main">
         <view class="rank-item">
           <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.professionalRanking }}</view>
@@ -61,7 +54,7 @@
       </view>
     </view>
     <view class="rank-card">
-      <view class="rank-title">班级</view>
+      <view class="rank-card-title">班级</view>
       <view class="rank-main">
         <view class="rank-item">
           <view class="rank-num"><t-loading theme="spinner" size="30px" class="wrapper" wx:if="{{ isLoading }}" />{{ rankData.classRanking }}</view>

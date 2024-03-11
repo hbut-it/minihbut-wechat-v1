@@ -5,14 +5,12 @@ import { apiGetRank, apiRefreshRank } from "../../api/main"
 import { apiRenewAuth } from "../../api/user"
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     isLoading: true,
     termSelected: "",
-    rankData: {}
+    rankData: {},
+    termValue: 0,
+    termList: [""]
   },
 
   onShow () {
@@ -23,30 +21,31 @@ Page({
     wx.navigateBack()
   },
 
-  /**
-   * 学期获取方法
-   */
+  // 获取学期
   async getTerm () {
     const res = await apiGetTermsAll()
-    const optionXnxq = []
-    optionXnxq.push({ label: "从入学至今", value: "001" })
+    const list = []
+    list.push("从入学至今")
     for (const item of res.data) {
-      optionXnxq.push({ label: item, value: item })
+      list.push(item)
     }
-    this.setData({ termOptions: optionXnxq })
-    this.setData({ termSelected: optionXnxq[0].value })
-    this.getRank(optionXnxq[0].value)
+    this.setData({ termList: list })
+    this.getRank("001")
   },
 
-  handleDropdown (e: any) {
-    this.setData({
-      termSelected: e.detail.value,
-      rankData: {},
-      isLoading: true
-    })
-    this.getRank(e.detail.value)
+  handleTermChange(e: any) {
+    console.log(e)
+    this.setData({ termValue: e.detail.value })
+    let term = ""
+    if(e.detail.value === "0") {
+      term = "001"
+    } else {
+      term = this.data.termList[e.detail.value]
+    }
+    this.getRank(term)
   },
 
+  // 获取排名
   async getRank (term: string) {
     wx.showLoading({ title: "加载中" })
     const res = await apiGetRank({ xnxq: term })
@@ -96,7 +95,13 @@ Page({
 
   async doRefreshRank () {
     wx.showLoading({ title: "刷新中" })
-    const res = await apiRefreshRank({ xnxq: this.data.termSelected })
+    let term = ""
+    if(this.data.termValue === 0) {
+      term = "001"
+    } else {
+      term = this.data.termList[this.data.termValue]
+    }
+    const res = await apiRefreshRank({ xnxq: term })
     wx.hideLoading()
     if (res.code === 200) {
       wx.showToast({
