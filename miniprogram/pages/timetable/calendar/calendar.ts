@@ -61,7 +61,6 @@ Page({
   // 解析课程
   parse() {
     const df: Event[] = this.data.calendarList;
-  
     // 以time、week、weeksArray、teacher、place为分组依据，统计每个课程的开始时间和持续节数
     const event_df = df.reduce((acc, event) => {
       const key = `${event.kname}-${event.timeWeek}-${event.kweekStr}-${event.teacherName}-${event.skLoc}`;
@@ -89,7 +88,6 @@ Page({
       }
       return 0;
     });
-  
     // 为每个课程分配颜色
     const nameSet = new Set(eventArray.map(event => event.kname));
     const colorDict: { [key: string]: number } = {};
@@ -98,9 +96,6 @@ Page({
       colorDict[name] = colorIndex;
       colorIndex++;
     });
-    const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"]
-  
-  
     // 注：kweekStr为逗号分隔字符串，转为列表
     const standard_timetable: StandardTimetable[] = eventArray.map(event => {
       return {
@@ -113,13 +108,11 @@ Page({
         jc: `${event.start_at}-${event.start_at + event.count - 1}`,
         zc: event.k_week,
         colorIndex: colorDict[event.kname],
-        color: defaultColors[colorDict[event.kname]],
+        color: this.data.colors[colorDict[event.kname]],
         day_in_week: event.timeWeek,
         week_array: event.kweekStr.split(',')
       };
     });
-    console.log(standard_timetable[0])
-  
     // 遍历每周
       for (let i = 0; i < this.data.totalWeeks; i++) {
         // 构造长度为7的array
@@ -135,28 +128,11 @@ Page({
           // 将week放入courses
           this.data.courses.push(week);
       }
-  
     return this.data.courses;
   },
 
-  // 计算学期周数
-  semesterWeeks () {
-    const startDate: any = new Date(this.data.startTime * 1000)
-    const endDate: any = new Date(this.data.endTime * 1000)
-    // 计算时间差（以秒为单位）
-    const timeDiff = Math.abs(endDate - startDate) / 1000
-    // 计算总周数
-    const totalWeeks = Math.floor(timeDiff / (7 * 24 * 60 * 60))
-    // 判断是否存在不满一周的最后一周
-    const hasPartialWeek = timeDiff % (7 * 24 * 60 * 60) !== 0
-    // 最终总周数
-    const semesterWeeks = hasPartialWeek ? totalWeeks + 1 : totalWeeks
-    this.setData({ totalWeeks: semesterWeeks })
-    return semesterWeeks
-  },
-
   // 获取周数与对应日期
-  getWeekAndDate (week: number) {
+  getWeekAndDate(week: number) {
     const totalWeeks = this.semesterWeeks()
     const startOfWeek = new Date(this.data.startTime * 1000)
     if (week < 1 || week > totalWeeks) {
@@ -190,7 +166,7 @@ Page({
   },
 
   // 根据今天日期获取当前周数
-  getCurrentWeekNumber () {
+  getCurrentWeekNumber() {
     if(Math.floor(new Date().getTime() / 1000) > this.data.endTime || Math.floor(new Date().getTime() / 1000) < this.data.startTime) {
       return 1
     }
@@ -203,6 +179,22 @@ Page({
       return this.semesterWeeks()
     }
     return currentWeekNumber
+  },
+
+  // 计算学期周数
+  semesterWeeks() {
+    const startDate: any = new Date(this.data.startTime * 1000)
+    const endDate: any = new Date(this.data.endTime * 1000)
+    // 计算时间差（以秒为单位）
+    const timeDiff = Math.abs(endDate - startDate) / 1000
+    // 计算总周数
+    const totalWeeks = Math.floor(timeDiff / (7 * 24 * 60 * 60))
+    // 判断是否存在不满一周的最后一周
+    const hasPartialWeek = timeDiff % (7 * 24 * 60 * 60) !== 0
+    // 最终总周数
+    const semesterWeeks = hasPartialWeek ? totalWeeks + 1 : totalWeeks
+    this.setData({ totalWeeks: semesterWeeks })
+    return semesterWeeks
   },
 
   // 获取本周与日期
@@ -225,7 +217,7 @@ Page({
     })
   },
 
-  initData () {
+  initData() {
     this.parse() // 预处理并归类课程
     this.setData({
       currentWeekList: this.getCurrentWeekAndDate(), // 获取本周的日期列表
@@ -234,7 +226,7 @@ Page({
     })
   },
 
-  handleWeekChange (e: any) {
+  handleWeekChange(e: any) {
     const direct = e.currentTarget.dataset.direction
     // 周数减
     if (direct === "1") {
@@ -272,14 +264,14 @@ Page({
     }
   },
 
-  handleLessonDetail (e: any) {
+  handleLessonDetail(e: any) {
     this.setData({
       popupValue: e.currentTarget.dataset.info,
       popupVisible: true
     })
   },
 
-  onPopupVisibleChange (e: any) {
+  onPopupVisibleChange(e: any) {
     this.setData({ popupVisible: e.detail.visible });
   },
 
