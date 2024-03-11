@@ -61,7 +61,7 @@ Page({
     wx.showLoading({ title: "查询中" })
     const res = await apiGetClassCalendar({
       className: className,
-      xnxq: xnxq ? xnxq : "2023-2024-1"
+      xnxq: xnxq ? xnxq : "2023-2024-2"
     })
     wx.hideLoading()
 
