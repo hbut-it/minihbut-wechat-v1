@@ -8,6 +8,7 @@ Page({
     password: "",
     pwdErrorCount: 0,
     checked: false,
+    checkboxClass: "login-checkbox",
     tipNote: false
   },
 
@@ -23,7 +24,7 @@ Page({
    */
   goPrivacy() {
     wx.navigateTo({
-      url: "../extra/extra?title=隐私政策&url=aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3M/X19iaXo9TXprME5UVTFOelEwTWc9PSZtaWQ9MjI0NzQ4MzY1MyZpZHg9MSZzbj05ZmNlMDc2YTRkZDIzNjEyNTE4NmRmNTk0ZjMzMzVjZiZjaGtzbT1jMzEyZGJhOGY0NjU1MmJlNThlNDFjM2Y3NjIzNTczNzU3ZmNkYjUyMzNiZWM4ODkyMDUyOTY3ODc5NDNlZDU3YjhkOWZjOWNhMDU1I3Jk"
+      url: "../privacy/privacy"
     })
   },
 
@@ -65,11 +66,12 @@ Page({
       return
     }
     if (!this.data.checked) {
-      this.setData({ tipNote: true })
+      wx.showToast({
+        title: "请阅读并同意相关协议",
+        icon: "none"
+      })
       return
     }
-
-    this.setData({ tipNote: false })
 
     // 显示登录加载
     wx.showLoading({ title: "登录中" })
@@ -129,6 +131,11 @@ Page({
   },
   
   handleChecked () {
+    if(this.data.checked) {
+      this.setData({ checkboxClass: "login-checkbox" })
+    } else {
+      this.setData({ checkboxClass: "login-checkbox-checked" })
+    }
     this.setData({ checked: !this.data.checked })
   }
 })

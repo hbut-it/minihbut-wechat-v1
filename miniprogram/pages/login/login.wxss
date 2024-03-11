@@ -1,83 +1,57 @@
 /* pages/login/login.wxss */
 .login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 40%;
-  transform: translateY(-50%);
-  width: 100%;
-}
-
-.login-logo {
-  height: 80px;
-  width: 70%;
+  padding-top: 38rpx;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
 }
 
 .login-title {
-  font-size: 22px;
+  font-size: 52rpx;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 15rpx;
+  color: #fff;
+}
+
+.login-tip {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 60rpx;
 }
 
 .login-form {
-  width: 100%;
-}
-
-.login-form-input {
-  border-radius: 10px;
+  border-radius: 16rpx;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  margin: 0 32rpx;
+  margin-bottom: 40rpx;
 }
 
-.login-form-btn {
-  margin: 15px 32rpx;
+.login-btn {
   box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  border-radius: 10px !important;
+  overflow: hidden;
+  border-radius: 16rpx;
+  margin-bottom: 40rpx;
 }
 
-.login-tips {
-  font-size: 12px;
-  color: #666;
+.login-license {
+  font-size: 26rpx;
+  color: #999;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-}
-
-.login-tips-link {
-  color: var(--td-brand-color);
 }
 
 .login-checkbox {
-  border-radius: 50%;
-  border: 1px solid #666;
-  width: 14px;
-  height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  color: #666;
-  margin-right: 5px;
+  width: 40rpx;
+  height: 40rpx;
+  background-image: url("https://static.hbut.life/img/icon/login-checkbox.png");
+  background-size: cover;
+  margin-right: 14rpx;
 }
 
-.login-tips-note {
-  position: absolute;
-  top: 20px;
-  background-color: #fff;
-  padding: 5px 10px;
-  border-radius: 0 10px 10px 10px;
-  color: #e74c3c;
-  font-size: 14px;
-  margin-top: 5px;
-  font-weight: bold;
-  opacity: 0;
-  transition: 0.2s;
-}
-
-.login-tips-note.true {
-  opacity: 1;
+.login-checkbox-checked {
+  width: 40rpx;
+  height: 40rpx;
+  background-image: url("https://static.hbut.life/img/icon/login-checkbox-checked.png");
+  background-size: cover;
+  margin-right: 14rpx;
 }

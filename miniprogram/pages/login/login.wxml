@@ -1,30 +1,16 @@
 <!--pages/login/login.wxml-->
-<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
-  <view slot="left" class="custom-title">登录</view>
-</t-navbar>
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow bind:go-back="goBack"></t-navbar>
 <view class="login">
-  <!-- Logo和标题 -->
-  <image src="../../assets/img/logo/hbut.svg" class="login-logo" />
-  <text class="login-title">教务系统登录</text>
-  <!-- 登录表单 -->
+  <view class="login-title">登录</view>
+  <view class="login-tip">湖北工业大学教务系统登录</view>
   <view class="login-form">
-    <view class="login-form-input">
-      <t-input label="学号" placeholder="请输入学号" value="{{ form.username }}" bind:change="bindUsernameInput" />
-      <t-input label="密码" placeholder="请输入密码" value="{{ form.password }}" bind:change="bindPasswordInput" type="password" />
-    </view>
-    <view class="login-form-btn">
-      <t-button theme="primary" block bind:tap="doLogin">登录</t-button>
-    </view>
-    <!-- 提示 -->
-    <view class="login-tips">
-      <view class="login-checkbox" bind:tap="handleChecked">
-        <t-icon name="check" wx:if="{{ checked }}"></t-icon>
-      </view>
-      我已阅读并同意<text class="login-tips-link" bind:tap="goPrivacy">《隐私政策》</text>
-      <view class="login-tips-note {{ tipNote }}">
-        <view class="login-tips-note-tri"></view>
-        阅读并同意后方可登录
-      </view>
-    </view>
+    <t-input label="学号" placeholder="请输入学号" value="{{ form.username }}" bind:change="bindUsernameInput" />
+    <t-input label="密码" placeholder="请输入密码" value="{{ form.password }}" bind:change="bindPasswordInput" type="password" />
+  </view>
+  <t-button theme="primary" block bind:tap="doLogin" class="login-btn">登录</t-button>
+  <view class="login-license">
+    <view class="{{ checkboxClass }}" bind:tap="handleChecked"></view>
+    <text>我已阅读并同意<text style="color: var(--td-brand-color);" bind:tap="goPrivacy">《隐私政策》</text></text>
   </view>
 </view>
