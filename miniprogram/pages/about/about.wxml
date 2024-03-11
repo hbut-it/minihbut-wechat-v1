@@ -1,61 +1,132 @@
 <!--pages/about/about.wxml-->
-<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow bind:go-back="goBack" fixed="{{ false }}">
   <view slot="left" class="custom-title">关于</view>
 </t-navbar>
 <view class="about">
   <!-- 基础信息 -->
   <view class="about-logo-container">
-    <image src="../../assets/img/logo/mini.png" class="about-logo" />
-    <text style="margin-top: 10px;">Mini湖工</text>
+    <image src="https://static.hbut.life/img/logo/mini.png" class="about-logo" />
+    <text style="margin-top: 10px; font-size: 64rpx;">Mini湖工</text>
+    <text style="font-size: 12px; font-weight: normal; color: #999; margin-bottom: 20rpx;">该小程序为学生开发，非学校官方应用</text>
+  </view>
+
+  <!-- 广告 -->
+  <view class="internal-ad-banner" style="margin-bottom: 40rpx;">
+    <ad unit-id="adunit-bbd566a62200bc62" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
   </view>
 
   <!-- 版本信息 -->
-  <text class="about-title">应用信息</text>
-  <t-cell-group theme="card" class="about-card" size="small">
-    <t-cell title="小程序版本" note="1.1.3" />
-    <t-cell title="API版本" note="v1" />
-    <t-cell title="更新日志" arrow hover bind:tap="openChangeLog" />
-  </t-cell-group>
+  <view class="about-main">
+    <view class="about-main-section">
+      <view class="about-main-section-title">应用信息</view>
+      <view class="about-main-section-content">
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">小程序版本</view>
+          <view class="about-main-section-item-note">1.2.0</view>
+        </view>
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">API版本</view>
+          <view class="about-main-section-item-note">v1</view>
+        </view>
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">ICP备案</view>
+          <view class="about-main-section-item-note">鄂ICP备2021012774号-6X</view>
+        </view>
+        <view class="about-main-section-item" bind:tap="openUpdateLog" style="border: none;">
+          <view class="about-main-section-item-title">更新日志</view>
+          <view class="about-main-section-item-note" style="font-size: 42rpx;">
+            <t-icon name="chevron-right"></t-icon>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 
   <!-- 开发团队 -->
-  <text class="about-title">开发团队</text>
-  <t-cell-group theme="card" class="about-card">
-    <t-cell title="桂振羽" description="小程序前端设计与实现">
-      <view slot="note">
-        <t-tag theme="primary">前端</t-tag>
+  <view class="about-main">
+    <view class="about-main-section">
+      <view class="about-main-section-title">团队成员</view>
+      <view class="about-main-section-content">
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">桂振羽</view>
+          <view class="about-main-section-item-note">小程序前端与部分后端开发</view>
+        </view>
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">李亚鹏</view>
+          <view class="about-main-section-item-note">小程序、作业云后端开发</view>
+        </view>
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">张勇宣</view>
+          <view class="about-main-section-item-note">作业云前端开发</view>
+        </view>
+        <view class="about-main-section-item" style="border: none;">
+          <view class="about-main-section-item-title">谈婷丹</view>
+          <view class="about-main-section-item-note">小程序Logo设计</view>
+        </view>
       </view>
-    </t-cell>
-    <t-cell title="李亚鹏" description="小程序、作业云后端实现">
-      <view slot="note">
-        <t-tag theme="primary">后端</t-tag>
-      </view>
-    </t-cell>
-    <t-cell title="张勇宣" description="作业云前端实现">
-      <view slot="note">
-        <t-tag theme="primary">前端</t-tag>
-      </view>
-    </t-cell>
-    <t-cell title="谈婷丹" description="小程序Logo设计">
-      <view slot="note">
-        <t-tag theme="primary">设计</t-tag>
-      </view>
-    </t-cell>
-  </t-cell-group>
+    </view>
+  </view>
 
   <!-- 特别感谢 -->
-  <text class="about-title">特别感谢</text>
-  <t-cell-group theme="card" class="about-card">
-    <t-cell title="技术顾问" description="Ohmyga（校外）、梁天一、张可" />
-    <t-cell title="宣传协力" description="周昕燃"/>
-    <t-cell title="测试用户" description="潘国栋、朱泽然、胡喆、朱婉晴、张涵越、胡志显、叶杨童、侯淋淋、周旭、胡语涵、左娜娜、石曼渝" />
-    <t-cell title="以及正在使用中的你" />
-  </t-cell-group>
+  <view class="about-main">
+    <view class="about-main-section">
+      <view class="about-main-section-title">特别感谢</view>
+      <view class="about-main-section-content">
+        <view class="about-main-section-item" style="flex-direction: column; align-items: unset;">
+          <view class="about-main-section-item-title" style="margin-bottom: 5rpx;">技术顾问</view>
+          <view class="about-main-section-item-note">Ohmyga（校外）、梁天一、张可</view>
+        </view>
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">宣传协力</view>
+          <view class="about-main-section-item-note">周昕燃</view>
+        </view>
+        <view class="about-main-section-item" style="flex-direction: column; align-items: unset;">
+          <view class="about-main-section-item-title" style="margin-bottom: 5rpx;">测试用户</view>
+          <view class="about-main-section-item-note">潘国栋 / 朱泽然 / 胡喆 / 朱婉晴 / 张涵越 / 胡志显 / 叶杨童 / 侯淋淋 / 周旭 / 胡语涵 / 左娜娜 / 石曼渝</view>
+        </view>
+        <view class="about-main-section-item" style="border: none;">
+          <view class="about-main-section-item-title">以及正在使用中的你</view>
+        </view>
+      </view>
+    </view>
+  </view>
 
-  <!-- 使用开源项目 -->
-  <text class="about-title">使用的开源项目</text>
-  <t-cell-group theme="card" class="about-card">
-    <t-cell title="TDesign" description="MIT license" />
-    <t-cell title="js-base64" description="BSD-3-Clause license" />
-    <t-cell title="dayjs" description="MIT license" />
-  </t-cell-group>
+  <!-- 使用第三方服务 -->
+  <view class="about-main">
+    <view class="about-main-section">
+      <view class="about-main-section-title">使用服务</view>
+      <view class="about-main-section-content">
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">MiSans</view>
+          <view class="about-main-section-item-note">全局字体</view>
+        </view>
+        <view class="about-main-section-item" style="border: none;">
+          <view class="about-main-section-item-title">和风天气</view>
+          <view class="about-main-section-item-note">提供天气API支持</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 开源许可 -->
+  <view class="about-main">
+    <view class="about-main-section">
+      <view class="about-main-section-title">开源许可</view>
+      <view class="about-main-section-content">
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">TDesign</view>
+          <view class="about-main-section-item-note">MIT license</view>
+        </view>
+        <view class="about-main-section-item">
+          <view class="about-main-section-item-title">js-base64</view>
+          <view class="about-main-section-item-note">BSD-3-Clause license</view>
+        </view>
+        <view class="about-main-section-item" style="border: none;">
+          <view class="about-main-section-item-title">dayjs</view>
+          <view class="about-main-section-item-note">MIT license</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

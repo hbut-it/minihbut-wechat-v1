@@ -2,6 +2,8 @@
 .about {
   padding-top: 20px;
   padding-bottom: 15rpx;
+  padding-left: 32rpx;
+  padding-right: 32rpx;
 }
 
 .about-logo {
@@ -11,6 +13,11 @@
   overflow: hidden;
 }
 
+.about-mini {
+  height: 60rpx;
+  margin-top: 30rpx;
+}
+
 .about-logo-container {
   width: 100%;
   display: flex;
@@ -18,17 +25,57 @@
   margin-bottom: 10px;
   flex-direction: column;
   align-items: center;
-  font-size: 28px;
   font-weight: bold;
 }
 
 .about-title {
-  padding: 0 40rpx;
+  padding: 0 32rpx;
   font-size: 18px;
-  line-height: 50px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .about-card {
-  margin-bottom: 20px !important;
+  margin-bottom: 40rpx !important;
+}
+
+.about-main-section-title {
+  font-size: 42rpx;
+  font-weight: 600;
+  margin-bottom: 25rpx;
+  position: relative;
+}
+
+.about-main-section-title::before {
+  content: ' ';
+  width: 100%;
+  background: -webkit-linear-gradient(left, var(--td-brand-color), #fff);
+  height: 24rpx;
+  position: absolute;
+  left: 32rpx;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  border-radius: 16rpx;
+  width: 175rpx;
+}
+
+.about-main-section-content {
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  border-radius: 16rpx;
+  padding: 0 30rpx;
+  margin-bottom: 60rpx;
+}
+
+.about-main-section-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx 0;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.about-main-section-item-note {
+  color: #666;
 }
