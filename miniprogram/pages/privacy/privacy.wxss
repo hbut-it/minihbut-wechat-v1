@@ -1,0 +1,27 @@
+/* pages/privacy/privacy.wxss */
+.privacy {
+  padding: 20px;
+}
+
+.privacy-title {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.privacy-start-time {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.privacy-part-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.privacy-text {
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 10px;
+}

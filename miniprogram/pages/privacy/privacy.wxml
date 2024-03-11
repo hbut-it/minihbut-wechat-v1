@@ -1,0 +1,27 @@
+<!--pages/privacy/privacy.wxml-->
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow bind:go-back="goBack" fixed="{{ false }}">
+  <view slot="left" class="custom-title">隐私政策</view>
+</t-navbar>
+<view class="privacy">
+  <view class="privacy-title">Mini湖工隐私政策</view>
+  <view class="privacy-start-time">生效日期：2023年8月25日</view>
+  <view class="privacy-text">欢迎使用“Mini湖工”小程序（以下简称“小程序”）。我们致力于保护您的个人隐私和信息安全。本隐私政策旨在向您说明我们如何收集、使用、存储和保护您的个人信息。在使用小程序之前，请您仔细阅读本隐私政策。</view>
+  <view class="privacy-part-title">1. 信息收集和使用</view>
+  <view class="privacy-text">1.1 收集的信息类型：我们可能会收集您使用小程序时提供的个人信息，包括但不限于姓名、学号、学院、班级等。</view>
+  <view class="privacy-text">1.2 信息使用目的：我们收集和使用您的个人信息主要用于以下目的：提供查询成绩、排名、考场、空教室、课表、给分统计（暂未上线）等校园相关信息的服务；改进和优化软件功能，提升用户体验；处理用户的请求和反馈；履行法律义务和保护我们的合法权益。</view>
+  <view class="privacy-part-title">2. 信息存储和保护</view>
+  <view class="privacy-text">2.1 信息存储：您的个人非敏感信息会存储在我们的服务器上，也可能存储在与我们合作的第三方服务提供商的服务器上。</view>
+  <view class="privacy-text">2.2 信息保护：我们采取一系列合理的安全措施来保护您的个人信息，防止未经授权的访问、使用、披露或更改。但请注意，互联网传输存在一定的风险，任何信息在传输过程中都无法保证绝对安全。</view>
+  <view class="privacy-part-title">3. 信息披露</view>
+  <view class="privacy-text">3.1 我们不会将您的个人信息出售、交易或租赁给任何第三方。</view>
+  <view class="privacy-text">3.2 我们可能会与合作伙伴共享某些信息，以便为您提供更好的服务。在这种情况下，我们会要求合作伙伴遵守适用的隐私法律和保护措施。</view>
+  <view class="privacy-text">3.3 我们可能会根据法律法规的要求、诉讼、诉讼程序、政府要求或其他法律程序的需要而披露您的个人信息。</view>
+  <view class="privacy-text">3.4 您的成绩将会被用于进行数据分析，用于“给分统计”中，请放心，您的成绩不会被记名统计，仅用于更方便的给同学们作为选修课选课的参考，您自己也可以使用该功能。</view>
+  <view class="privacy-part-title">4.本地信息储存技术</view>
+  <view class="privacy-text">我们可能会使用本地信息储存技术，用于缓存课表和用户非敏感信息加速用户访问体验。</view>
+  <view class="privacy-part-title">5. 隐私政策的更新</view>
+  <view class="privacy-text">我们可能会不时更新本隐私政策。更新后的隐私政策将在本软件中发布并生效。请您定期查阅以获取最新信息。如果对隐私政策的修改存在重大影响，我们还可能通过适当方式通知您。</view>
+  <view class="privacy-part-title">6. 联系我们</view>
+  <view class="privacy-text">如果您对本隐私政策有任何疑问、意见或投诉，或希望访问、更正、删除您的个人信息，请添加QQ群进行联系：810893675。</view>
+</view>
