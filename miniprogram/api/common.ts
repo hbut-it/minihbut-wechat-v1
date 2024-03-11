@@ -15,6 +15,14 @@ export const apiGetTermRange = (data: API.TermRangeParams) => {
   })
 }
 
+// 获取学生今日课程
+export const apiGetTodayLessons = (data: {}) => {
+  return request<API.BaseResponse<[]>>("/courseSchedule/showMeCourses/today", {
+    method: HttpMethod.GET,
+    data
+  })
+}
+
 // 获取空教室表单默认填写内容
 export const apiGetClassroomPlaceholder = () => {
   return request<API.BaseResponse<any>>("/now/showMe/EmptyClassroomArgs", {
@@ -24,14 +32,7 @@ export const apiGetClassroomPlaceholder = () => {
 
 // 获取首页公告
 export const apiGetIndexNotice = () => {
-  return request<API.BaseResponse<API.NoticeResult>>("https://api.stslb.cn/hbut/notice", {
-    method: HttpMethod.GET
-  }, true)
-}
-
-// 获取首页轮播图
-export const apiGetIndexSwipers = () => {
-  return request<API.BaseResponse<API.SwipersResult>>("https://api.stslb.cn/hbut/swiper", {
+  return request<API.BaseResponse<any>>("https://api.stslb.cn/hbut/notice", {
     method: HttpMethod.GET
   }, true)
 }
@@ -39,6 +40,13 @@ export const apiGetIndexSwipers = () => {
 // 获取紧急通知
 export const apiGetEmergency = () => {
   return request<API.BaseResponse<API.EmergencyResult>>("https://api.stslb.cn/hbut/emergency", {
+    method: HttpMethod.GET
+  }, true)
+}
+
+// 获取武汉天气
+export const apiGetWeather = () => {
+  return request<API.BaseResponse<any>>("https://api.stslb.cn/hbut/weather", {
     method: HttpMethod.GET
   }, true)
 }
