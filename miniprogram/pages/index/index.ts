@@ -1,62 +1,42 @@
 // pages/index/index.ts
-import { encode } from "js-base64"
-import { apiGetIndexNotice, apiGetIndexSwipers } from "../../api/common"
+import { apiGetIndexNotice, apiGetTodayLessons, apiGetWeather } from "../../api/common"
 import { apiCheckToken, apiRefreshToken } from "../../api/user"
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    swiper: [{}],
-    notice: {
-      visible: false,
-      theme: "",
-      content: ""
-    },
-    noticeLoaded: false,
-    isLogin: false
+    isLogin: false,
+    weather: {},
+    weatherNowText: "",
+    weatherNowIcon: "",
+    isTodayFinished: false,
+    noticeVisible: true,
+    noticeList: [""],
+    lessonStartTime: ["8:20", "9:10", "10:15", "11:05", "14:00", "14:50", "15:55", "16:45", "18:30", "19:20", "20:10"]
   },
 
-  onShow() {
-    this.getTabBar().init()
-    this.getNotice()
-    this.getSwipers()
-    this.checkToken()
-  },
-
-  async getNotice() {
-    const res = await apiGetIndexNotice()
-    this.setData({ noticeLoaded: true })
-    if (res.code === 200) {
-      this.setData({ notice: res.data })
-      return
+  // 获取天气
+  async getWeather() {
+    const date = new Date()
+    const hour = date.getHours()
+    const res = await apiGetWeather()
+    if(res.code === 200) {
+      this.setData({ weather: res.data })
+      if(hour < 18) {
+        this.setData({
+          weatherNowText: res.data.textDay,
+          weatherNowIcon: res.data.iconDay
+        })
+      } else {
+        this.setData({
+          weatherNowText: res.data.textNight,
+          weatherNowIcon: res.data.iconNight
+        })
+      }
     }
-    wx.showToast({
-      title: "公告获取错误",
-      icon: "error",
-      duration: 1000
-    })
   },
 
-  async getSwipers() {
-    const res = await apiGetIndexSwipers()
-    if (res.code === 200) {
-      this.setData({ swiper: res.data })
-      return
-    }
-    wx.showToast({
-      title: "轮播图获取错误",
-      icon: "error",
-      duration: 1000
-    })
-  },
-
+  // 前往我的成绩页面
   goReport() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -76,10 +56,8 @@ Page({
     })
   },
 
+  // 前往我的排名页面
   goRank() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -99,10 +77,8 @@ Page({
     })
   },
 
+  // 前往我的考场页面
   goExam() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -122,75 +98,22 @@ Page({
     })
   },
 
+  // 前往空教室页面
   goClassroom() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     wx.navigateTo({
       url: "../classroom/classroom"
     })
   },
 
-  async checkToken() {
-    // 本地储存是否存在token
-    if (!wx.getStorageSync("tokenHead") && !wx.getStorageSync("token")) {
-      return
-    }
-    const res = await apiCheckToken()
-    // token已过期
-    if (res.code != 200) {
-      wx.clearStorageSync()
-      wx.showToast({
-        title: "登录已过期",
-        icon: "error",
-        duration: 1000
-      })
-      return
-    }
-
-    // token未过期进行续期
-    this.doRefreshToken()
-
-    // 设置登录状态
-    this.setData({ isLogin: true })
-  },
-
-  async doRefreshToken() {
-    const res = await apiRefreshToken()
-    if (res.code === 200) {
-      wx.setStorageSync("token", res.data) // 重置token
-    }
-  },
-
-  goExtraUrl(e: any) {
-    if (!e.currentTarget.dataset.url) { return }
-    wx.navigateTo({
-      url: "../extra/extra?title=" + e.currentTarget.dataset.title + "&url=" + encode(e.currentTarget.dataset.url)
-    })
-  },
-
-  goEvent() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
-    wx.navigateTo({
-      url: "../event/event"
-    })
-  },
-
+  // 前往班级课表页面
   goTimetableSearch() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     wx.navigateTo({
       url: "../timetable/search/search"
     })
   },
 
+  // 前往给分统计页面
   goStatistics() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     if (!this.data.isLogin) {
       wx.showModal({
         title: "系统提示",
@@ -210,39 +133,91 @@ Page({
     })
   },
 
-  goMiniprogramMap() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
+  // 检验token是否过期
+  async checkToken() {
+    // 本地储存是否存在token
+    if (!wx.getStorageSync("tokenHead") && !wx.getStorageSync("token")) {
+      return
     }
+    const res = await apiCheckToken()
+    // token已过期
+    if (res.code != 200) {
+      wx.clearStorageSync()
+      wx.showToast({
+        title: "登录已过期",
+        icon: "error",
+        duration: 1000
+      })
+      return
+    }
+    // token未过期进行续期
+    this.doRefreshToken()
+    // 设置登录状态
+    this.setData({ isLogin: true })
+  },
+
+  // 刷新token
+  async doRefreshToken() {
+    const res = await apiRefreshToken()
+    if (res.code === 200) {
+      wx.setStorageSync("token", res.data) // 重置token
+    }
+  },
+
+  // 前往i湖工小程序
+  goMiniprogramMap() {
     wx.navigateToMiniProgram({
       appId: "wx22aea6eb3fe08ad7"
     })
   },
 
+  // 前往校园地图小程序
   goMiniprogramiHBUT() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
-    }
     wx.navigateToMiniProgram({
       appId: "wx3bff1e3a28b21f44"
     })
   },
 
-  goMiniprogramWdm() {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
+  // 获取今日课程
+  async getTodayLessons() {
+    if(!this.data.isLogin) {
+      return
     }
-    wx.navigateToMiniProgram({
-      appId: "wxb10632879998e13d"
-    })
+    const res = await apiGetTodayLessons({ xnxq: "2023-2024-2" })
+    if(res.code === 200) {
+      if(res.data.length === 0) {
+        this.setData({ isTodayFinished: true })
+        return
+      }
+      this.parseTodayLessons(res.data)
+      return
+    }
   },
 
-  goMiniprogramEmail () {
-    if(wx.getStorageSync("settingVibrate")) {
-      wx.vibrateShort()
+  // 格式化今日课程
+  parseTodayLessons(data: any) {
+    let i = 0
+    while(i < data.length) {
+      data[i].startTime = this.data.lessonStartTime[data[i].timeJcList[0] - 1]
+      i++
     }
-    wx.navigateToMiniProgram({
-      shortLink: "#小程序://邮箱自助申请/H52MrkATcKKqEyB"
-    })
+    this.setData({ todayLessons: data })
+  },
+
+  // 获取公告
+  async getNotice() {
+    const res = await apiGetIndexNotice()
+    if(res.code === 200) {
+      this.setData({ noticeList: res.data })
+    }
+  },
+
+  // 初始化
+  async onShow() {
+    this.getTabBar().init()
+    this.getWeather()
+    this.getNotice()
+    await this.checkToken()
+    await this.getTodayLessons()
   }
 })
