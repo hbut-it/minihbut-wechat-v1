@@ -2,7 +2,7 @@
 import dayjs from "dayjs"
 import { decode } from "js-base64"
 import { apiGetTermRange, apiGetTermsAll } from "../../api/common"
-import { apiAddCalendar, apiDeleteLesson, apiExportCalendar, apiGetMyCalendar, apiRefreshCalendar } from "../../api/main"
+import { apiAddCalendar, apiDeleteLesson, apiGetMyCalendar, apiRefreshCalendar } from "../../api/main"
 import { apiRenewAuth } from "../../api/user"
 
 Page({
@@ -74,7 +74,7 @@ Page({
     // 当前课表
     currentCourses: [],
     // 默认颜色组
-    colors: [],
+    colors: ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"],
     // 课程颜色组储存
     courseColors:[],
     // 接口获取到的学期列表
@@ -100,18 +100,6 @@ Page({
   async onReady() {
     // 初始化safeAreaTop
     this.setData({ termNow: wx.getStorageSync("calendarTerm") })
-
-    // 初始化默认颜色组
-    const defaultColors = ["#f3a683", "#f7d794", "#778beb", "#e77f67", "#cf6a87", "#786fa6", "#f8a5c2", "#63cdda", "#ea8685", "#596275", "#60a3bc", "#4a69bd"]
-
-    // 若颜色组不止一个且选择自定义颜色组
-    if (wx.getStorageSync("calendarThemes").length > 0 && wx.getStorageSync("calendarThemesSelected") != 0) {
-      this.setData({
-        colors: wx.getStorageSync("calendarThemes")[wx.getStorageSync("calendarThemesSelected") - 1].colors
-      })
-    } else {
-      this.setData({ colors: defaultColors })
-    }
 
     if (!wx.getStorageSync("studentInfo")) {
       wx.setStorageSync("calendarFirstShow", true)
@@ -158,86 +146,76 @@ Page({
   },
 
   // 解析课程
-  parse () {
-    // 根据学期时间计算本学期周数并生成对应的数组
-    var count = 0;
-    while(this.semesterWeeks() > count) {
-      this.data.courses.push(Array.from({ length: 7 }, () => []))
-      count++
-    }
-    this.data.calendarList.sort((a, b) => parseInt(a.timeJc) - parseInt(b.timeJc))
-    let colorCount = 0
-    for (const course of this.data.calendarList) {
-      const list = this.data.courseColors.filter(item => {
-        return item.kname === course.kname
-      })
-      if (list.length === 0) {
-        course.color = this.data.colors[colorCount]
-        this.data.courseColors.push(course)
-        colorCount++
+  parse() {
+    const df: Event[] = this.data.calendarList;
+    // 以time、week、weeksArray、teacher、place为分组依据，统计每个课程的开始时间和持续节数
+    const event_df = df.reduce((acc, event) => {
+      const key = `${event.kname}-${event.timeWeek}-${event.kweekStr}-${event.teacherName}-${event.skLoc}`;
+      if (!acc[key]) {
+        acc[key] = {
+          start_at: parseInt(event.timeJc),
+          count: 1,
+          course_id: event.csId,
+          k_week: event.kweek,
+          // 保留这些属性
+          kname: event.kname,
+          timeWeek: event.timeWeek,
+          kweekStr: event.kweekStr,
+          teacherName: event.teacherName,
+          skLoc: event.skLoc,
+        };
       } else {
-        course.color = list[0].color
+        acc[key].count += 1;
       }
-      if(colorCount === (this.data.colors.length + 1)) {
-        colorCount = 0
+      return acc;
+    }, {} as { [key: string]: GroupedEvent });
+    const eventArray = Object.values(event_df).sort((a, b) => {
+      if (a.start_at !== b.start_at) {
+        return a.start_at - b.start_at;
       }
-    }
-    for (const course of this.data.calendarList) {
-      let merged = false;
-      for (const mergedCourse of this.data.mergedCourses) {
-        if (mergedCourse.timeWeek === course.timeWeek && mergedCourse.kname === course.kname && mergedCourse.skLoc === course.skLoc) {
-          const lastJieciArr = mergedCourse.timeJc.split('-')
-          const lastJieciEnd = lastJieciArr[1]
-          // 如果不存在连续节次
-          if (lastJieciEnd === undefined) {
-            // 判断已有节次是否与连续
-            if (Math.abs(course.timeJc - mergedCourse.timeJc) === 1) {
-              const jieciStart = Math.min(course.timeJc, mergedCourse.timeJc)
-              const jieciEnd = Math.max(course.timeJc, mergedCourse.timeJc)
-              mergedCourse.timeJc = `${jieciStart}-${jieciEnd}`
-            } else {
-              // 不连续则跳过本次循环
-              continue
+      return 0;
+    });
+    // 为每个课程分配颜色
+    const nameSet = new Set(eventArray.map(event => event.kname));
+    const colorDict: { [key: string]: number } = {};
+    let colorIndex = 0;
+    nameSet.forEach(name => {
+      colorDict[name] = colorIndex;
+      colorIndex++;
+    });
+    // 注：kweekStr为逗号分隔字符串，转为列表
+    const standard_timetable: StandardTimetable[] = eventArray.map(event => {
+      return {
+        id: event.course_id,
+        name: event.kname,
+        teacher: event.teacherName,
+        lesson_start: event.start_at,
+        lesson_end: event.start_at + event.count - 1,
+        classroom: event.skLoc,
+        jc: `${event.start_at}-${event.start_at + event.count - 1}`,
+        zc: event.k_week,
+        colorIndex: colorDict[event.kname],
+        color: this.data.colors[colorDict[event.kname]],
+        day_in_week: event.timeWeek,
+        week_array: event.kweekStr.split(',')
+      };
+    });
+    // 遍历每周
+      for (let i = 0; i < this.data.totalWeeks; i++) {
+        // 构造长度为7的array
+          const week = Array.from({ length: 7 }, () => []);
+          // 遍历standard_timetable
+          standard_timetable.forEach(course => {
+            // 如果当前周在event.week_array中
+            if (course.week_array.includes((i + 1).toString())) {
+              // 按照event.day_in_week放入week
+              week[parseInt(course.day_in_week) - 1].push(course);
             }
-          } else {
-            // 如果存在连续节次，且最后的节次与当前节次是连续的
-            if (Math.abs(course.timeJc - lastJieciEnd) === 1) {
-              mergedCourse.timeJc = `${lastJieciArr[0]}-${course.timeJc}`
-            } else {
-              // 不连续则跳过本次循环
-              continue
-            }
-          }
-          merged = true;
-          break;
-        }
+          });
+          // 将week放入courses
+          this.data.courses.push(week);
       }
-      // 如果没有需要合并的则直接插入
-      if (!merged) {
-        this.data.mergedCourses.push(course)
-      }
-    }
-    // 课程归类
-    for (const course of this.data.mergedCourses) {
-      // 根据周数进行遍历
-      for (const week of course.kweekStrList) {
-        // 构建新的数组结构
-        const lesson = course.timeJc.split("-")
-        const _course = {
-          id: course.csId, // 课程ID
-          name: course.kname, // 课程名称
-          teacher: course.teacherName, // 教师
-          lesson_start: lesson[0], // 课程开始节次
-          lesson_end: (lesson.length === 2) ? lesson[1] : lesson[0], // 课程结束节次
-          classroom: course.skLoc, // 上课地点
-          jc: course.timeJc,
-          zc: course.kweek,
-          color: course.color
-        }
-        this.data.courses[parseInt(week) - 1][parseInt(course.timeWeek) - 1].push(_course)
-      }
-    }
-    return this.data.courses
+    return this.data.courses;
   },
 
   // 计算学期周数
@@ -759,60 +737,16 @@ Page({
       icon: "error"
     })
   },
-  
-  goSetting() {
-    wx.navigateTo({
-      url: "../setting/index/index"
-    })
-  },
 
+  // 导出课表
   async exportCalendar () {
-    wx.showLoading({ title: "加载中" })
-    const semester = wx.getStorageSync("calendarTerm")
-    const calendarRes = await apiGetMyCalendar({ xnxq: semester })
-    if (calendarRes.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
-      if (spider.code === 200) {
-        this.exportCalendar()
-        return
-      }
-      wx.clearStorageSync()
-      wx.showToast({
-        title: "登录已过期",
-        icon: "error",
-        duration: 1000
-      })
-      setTimeout(() => {
-        wx.reLaunch({
-          url: "../user/user"
-        })
-      }, 1000);
-      return
-    }
-    let calendarList: any = []
-    if (calendarRes.code === 200) {
-      calendarList = calendarRes.data
-    }
-    const res = await apiExportCalendar({
-      student_id: wx.getStorageSync("studentInfo")["studentNumber"],
-      semester: semester,
-      calendar: JSON.stringify(calendarList)
-    })
-    wx.hideLoading()
-    if (res.code === 200) {
-      wx.setClipboardData({ data: res.data.full_url })
-      wx.showModal({
-        title: "系统提示",
-        content: "导出成功，订阅链接已复制到剪切板"
-      })
-      return
-    }
     wx.showToast({
-      title: "导出失败",
-      icon: "error"
+      title: "该功能升级改造中",
+      icon: "none"
     })
   },
 
+  // 返回本周
   backToWeekNow() {
     this.setData({
       currentWeekList: this.getCurrentWeekAndDate(), // 获取本周的日期列表

@@ -1,10 +1,18 @@
 /* pages/calendar/calendar.wxss */
+.calendar-background {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
 .nav {
-  background-color: var(--td-brand-color);
   color: #fff;
   position: fixed;
   width: 100%;
   z-index: 999;
+  overflow: hidden;
 }
 
 .calendar-nav {
@@ -129,7 +137,7 @@
 
 .flex-item .item.item-course-title {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
   padding-top: 5px;
   text-align: center;
   word-wrap: break-word;
