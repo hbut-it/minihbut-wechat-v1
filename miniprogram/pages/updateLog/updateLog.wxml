@@ -1,0 +1,87 @@
+<!--pages/updateLog/updateLog.wxml-->
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow fixed="{{ false }}" bind:go-back="goBack" />
+<view class="updateLog">
+  <view class="updateLog-title">更新日志</view>
+  <view class="updateLog-tip">写点新东西也不容易，更新迭代较慢请谅解~</view>
+  <view class="updateLog-main">
+    <t-steps layout="vertical" theme="dot" current="{{third}}" bind:change="onThirdChange" readonly>
+      <t-step-item title="1.2.0" content="修复课表页部分课程显示错误" />
+      <t-step-item title="1.1.9" content="修复部分已知问题" />
+      <t-step-item title="1.1.8" content="修复部分已知问题" />
+      <t-step-item title="1.1.7" content="修复空教室查询相关问题" />
+      <t-step-item title="1.1.6">
+        <view slot="content">
+          <view>*小程序备案完成啦*</view>
+          <view>新增每日天气显示</view>
+          <view>新增首页每日课程列表</view>
+          <view>新增独立更新日志页面</view>
+          <view>修复班级课表学期错误问题</view>
+          <view>优化部分页面UI</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.1.5" content="修复隐私政策无法显示" />
+      <t-step-item title="1.1.4" content="修复成绩详情内容错误问题" />
+      <t-step-item title="1.1.3" content="新增平时成绩、期末成绩和成绩占比的显示" />
+      <t-step-item title="1.1.2" content="新增空教室查询默认占位" />
+      <t-step-item title="1.1.1">
+        <view slot="content">
+          <view>新增课表页返回本周</view>
+          <view>新增课表页刷新课表</view>
+          <view>修复空教室节次选择问题</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.1.0">
+        <view slot="content">
+          <view>新增班级课表，可以搜索查看其他班级的课表啦</view>
+          <view>新增给分统计，不多说什么，自己去看看有什么用吧</view>
+          <view>新增便捷进入i湖工小程序</view>
+          <view>修复当周课表显示问题</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.8">
+        <view slot="content">
+          <view>修复2023级同学无法登录问题</view>
+          <view>修复课表周数显示问题</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.7">
+        <view slot="content">
+          <view>新增首页更多功能</view>
+          <view>优化部分UI体验</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.6">
+        <view slot="content">
+          <view>修复添加课程时间无法选取问题</view>
+          <view>修复添加课程周数无法选取问题</view>
+          <view>修复课表部分颜色展示错误问题</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.5">
+        <view slot="content">
+          <view>新增导出课表并获取订阅链接</view>
+          <view>修复考场查询已结束显示错误</view>
+          <view>修复登录状态失效未跳转重新登录</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.4">
+        <view slot="content">
+          <view>新增课表主题（前往课表页面侧栏点击进入主题更换）</view>
+          <view>新增成绩查询、考场查询页面空状态显示</view>
+          <view>新增考场查询页面考试已结束状态显示</view>
+          <view>排名页面错字修正</view>
+          <view>课表页面课程长度缩短</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.3">
+        <view slot="content">
+          <view>新增手动刷新个人信息：为方便有学籍异动的同学进行刷新个人信息中的学院和班级</view>
+          <view>修复成绩查询页面0绩点显示错误</view>
+          <view>修正成绩查询、排名查询页面中的算术平均分错别字</view>
+        </view>
+      </t-step-item>
+      <t-step-item title="1.0.0" content="首个版本发布" />
+    </t-steps>
+  </view>
+</view>
