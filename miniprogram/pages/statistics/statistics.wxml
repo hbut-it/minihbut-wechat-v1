@@ -1,29 +1,39 @@
 <!--pages/statistics/statistics.wxml-->
-<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
-  <view slot="left" class="custom-title">给分统计</view>
-</t-navbar>
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow fixed="{{ false }}" bind:go-back="goBack" />
 <view class="statistics">
-  <t-dropdown-menu>
-    <t-dropdown-item options="{{ dropdownOptions }}" value="{{ dropdownValue }}" bindchange="handleDropdown" />
-  </t-dropdown-menu>
-  <view class="statistics-search">
-    <t-search placeholder="{{ barPlaceholder }}" value="{{ keyword }}" bind:submit="handleSearch" bind:clear="handleSearch"/>
-  </view>
-  <view class="statistics-list" wx:if="{{ !empty }}">
-    <view class="statistics-item" wx:for="{{ list }}" wx:key="i">
-      <view class="item-info">
-        <view class="item-title">{{ item.kcMc }}</view>
-        <view class="item-teacher">{{ item.teacherName }}</view>
-      </view>
-      <view class="item-action">
-        <t-button size="small" theme="primary" bind:tap="handleDetail" data-name="{{ item.kcMc }}" data-teacher="{{ item.teacherName }}">查看详情</t-button>
+  <view class="statistics-top">
+    <view class="statistics-title">
+      <text>给分统计</text>
+      <t-icon name="info-circle" bind:tap="showInfoDialog" class="statistics-title-info" />
+    </view>
+    <view class="statistics-form">
+      <picker value="{{ typeValue }}" range="{{ typeList }}" bindchange="handleTypeChange" header-text="搜索类型">
+        <view class="statistics-form-picker">
+          <text style="font-size: 28rpx; margin-right: 5rpx;">{{ typeList[typeValue] }}</text>
+          <t-icon name="chevron-down"></t-icon>
+        </view>
+      </picker>
+      <view>
+        <input class="statistics-form-input" placeholder="输入后回车搜索" bindinput="handleInput" bindconfirm="handleConfirm" />
       </view>
     </view>
   </view>
-  <view class="statistics-empty" wx:else>
-    <image class="empty-image" src="../../assets/img/status/empty.png" />
-    <view class="empty-sub">未查到相关课程</view>
-    <view class="empty-tip">请更换搜索内容重新查询</view>
+  <view class="statistics-list" wx:if="{{ !empty }}">
+    <view class="statistics-item" style="padding: 0; overflow: hidden;">
+      <ad unit-id="adunit-f9f29c5e515be0c5" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
+    </view>
+    <view class="statistics-item" wx:for="{{ list }}" wx:key="i" bind:tap="handleDetail" data-name="{{ item.kcMc }}" data-teacher="{{ item.teacherName }}">
+      <view class="item-info">
+        <view class="item-title">{{ item.kcMc }}</view>
+        <view class="item-teacher">授课老师：{{ item.teacherName }}</view>
+      </view>
+    </view>
+  </view>
+  <view class="internal-empty" style="flex: 1; justify-content: center;" wx:else>
+    <image src="https://static.hbut.life/img/status/no-search.svg" />
+    <view class="internal-empty-title">未查到相关课程</view>
+    <view class="internal-empty-tip">请更换搜索内容重新查询</view>
   </view>
 </view>
 <t-popup visible="{{ popupVisible }}" bind:visible-change="onVisibleChange" placement="center">

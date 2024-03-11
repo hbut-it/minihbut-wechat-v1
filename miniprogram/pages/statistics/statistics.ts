@@ -5,22 +5,21 @@ import { apiGetStatisticsDetail, apiGetStatisticsList } from "../../api/main"
 Page({
   data: {
     empty: true,
+    type: "1",
+    typeValue: 0,
+    typeList: ["课程", "教师"],
     keyword: "",
     list: [],
-    dropdownOptions: [
-      { label: "按课程名称搜索", value: "1" },
-      { label: "按教师姓名搜索", value: "2" }
-    ],
-    dropdownValue: "1",
-    barPlaceholder: "请输入课程名称（回车搜索）",
     popupVisible: false,
     popupValue: {}
   },
 
+  // 返回上一页
   goBack() {
     wx.navigateBack()
   },
 
+  // 获取课程
   async getLessons(type: string, keyword: string) {
     const res = await apiGetStatisticsList({
       type: type,
@@ -39,6 +38,7 @@ Page({
     }
   },
 
+  // 获取课程详情
   async getDetail(name: string, teacher: string) {
     wx.showLoading({ title: "加载中" })
     const res = await apiGetStatisticsDetail({
@@ -77,6 +77,7 @@ Page({
     }
   },
 
+  // 执行搜索
   handleSearch(e: any) {
     if(e.detail.value) {
       this.getLessons(this.data.dropdownValue, e.detail.value)
@@ -88,17 +89,14 @@ Page({
     }
   },
 
-  handleDropdown(e: any) {
-    this.setData({ dropdownValue: e.detail.value })
-    if(e.detail.value === "1") {
-      this.setData({ barPlaceholder: "请输入课程名称（回车搜索）" })
-    } else {
-      this.setData({ barPlaceholder: "请输入教师姓名（回车搜索）" })
-    }
+  // 搜索框输入
+  handleInput(e: any) {
+    this.setData({ keyword: e.detail.value })
   },
 
-  onVisibleChange(e: any) {
-    this.setData({ popupVisible: e.detail.visible })
+  // 搜索执行
+  handleConfirm() {
+    this.getLessons(this.data.type, this.data.keyword)
   },
 
   parsePercentage(min: number | string, total: number | string) {
@@ -107,5 +105,23 @@ Page({
 
   async handleDetail(e: any) {
     this.getDetail(e.currentTarget.dataset.name, e.currentTarget.dataset.teacher)
+  },
+
+  handleTypeChange(e: any) {
+    this.setData({
+      type: (parseInt(e.detail.value) + 1).toString(),
+      typeValue: e.detail.value
+    })
+  },
+
+  onVisibleChange(e: any) {
+    this.setData({ popupVisible: e.detail.visible })
+  },
+
+  showInfoDialog() {
+    wx.showModal({
+      title: "提示",
+      content: "统计数据为“最终成绩”，且数据均来源于Mini湖工用户，与实际情况可能存在较大误差，仅供参考！"
+    })
   }
 })
