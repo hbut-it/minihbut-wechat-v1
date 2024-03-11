@@ -5,15 +5,14 @@ import { apiGetExam, apiRefreshExam } from "../../api/main"
 import { apiRenewAuth } from "../../api/user"
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
+    termList: {},
     termSelected: "",
+    termValue: 0,
     isEmpty: false
   },
 
+  // 初始化
   async onShow() {
     await this.getTerm()
   },
@@ -23,32 +22,26 @@ Page({
     wx.navigateBack()
   },
 
-  /**
-   * 学期选择方法
-   * @param e
-   */
-  async handleDropdown (e: any) {
-    this.setData({ termSelected: e.detail.value })
-    await this.getExam(e.detail.value)
-  },
-
-  /**
-   * 学期获取方法
-   */
+  // 获取学期列表
   async getTerm () {
     const res = await apiGetTermsAll()
-    const optionXnxq = []
-    for (const item of res.data) {
-      optionXnxq.push({ label: item, value: item })
-    }
-    this.setData({ termOptions: optionXnxq })
-    this.setData({ termSelected: optionXnxq[0].value })
-    this.getExam(optionXnxq[0].value)
+    this.setData({
+      termList: res.data,
+      termSelected: res.data[0]
+    })
+    this.getExam(res.data[0])
   },
 
-  /**
-   * 考场获取方法
-   */
+  // 选择学期
+  async handleTermChange(e: any) {
+    this.setData({
+      termSelected: this.data.termList[e.detail.value],
+      termValue: e.detail.value
+    })
+    this.getExam(this.data.termList[e.detail.value])
+  },
+
+  // 获取考场信息
   async getExam (term: string) {
     this.setData({
       examList: [],
@@ -95,6 +88,7 @@ Page({
     })
   },
 
+  // 刷新考场信息
   async doRefreshExam () {
     wx.showLoading({ title: "刷新中" })
     const res = await apiRefreshExam({ xnxq: this.data.termSelected })
@@ -135,6 +129,7 @@ Page({
     })
   },
 
+  // 格式化考场信息
   praseExam (data: API.ExamResult) {
     const arr = []
     for(const item of data) {

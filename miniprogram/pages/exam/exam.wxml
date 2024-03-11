@@ -1,28 +1,21 @@
 <!--pages/exam/exam.wxml-->
-<t-navbar class="custom-navbar" title="我的考场">
-  <view slot="capsule" class="custom-capsule">
-    <t-icon
-      size="24"
-      bind:tap="goBack"
-      aria-role="button"
-      aria-label="返回"
-      name="chevron-left"
-      class="custom-capsule__icon"
-    />
-    <t-icon
-      size="20"
-      bind:tap="doRefreshExam"
-      aria-role="button"
-      aria-label="刷新考场"
-      name="refresh"
-      class="custom-capsule__icon"
-    />
-  </view>
-</t-navbar>
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow bind:go-back="goBack" fixed="{{ false }}" />
 <view class="exam">
-  <t-dropdown-menu>
-    <t-dropdown-item options="{{ termOptions }}" value="{{ termSelected }}" bind:change="handleDropdown" />
-  </t-dropdown-menu>
+  <view class="exam-top">
+    <view class="exam-title">我的考场</view>
+    <view class="exam-term">
+      <view class="exam-term-card" style="margin-right: 20rpx;" bind:tap="doRefreshExam">
+        <t-icon name="refresh"></t-icon>
+      </view>
+      <picker header-text="学期选择" value="{{ termValue }}" range="{{ termList }}" bindchange="handleTermChange">
+        <view class="exam-term-card">
+          <text style="font-size: 26rpx; margin-right: 8rpx;">{{ termSelected }}</text>
+          <t-icon name="chevron-down"></t-icon>
+        </view>
+      </picker>
+    </view>
+  </view>
   <view class="exam-list">
     <view class="exam-card" style="{{ item.isEnded ? 'filter: grayscale(100%);' : '' }}" wx:for="{{ examList }}" wx:key="i">
       <view class="title">{{ item.ksName }}</view>
@@ -48,16 +41,12 @@
           <view class="info-item-content" style="color: var(--td-brand-color); font-weight: bold;">{{ item.ksZwh }}</view>
         </view>
       </view>
-      <view class="exam-print" wx:if="{{ item.isEnded }}">
-        <view class="exam-print-2">
-          <text>已结束</text>
-        </view>
-      </view>
+      <view class="exam-print" wx:if="{{ item.isEnded }}">已结束</view>
     </view>
-    <view class="exam-empty" wx:if="{{ isEmpty }}">
-      <image class="exam-empty-image" src="../../assets/img/status/empty.png" />
-      <view class="exam-empty-sub">该学期暂无考试安排</view>
-      <view class="exam-empty-tip">若教务系统已安排考试请尝试刷新</view>
-    </view>
+  </view>
+  <view class="internal-empty" wx:if="{{ isEmpty }}" style="flex: 1; justify-content: center;">
+    <image src="https://static.hbut.life/img/status/no-data.svg" />
+    <view class="internal-empty-title">该学期暂无考试安排</view>
+    <view class="internal-empty-tip">若教务系统已安排考试请尝试刷新</view>
   </view>
 </view>
