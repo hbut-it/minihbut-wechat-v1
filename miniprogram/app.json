@@ -1,60 +1,57 @@
 {
-	"pages": [
-		"pages/index/index",
-		"pages/calendar/calendar",
-		"pages/user/user",
-		"pages/login/login",
-		"pages/about/about",
-		"pages/extra/extra",
-		"pages/report/report",
-		"pages/rank/rank",
-		"pages/exam/exam",
-		"pages/classroom/classroom",
-		"pages/setting/theme/theme",
-		"pages/event/event",
-		"pages/timetable/search/search",
-		"pages/timetable/calendar/calendar",
-		"pages/setting/index/index",
-		"pages/setting/background/background",
-		"pages/statistics/statistics"
-	],
-	"window": {
-		"backgroundTextStyle": "light",
-		"navigationBarBackgroundColor": "#3B95F5",
-		"navigationBarTitleText": "Mini湖工",
-		"navigationBarTextStyle": "white"
-	},
-	"sitemapLocation": "sitemap.json",
-	"tabBar": {
-		"custom": true,
-		"list": [
-			{
-				"pagePath": "pages/index/index",
-				"text": "主页",
-				"iconPath": "assets/img/icon/tab-index.png",
-				"selectedIconPath": "assets/img/icon/tab-index-selected.png"
-			},
-			{
-				"pagePath": "pages/calendar/calendar",
-				"text": "课表",
-				"iconPath": "assets/img/icon/tab-calendar.png",
-				"selectedIconPath": "assets/img/icon/tab-calendar-selected.png"
-			},
-			{
-				"pagePath": "pages/user/user",
-				"text": "我的",
-				"iconPath": "assets/img/icon/tab-user.png",
-				"selectedIconPath": "assets/img/icon/tab-user-selected.png"
-			}
-		],
-		"selectedColor": "#3B95F5"
-	},
-	"usingComponents": {
-		"t-tab-bar": "tdesign-miniprogram/tab-bar/tab-bar",
-		"t-tab-bar-item": "tdesign-miniprogram/tab-bar-item/tab-bar-item",
-		"t-navbar": "tdesign-miniprogram/navbar/navbar"
-	},
-	"miniApp": {
-		"useAuthorizePage": true
-	}
+  "pages": [
+    "pages/index/index",
+    "pages/calendar/calendar",
+    "pages/user/user",
+    "pages/login/login",
+    "pages/about/about",
+    "pages/report/report",
+    "pages/rank/rank",
+    "pages/exam/exam",
+    "pages/classroom/classroom",
+    "pages/timetable/search/search",
+    "pages/timetable/calendar/calendar",
+    "pages/statistics/statistics",
+    "pages/privacy/privacy",
+    "pages/updateLog/updateLog"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3B95F5",
+    "navigationBarTitleText": "Mini湖工",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "assets/img/icon/tab-index.png",
+        "selectedIconPath": "assets/img/icon/tab-index-selected.png"
+      },
+      {
+        "pagePath": "pages/calendar/calendar",
+        "text": "课表",
+        "iconPath": "assets/img/icon/tab-calendar.png",
+        "selectedIconPath": "assets/img/icon/tab-calendar-selected.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "assets/img/icon/tab-user.png",
+        "selectedIconPath": "assets/img/icon/tab-user-selected.png"
+      }
+    ],
+    "selectedColor": "#3B95F5"
+  },
+  "usingComponents": {
+    "t-tab-bar": "tdesign-miniprogram/tab-bar/tab-bar",
+    "t-tab-bar-item": "tdesign-miniprogram/tab-bar-item/tab-bar-item",
+    "t-navbar": "tdesign-miniprogram/navbar/navbar"
+  },
+  "miniApp": {
+    "useAuthorizePage": true
+  }
 }
