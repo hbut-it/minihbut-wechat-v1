@@ -93,11 +93,11 @@
         </view>
         <view class="report-detail-item" wx:if="{{ dialogShow.commonGradePercent != '0%' }}">
           <text class="title">平时成绩</text>
-          <text class="content">{{ dialogShow.gradePoints }}（{{ dialogShow.commonGradePercent }}）</text>
+          <text class="content">{{ dialogShow.commonGrade }}（{{ dialogShow.commonGradePercent }}）</text>
         </view>
         <view class="report-detail-item">
           <text class="title">期末成绩</text>
-          <text class="content">{{ dialogShow.gradePoints }}（{{ dialogShow.examGradePercent != '0%' ? dialogShow.examGradePercent : '100%' }}）</text>
+          <text class="content">{{ dialogShow.examGrade }}（{{ dialogShow.examGradePercent != '0%' ? dialogShow.examGradePercent : '100%' }}）</text>
         </view>
         <view class="report-detail-item">
           <text class="title">综合成绩</text>
