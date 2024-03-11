@@ -1,78 +1,61 @@
 <!--pages/classroom/classroom.wxml-->
-<t-navbar class="custom-navbar" left-arrow bind:go-back="goBack">
-  <view slot="left" class="custom-title">空教室查询</view>
-</t-navbar>
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans" left-arrow fixed="{{ false }}" bind:go-back="goBack" />
 <view class="classroom">
-  <view class="classroom-form">
-    <t-cell-group theme="card" class="user-cell-group">
-      <t-cell title="教学楼" note="{{ buildingNote }}" hover arrow bind:tap="showBuildingPicker" />
-      <t-cell title="周次" note="{{ weekNote }}" hover arrow bind:tap="showWeekPicker" />
-      <t-cell title="星期" note="{{ dayNote }}" hover arrow bind:tap="showDayPicker" />
-      <t-cell title="节次" note="{{ jcNote }}" hover arrow bind:tap="showJcPicker" />
-    </t-cell-group>
-    <view style="margin: 0 32rpx; padding-top: 15px;">
-      <t-button theme="primary" icon="search" block bind:tap="doResearch">查询</t-button>
-    </view>
-  </view>
-  <view class="classroom-divider">
-    <view style="height: 0.5px; background-color: #bbb; flex: 1;"></view>
-    <view style="color: #bbb; padding: 0 15px;">查询结果</view>
-    <view style="height: 0.5px; background-color: #bbb; flex: 1;"></view>
-  </view>
-  <view class="classroom-list" wx:if="{{ loaded }}">
-    <view class="classroom-card" wx:for="{{ classroomList }}" wx:key="i">
-      <view class="classroom-title">{{ item.classroomName }}</view>
-      <view class="classroom-info">
-        <view>教室类型：{{ item.ribbon }}</view>
-        <view>座位数：{{ item.seats }}</view>
+  <view class="classroom-top">
+    <view class="classroom-title">空教室查询</view>
+    <view class="classroom-tip">数据来源于教务系统，仅供参考！</view>
+    <view class="classroom-form">
+      <view class="classroom-form-item">
+        <view class="classroom-form-item-title">教学楼栋</view>
+        <picker style="flex: 1;" value="{{ buildingValue }}" range="{{ buildingList }}" bindchange="handleBuildingChange">
+          <view class="classroom-form-item-picker">
+            <text style="font-size: 30rpx;">{{ buildingList[buildingValue] }}</text>
+            <t-icon name="chevron-down"></t-icon>
+          </view>
+        </picker>
       </view>
+      <view class="classroom-form-item">
+        <view class="classroom-form-item-title">课程周次</view>
+        <picker style="flex: 1;" value="{{ weekValue }}" range="{{ weekList }}" bindchange="handleWeekChange">
+          <view class="classroom-form-item-picker">
+            <text style="font-size: 30rpx;">{{ weekList[weekValue] }}</text>
+            <t-icon name="chevron-down"></t-icon>
+          </view>
+        </picker>
+      </view>
+      <view class="classroom-form-item">
+        <view class="classroom-form-item-title">时间日期</view>
+        <picker style="flex: 1;" value="{{ dayValue }}" range="{{ dayList }}" bindchange="handleDayChange">
+          <view class="classroom-form-item-picker">
+            <text style="font-size: 30rpx;">{{ dayList[dayValue] }}</text>
+            <t-icon name="chevron-down"></t-icon>
+          </view>
+        </picker>
+      </view>
+      <view class="classroom-form-item" style="border: none;">
+        <view class="classroom-form-item-title">课程节次</view>
+        <picker style="flex: 1;" mode="multiSelector" value="{{ sectionValue }}" range="{{ sectionList }}" bindcolumnchange="handleSectionColumnChange">
+          <view class="classroom-form-item-picker">
+            <text style="font-size: 30rpx;">第{{ sectionValue[0] + 1 }}-{{ sectionValue[1] + 1 }}节</text>
+            <t-icon name="chevron-down"></t-icon>
+          </view>
+        </picker>
+      </view>
+      <t-button theme="primary" block size="small" icon="search" bind:tap="handleSearch">查询</t-button>
     </view>
   </view>
-  <!-- 教学楼Picker -->
-  <t-picker
-    visible="{{ buildingPickerVisible }}"
-    value="{{ buildingPickerValue }}"
-    title="选择教学楼"
-    cancelBtn="取消"
-    confirmBtn="确认"
-    bindchange="onBuildingPickerChange"
-  >
-    <t-picker-item options="{{ buildings }}" />
-  </t-picker>
-  <!-- 周次Picker -->
-  <t-picker
-    visible="{{ weekPickerVisible }}"
-    value="{{ weekPickerValue }}"
-    title="选择周次"
-    cancelBtn="取消"
-    confirmBtn="确认"
-    bindchange="onWeekPickerChange"
-  >
-    <t-picker-item options="{{ weeks }}" />
-  </t-picker>
-  <!-- 星期Picker -->
-  <t-picker
-    visible="{{ dayPickerVisible }}"
-    value="{{ dayPickerValue }}"
-    title="选择星期"
-    cancelBtn="取消"
-    confirmBtn="确认"
-    bindchange="onDayPickerChange"
-  >
-    <t-picker-item options="{{ days }}" />
-  </t-picker>
-  <!-- 节次Picker -->
-  <t-picker
-    visible="{{ jcPickerVisible }}"
-    value="{{ jcPickerValue }}"
-    title="选择节次"
-    cancelBtn="取消"
-    confirmBtn="确认"
-    bindchange="onJcPickerChange"
-    bindpick="onJcPickerPick"
-  >
-    <t-picker-item options="{{ jcs }}" />
-    <t-picker-item options="{{ _jcs }}" />
-  </t-picker>
+  <view class="classroom-list" wx:if="{{ !isClassEmpty }}">
+    <view class="classroom-list-item" wx:for="{{ classList }}" wx:key="crId">
+      <view class="classroom-list-title">{{ item.classroomName }}</view>
+      <view class="classroom-list-num">座位数：{{ item.seats }}</view>
+      <view class="classroom-list-type">{{ item.ribbon }}</view>
+    </view>
+  </view>
+  <view class="internal-empty" wx:else>
+      <image src="https://static.hbut.life/img/status/no-search.svg" />
+      <view class="internal-empty-title">未找到相关结果</view>
+      <view class="internal-empty-tip">请更换搜索内容重新查询</view>
+    </view>
 </view>
 <t-back-top theme="round" bind:to-top="onToTop"></t-back-top>

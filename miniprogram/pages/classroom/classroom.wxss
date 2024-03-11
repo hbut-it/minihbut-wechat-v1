@@ -1,45 +1,91 @@
 /* pages/classroom/classroom.wxss */
 .classroom {
-  padding-bottom: 10rpx;
+  padding: 0 32rpx;
 }
 
-.classroom-form {
-  margin-top: 15px;
-}
-
-.classroom-divider {
-  margin: 20px 32rpx;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
-.classroom-list {
-  margin: 0 32rpx;
-}
-
-.classroom-card {
-  background-color: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  border-left: 5px solid var(--td-brand-color);
-  margin-bottom: 20px;
+.classroom-top {
+  margin-bottom: 40rpx;
 }
 
 .classroom-title {
+  font-size: 48rpx;
+  color: #fff;
   font-weight: bold;
-  font-size: 24px;
+  margin-top: 15rpx;
+  margin-bottom: 10rpx;
+}
+
+.classroom-tip {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 25rpx;
+}
+
+.classroom-form {
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  background-color: #fff;
+  padding: 30rpx;
+  border-radius: 16rpx;
+}
+
+.classroom-form-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1px solid #eee;
+}
+
+.classroom-form-item-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  padding-right: 30rpx;
+}
+
+.classroom-form-item-picker {
+  background-color: #eee;
+  border-radius: 16rpx;
+  padding: 15rpx 25rpx;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 34rpx;
+}
+
+.classroom-list {
+  padding-bottom: 20rpx;
+}
+
+.classroom-list-item {
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 40rpx;
+}
+
+.classroom-list-title {
+  font-size: 52rpx;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
-.classroom-info {
-  display: flex;
-  font-size: 14px;
-  color: #999;
-  justify-content: space-between;
+.classroom-list-num {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.classroom-list-type {
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  font-size: 88rpx;
+  color: var(--td-brand-color);
+  font-style: italic;
+  font-weight: bold;
+  opacity: 0.7;
 }

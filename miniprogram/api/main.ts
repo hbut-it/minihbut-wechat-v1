@@ -99,21 +99,13 @@ export const apiAddCalendar = (data: any) => {
 
 // 查询空教室
 export const apiGetClassroom = (data: any) => {
-  return request<API.BaseResponse<API.ClassroomResult>>("/empty/classroomBySection", {
-    method: HttpMethod.GET,
-    data
-  })
-}
-
-// 导出课表
-export const apiExportCalendar = (data: any) => {
-  return request<API.BaseResponse<any>>("https://api.stslb.cn/hbut/ics", {
+  return request<API.BaseResponse<API.ClassroomResult>>("/empty/classroomBySectionPost", {
     method: HttpMethod.POST,
     data,
     header: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/json'
     }
-  }, true)
+  })
 }
 
 // 获取所有学院
