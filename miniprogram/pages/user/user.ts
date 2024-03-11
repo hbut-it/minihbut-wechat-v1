@@ -90,12 +90,10 @@ Page({
     }
   },
 
-  openFeedbackPage () {
-    wx.openEmbeddedMiniProgram({
-      appId: "wx8abaf00ee8c3202e",
-      extraData :{
-        id : "598009"
-      }
+  openThemePage() {
+    wx.showToast({
+      title: "该功能升级改造中",
+      icon: "none"
     })
   },
 
@@ -115,11 +113,6 @@ Page({
         icon: "error",
         duration: 1000
       })
-      setTimeout(() => {
-        wx.reLaunch({
-          url: "../user/user"
-        })
-      }, 1000)
       return
     }
     if (res.code === 200) {
@@ -130,17 +123,16 @@ Page({
         icon: "success",
         duration: 1000
       })
+      setTimeout(() => {
+        wx.switchTab({
+          url: "../../user/user"
+        })
+      }, 1000);
       return
     }
     wx.showToast({
       title: "刷新失败",
       icon: "error"
-    })
-  },
-
-  openSettingPage() {
-    wx.navigateTo({
-      url: "../setting/index/index"
     })
   }
 })

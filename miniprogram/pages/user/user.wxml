@@ -1,45 +1,48 @@
 <!--pages/user/user.wxml-->
-<t-navbar class="custom-navbar">
+<image src="../../assets/img/background/gradient.jpg" class="internal-background" />
+<t-navbar class="custom-navbar-trans">
   <view slot="left" class="user-title">我的</view>
 </t-navbar>
 <view class="user">
-  <view class="user-bluebox"></view>
   <view class="user-container">
     <view class="user-main">
       <!-- 头像姓名学号展示 -->
       <view class="user-card">
-        <t-avatar size="large" icon="user"></t-avatar>
+        <t-avatar size="large" image="https://static.hbut.life/img/default-avatar.svg"></t-avatar>
         <view class="user-info" wx:if="{{ loaded }}">
-          <view style="font-size: 28px;" wx:if="{{ !studentInfo.username }}">未登录</view>
-          <view style="font-size: 24px; font-weight: bold;" wx:else>{{ studentInfo.username }}</view>
-          <view style="color: #999; font-size: 14px;">{{ studentInfo.studentNumber ? studentInfo.studentNumber : "" }}</view>
-        </view>
-        <view wx:if="{{ !studentInfo.username }}">
-          <t-button size="small" theme="primary" bind:tap="openLoginPage">点击登录</t-button>
+          <view style="font-size: 28px; font-weight: 600;" wx:if="{{ !studentInfo.username }}">未登录</view>
+          <view style="font-size: 24px; font-weight: 600;" wx:else>{{ studentInfo.username }}</view>
+          <view style="color: #999; font-size: 14px;">{{ studentInfo.studentNumber ? "学号：" + studentInfo.studentNumber : "" }}</view>
+          <view style="margin-top: 3px;" wx:if="{{ studentInfo.username }}">
+            <t-tag variant="light-outline" theme="danger" size="small" style="margin-right: 5px;">{{ studentInfo.departmentName }}</t-tag>
+            <t-tag variant="light-outline" theme="primary" size="small">{{ studentInfo.className }}</t-tag>
+          </view>
         </view>
       </view>
 
-      <!-- 学院班级信息展示 -->
-      <t-cell-group theme="card" class="user-cell-group" wx:if="{{ isLogin && loaded }}">
-        <t-cell title="学院" note="{{ studentInfo.departmentName }}" />
-        <t-cell title="班级" note="{{ studentInfo.className }}" />
-        <t-cell title="刷新个人信息" left-icon="refresh" arrow hover bind:tap="renewUserInfo" />
-      </t-cell-group>
+      <!-- 广告 -->
+      <!-- <view class="internal-ad-banner" style="margin: 40rpx 32rpx;">
+        <ad unit-id="adunit-5379e68fcd980144" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
+      </view> -->
 
       <!-- 基础操作 -->
       <t-cell-group theme="card" class="user-cell-group">
-        <t-cell title="设置" left-icon="setting" hover arrow bind:tap="openSettingPage" wx:if="{{ isLogin }}" />
-        <t-cell title="反馈" left-icon="chat" hover arrow bind:tap="openFeedbackPage" />
-        <t-cell title="关于" left-icon="info-circle" hover arrow bind:tap="openAboutPage" />
-        <t-cell title="登录" left-icon="login" note="通过教务系统登录" hover arrow bind:tap="openLoginPage" wx:if="{{ !isLogin }}" />
-        <t-cell title="退出登录" left-icon="logout" hover arrow bind:tap="doLogout" wx:else />
+        <t-cell title="刷新信息" left-icon="refresh" hover arrow wx:if="{{ isLogin }}" bind:tap="renewUserInfo" />
+        <t-cell title="课表配色" left-icon="star" hover arrow wx:if="{{ isLogin }}" bind:tap="openThemePage" />
+        <t-cell left-icon="service" hover arrow style="overflow: hidden; position: relative;">
+          <view slot="title">
+            <button open-type="contact" style="position: absolute; width: 100%; left: 0; top: 0; height: 100%; opacity: 0;">问题反馈</button>
+            <text>问题反馈</text>
+          </view>
+        </t-cell>
+        <t-cell title="关于我们" left-icon="info-circle" hover arrow bind:tap="openAboutPage" />
       </t-cell-group>
-    </view>
-
-    <!-- 版权信息 -->
-    <view class="user-copyright">
-      <text style="margin-bottom: 5px;">若有任何使用问题可以点击问题反馈，或添加反馈QQ群：810893675</text>
-      <text style="font-size: 12px;">Copyright © 2023 Mini湖工团队</text>
+      
+      <!-- 登录/登出 -->
+      <view class="user-action">
+        <t-button size="large" theme="primary" icon="login" style="width: 100%;" bind:tap="openLoginPage" wx:if="{{ !isLogin }}">登录</t-button>
+        <t-button size="large" theme="danger" icon="logout" style="width: 100%;" bind:tap="openLoginPage" bind:tap="doLogout" wx:else>退出登录</t-button>
+      </view>
     </view>
   </view>
 </view>
