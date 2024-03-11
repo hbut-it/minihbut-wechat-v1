@@ -1,4 +1,0 @@
-/* pages/extra/extra.wxss */
-page {
-  background-color: #fff !important;
-}
