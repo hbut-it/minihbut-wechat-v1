@@ -23,7 +23,7 @@
       <view class="about-main-section-content">
         <view class="about-main-section-item">
           <view class="about-main-section-item-title">小程序版本</view>
-          <view class="about-main-section-item-note">1.2.1</view>
+          <view class="about-main-section-item-note">1.2.2</view>
         </view>
         <view class="about-main-section-item">
           <view class="about-main-section-item-title">API版本</view>

@@ -25,8 +25,10 @@ Page({
     })
   },
 
-  doLogout() {
-    wx.clearStorageSync()
+  async doLogout() {
+    const jwxtLoginInfo = await wx.getStorageSync("jwxtLoginInfo")
+    wx.clearStorageSync() // 清空本地储存
+    wx.setStorageSync("jwxtLoginInfo", jwxtLoginInfo)
     wx.showToast({
       title: "退出成功",
       icon: "success",
@@ -36,7 +38,7 @@ Page({
       wx.reLaunch({
         url: "../user/user"
       })
-    }, 1000);
+    }, 1000)
   },
 
   async checkToken() {
@@ -48,7 +50,9 @@ Page({
     const res = await apiCheckToken()
     // token已过期
     if (res.code != 200) {
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",
@@ -102,12 +106,14 @@ Page({
     const res = await apiRenewUserInfo()
     wx.hideLoading()
     if (res.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+      const spider = await apiRenewAuth(JSON.parse(decode(loginInfo)))
       if (spider.code === 200) {
         this.renewUserInfo()
         return
       }
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",

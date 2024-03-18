@@ -354,12 +354,14 @@ Page({
 
     // uid和route过期自动刷新
     if (res.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+      const spider = await apiRenewAuth(JSON.parse(decode(loginInfo)))
       if (spider.code === 200) {
         this.getCalendarWithoutTerm()
         return
       }
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",
@@ -402,12 +404,14 @@ Page({
 
     // uid和route过期自动刷新
     if (res.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+      const spider = await apiRenewAuth(JSON.parse(decode(loginInfo)))
       if (spider.code === 200) {
         this.getCalendar(term)
         return
       }
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",
@@ -577,12 +581,14 @@ Page({
     const res = await apiRefreshCalendar({ xnxq: wx.getStorageSync("calendarTerm") })
     wx.hideLoading()
     if (res.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+      const spider = await apiRenewAuth(JSON.parse(decode(loginInfo)))
       if (spider.code === 200) {
         this.refreshCalendar()
         return
       }
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",

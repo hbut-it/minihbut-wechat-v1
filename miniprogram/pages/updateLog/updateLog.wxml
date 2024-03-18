@@ -6,6 +6,7 @@
   <view class="updateLog-tip">写点新东西也不容易，更新迭代较慢请谅解~</view>
   <view class="updateLog-main">
     <t-steps layout="vertical" theme="dot" current="{{third}}" bind:change="onThirdChange" readonly>
+      <t-step-item title="1.2.2" content="新增登录后记住密码功能" />
       <t-step-item title="1.2.1" content="修复班级课表空白问题" />
       <t-step-item title="1.2.0" content="修复课表页部分课程显示错误" />
       <t-step-item title="1.1.9" content="修复部分已知问题" />

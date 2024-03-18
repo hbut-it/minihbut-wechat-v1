@@ -142,7 +142,9 @@ Page({
     const res = await apiCheckToken()
     // token已过期
     if (res.code != 200) {
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",

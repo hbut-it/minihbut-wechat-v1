@@ -5,8 +5,8 @@
   <view class="login-title">登录</view>
   <view class="login-tip">湖北工业大学教务系统登录</view>
   <view class="login-form">
-    <t-input label="学号" placeholder="请输入学号" value="{{ form.username }}" bind:change="bindUsernameInput" />
-    <t-input label="密码" placeholder="请输入密码" value="{{ form.password }}" bind:change="bindPasswordInput" type="password" />
+    <t-input label="学号" placeholder="请输入学号" value="{{ username }}" bind:change="bindUsernameInput" />
+    <t-input label="密码" placeholder="请输入密码" value="{{ password }}" bind:change="bindPasswordInput" type="password" />
   </view>
   <t-button theme="primary" block bind:tap="doLogin" class="login-btn">登录</t-button>
   <view class="login-license">

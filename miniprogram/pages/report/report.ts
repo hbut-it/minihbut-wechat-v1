@@ -81,12 +81,14 @@ Page({
     const res = await apiGetReport({ xnxq: term })
     wx.hideLoading()
     if (res.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+      const spider = await apiRenewAuth(JSON.parse(decode(loginInfo)))
       if (spider.code === 200) {
         this.getReport(term)
         return
       }
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",
@@ -168,12 +170,14 @@ Page({
       return
     }
     if (res.code === 400) {
-      const spider = await apiRenewAuth(JSON.parse(decode(wx.getStorageSync("jwxtLoginInfo"))))
+      const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+      const spider = await apiRenewAuth(JSON.parse(decode(loginInfo)))
       if (spider.code === 200) {
         this.doRefreshReport()
         return
       }
       wx.clearStorageSync()
+      wx.setStorageSync("jwxtLoginInfo", loginInfo)
       wx.showToast({
         title: "登录已过期",
         icon: "error",

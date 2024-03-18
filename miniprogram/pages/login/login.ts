@@ -1,5 +1,5 @@
 // pages/login/login.ts
-import { encode } from "js-base64"
+import { encode, decode } from "js-base64"
 import { apiLogin } from "../../api/user"
 
 Page({
@@ -10,6 +10,17 @@ Page({
     checked: false,
     checkboxClass: "login-checkbox",
     tipNote: false
+  },
+
+  onShow() {
+    const loginInfo = wx.getStorageSync("jwxtLoginInfo")
+    if(loginInfo) {
+      const info = JSON.parse(decode(loginInfo))
+      this.setData({
+        username: info.username,
+        password: info.password
+      })
+    }
   },
 
   /**
