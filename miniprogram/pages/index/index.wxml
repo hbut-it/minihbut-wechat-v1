@@ -48,8 +48,5 @@
         </view>
       </view>
     </view>
-    <!-- <view class="internal-ad-banner">
-      <ad unit-id="adunit-6e41f59e717b9c2d" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
-    </view> -->
   </view>
 </view>

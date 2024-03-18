@@ -14,12 +14,6 @@ page {
   z-index: -1;
 }
 
-.internal-ad-banner {
-  border-radius: 16rpx;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,.08);
-}
-
 .custom-navbar {
   --td-navbar-color: #fff;
   --td-navbar-bg-color: var(--td-brand-color);

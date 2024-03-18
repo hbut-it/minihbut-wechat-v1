@@ -20,11 +20,6 @@
         </view>
       </view>
 
-      <!-- 广告 -->
-      <!-- <view class="internal-ad-banner" style="margin: 40rpx 32rpx;">
-        <ad unit-id="adunit-5379e68fcd980144" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
-      </view> -->
-
       <!-- 基础操作 -->
       <t-cell-group theme="card" class="user-cell-group">
         <t-cell title="刷新信息" left-icon="refresh" hover arrow wx:if="{{ isLogin }}" bind:tap="renewUserInfo" />

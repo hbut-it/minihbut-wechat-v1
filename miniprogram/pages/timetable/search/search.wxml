@@ -11,9 +11,6 @@
   <view class="timetable-btn">
     <t-button icon="search" theme="primary" block bind:tap="handleSearch">查询</t-button>
   </view>
-  <view class="internal-ad-banner" style="margin: 40rpx 32rpx;">
-    <ad unit-id="adunit-d39865d6e4c75cbf" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
-  </view>
 </view>
 
 <!-- 选择学院 -->

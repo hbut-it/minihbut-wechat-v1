@@ -11,11 +11,6 @@
     <text style="font-size: 12px; font-weight: normal; color: #999; margin-bottom: 20rpx;">该小程序为学生开发，非学校官方应用</text>
   </view>
 
-  <!-- 广告 -->
-  <view class="internal-ad-banner" style="margin-bottom: 40rpx;">
-    <ad unit-id="adunit-bbd566a62200bc62" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
-  </view>
-
   <!-- 版本信息 -->
   <view class="about-main">
     <view class="about-main-section">
